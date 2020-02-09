@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Java核心类本节我们将学习Java的基本核心类，包括： 12345678字符串StringBuilderStringJoiner包装类型JavaBean枚举BigInteger、BigDecimal常用工具类  ##字符串和编码String是一个引用类型，本身是一个class，由于Java编译器对String有特殊处理，既可以直接用“…”表示一个字符串。 实际上字符串在String内部是通过一个">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java核心类">
+<meta property="og:url" content="https:&#x2F;&#x2F;b1cat.github.io&#x2F;2020&#x2F;02&#x2F;09&#x2F;Java%E6%A0%B8%E5%BF%83%E7%B1%BB&#x2F;index.html">
+<meta property="og:site_name" content="b1cat`s clog">
+<meta property="og:description" content="Java核心类本节我们将学习Java的基本核心类，包括： 12345678字符串StringBuilderStringJoiner包装类型JavaBean枚举BigInteger、BigDecimal常用工具类  ##字符串和编码String是一个引用类型，本身是一个class，由于Java编译器对String有特殊处理，既可以直接用“…”表示一个字符串。 实际上字符串在String内部是通过一个">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-02-09T14:16:54.977Z">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://b1cat.github.io/2020/02/09/Java核心类/"/>
+
+
+
+
+
+  <title>Java核心类 | b1cat`s clog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">b1cat`s clog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">换了个可以下饭的主题</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://b1cat.github.io/2020/02/09/Java%E6%A0%B8%E5%BF%83%E7%B1%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="b1cat">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="b1cat`s clog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java核心类</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-09T22:16:03+08:00">
+                2020-02-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" itemprop="url" rel="index">
+                    <span itemprop="name">代码审计</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/02/09/Java%E6%A0%B8%E5%BF%83%E7%B1%BB/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2020/02/09/Java%E6%A0%B8%E5%BF%83%E7%B1%BB/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Java核心类"><a href="#Java核心类" class="headerlink" title="Java核心类"></a>Java核心类</h1><p>本节我们将学习Java的基本核心类，包括：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">字符串</span><br><span class="line">StringBuilder</span><br><span class="line">StringJoiner</span><br><span class="line">包装类型</span><br><span class="line">JavaBean</span><br><span class="line">枚举</span><br><span class="line">BigInteger、BigDecimal</span><br><span class="line">常用工具类</span><br></pre></td></tr></table></figure>
+
+<p>##字符串和编码<br>String是一个引用类型，本身是一个class，由于Java编译器对String有特殊处理，既可以直接用“…”表示一个字符串。</p>
+<p>实际上字符串在String内部是通过一个char[]数组表示的，即<br><code>String s = new String(new char[]{&#39;h&#39;, &#39;e&#39;,&#39;l&#39;,&#39;;&#39;,&#39;o&#39;});</code></p>
+<ul>
+<li><p>字符串比较</p>
+<ul>
+<li>使用<code>equals()</code> 而非<code>==</code>，因为<code>==</code>表示引用相等</li>
+<li>忽略大小写比较<code>equalsIgnoreCase()</code></li>
+</ul>
+</li>
+<li><p>字符串搜索、提取子串</p>
+<ul>
+<li><code>&quot;Hello&quot;.contains(&quot;ll&quot;); //true ll类型为CharSequence String父类</code></li>
+<li><code>&quot;hello&quot;.indexof(&quot;l&quot;); //2</code></li>
+<li><code>&quot;hello&quot;.lastIndexOf(&quot;l&quot;); //3</code></li>
+<li><code>&quot;hello&quot;.endsWith(&quot;lo&quot;); //true</code> </li>
+<li>提取字符串<code>public String substring(int beginIndex,
+int endIndex)</code><ul>
+<li><code>&quot;hello&quot;.substring(2);  //&quot;llo&quot;</code></li>
+<li><code>&quot;hello&quot;.substring(2,4); //&quot;ll&quot;</code>  </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>去除首尾空字符串<code>&quot; \tHello\r\n&quot;.trim(); //&quot;hello&quot;</code></p>
+<ul>
+<li>并未改变字符串，只是返回一个新字符</li>
+<li><code>strip()</code> 还可以移除类似<code>\u3000</code>中文空格字符</li>
+</ul>
+</li>
+<li><p>替换字符串</p>
+<ul>
+<li><code>&quot;Hello&quot;.replace(&#39;l&#39;, &#39;w&#39;); //&quot;Hewwo&quot;</code></li>
+<li>正则替换 <code>&quot;A,,B;C ,D&quot;.replaceAll(&quot;[\\,\\,\\s]+&quot;,&quot;,&quot;); //&quot;A,B,C,D&quot;</code></li>
+</ul>
+</li>
+<li><p>分割字符串 <code>String[] ss = &quot;A,B,C,D&quot;.split(&quot;\\,&quot;);</code></p>
+</li>
+<li><p>拼接字符串 <code>String.join()</code></p>
+<ul>
+<li><code>String[] arr = {&quot;A&quot;, &quot;B&quot;, &quot;C&quot;}; String s = String.join(&quot;***&quot;, arrr)</code></li>
+</ul>
+</li>
+<li><p>类型转化，可以把任意类型或引用类型转为字符串</p>
+<ul>
+<li><code>String.valueOf(123); String.valueOf(new Object());</code></li>
+<li>字符串要转化为其他类型<ul>
+<li><code>int n1 = Integer.parseInt(&quot;123&quot;);</code></li>
+<li><code>boolean b1 = Boolean.ParseBoolean(&quot;true&quot;);</code></li>
+<li>Integer.getInteger(String) 将 String对应的系统变量转为Integer<ul>
+<li><code>Integer.getInteger(&quot;java.version&quot;); //返回java版本号 8</code>本人测试未成功</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>转为char <code>char[] cs = &quot;Hello&quot;.toCharArray();</code> </li>
+<li>较新JDK的String存储的以byte[]</li>
+</ul>
+</li>
+<li><p>编码</p>
+<ul>
+<li>UTF-8依靠最高位字节确定一个字符究竟占几个字节</li>
+<li>按GBK编码 <code>bytep[] b1 = &quot;hello&quot;.getBytes(&quot;GBK&quot;);</code></li>
+<li>byte转String  <code>String s1 = new String(b, &quot;GBK&quot;)</code></li>
+</ul>
+</li>
+</ul>
+<p>##StringBuilder、StringJoiner</p>
+<ul>
+<li>在对String操作，比如添加一段内容，都是在新建一个String，大量新建会造成浪费。因此Java标准库提供<code>StringBuilder</code>可变对象，预先分配缓冲区，在<code>StringBuilder</code>中新增字符时，不会创建新的临时对象：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">StringBuilder sb = <span class="keyword">new</span> StringBuilder(<span class="number">1024</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">1000</span>; i++)&#123;</span><br><span class="line">    sb.append(<span class="string">','</span>);</span><br><span class="line">    sb.append(i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">String s = sb.toSting();</span><br></pre></td></tr></table></figure>
+<pre><code>- 由于`String.Builder()`返回的是`this object`，可以使用链式`sb.append(&apos;,&apos;).append(&apos;i&apos;);`
+- 对于普通字符串`+`操作，Java编译器在编译时自动把多个连续的`+`操作编码为`StringConcatFactory`操作。运行时`StringConcatFactory`会自动转为数组复制或`StringBuilder`操作</code></pre><ul>
+<li>使用<code>StringJoiner(join, prefix, suffix)</code>添加字符</li>
+<li>本质上内部使用<code>StringBuilder</code>来拼接</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">String[] names = &#123;<span class="string">"Bob"</span>, <span class="string">"Alice"</span>, <span class="string">"Grace"</span>&#125;;</span><br><span class="line">StringJoiner sj = <span class="keyword">new</span> StringJoiner(<span class="string">","</span>, <span class="string">"Hello"</span>, <span class="string">"!"</span>);</span><br><span class="line"><span class="keyword">for</span>(String name:names) &#123;</span><br><span class="line">	sj.add(name);</span><br><span class="line">&#125;</span><br><span class="line">System.out.println(sj.toString());  <span class="comment">// HelloBob,Alice,Grace!</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用<code>String.join()</code>静态方法<ul>
+<li>内部使用<code>StringJoiner</code>来拼接，无需指定头尾</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String[] names = &#123;<span class="string">"Bob"</span>, <span class="string">"Alice"</span>, <span class="string">"Grace"</span>&#125;</span><br><span class="line">String.join(<span class="string">", "</span>, names);</span><br></pre></td></tr></table></figure>
+
+<p>##包装类型<br>基本类型：<code>byte</code>,<code>short</code>,<code>int</code>,<code>long</code>,<code>boolean</code>,<code>float</code>,<code>double</code>,<code>char</code><br>引用类型：所有<code>class</code>和<code>interface</code>类型</p>
+<ul>
+<li>包装类型：基本类型转化为引用类型<ul>
+<li>强制类型转化不推荐会告警<code>Integer n1 = new Integer(i);</code></li>
+<li>ValueOf转化 <code>Integer n2 = Integer.ValueOf(i);</code> </li>
+<li>ValueOf(String) <code>Integer.ValueOf(&quot;100&quot;);</code></li>
+</ul>
+</li>
+<li>Auto Boxing<ul>
+<li>把 int转为Integer为自动装箱，反之称为自动拆箱</li>
+<li>Auto Boxing只发生在编译阶段，为了少写代码</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Integer n = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">int</span> x = n;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>进制转化</p>
+<ul>
+<li><code>parseInt(String, int)</code>按int进制将String转化为整数</li>
+<li><code>Integer.toString(int [, radis])</code>按radis进制转化</li>
+<li><code>Integer.toHexString()</code> //按16进制</li>
+<li><code>Integer.toOctalString()</code> //按8进制转化</li>
+<li><code>Integer.toBinaryString()</code> //按2二进制转化</li>
+</ul>
+</li>
+<li><p>处理无符号整型</p>
+<ul>
+<li>byte范围是-128<del>127 转为无符号范围是0</del>255也就是int</li>
+<li>类似的可以把int按无符号转为long</li>
+<li><code>Byte.toUnsignedInt(x)</code></li>
+</ul>
+</li>
+</ul>
+<p>##JavaBean<br>getXYZ()、setXYZ()符合这样命名规范称为JavaBean，对应一组的方法称为属性</p>
+<p> 不存在setXYZ()设置属性的方法称为只读属性<br> 不存在getXYZ()读取属性的方法称为只写属性</p>
+<ul>
+<li>也是属性的一种方法</li>
+<li>JavaBean主要用来传递数据，即把一组数据组合成一个JavaBean便于传输。 </li>
+<li>使用<code>Introspector.getBeanInfo(XXX.class)</code></li>
+</ul>
+<p>##enum枚举类</p>
+<ul>
+<li><p>为了让编译器能自动检查某个值在枚举的结合内，并且不同用途的枚举使用的不同的类型来标记，可以用enum来定义枚举类</p>
+<ul>
+<li>enum类型继承自<code>java.lang.Enum</code>，无法被继承</li>
+<li>只能定义出enum类的实例，无法通过new创建</li>
+<li>可以将enum用于switch语句<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Weeday&#123;</span><br><span class="line">	SUN, MON, TUE, WED, THU, FRI, SAT;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>enum比较</p>
+<ul>
+<li>使用enum定义的枚举是一种引用类型</li>
+<li>但因为enum的每个常量在JVM中只有唯一一个实例，所以可以直接用<code>==</code>比较<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Weekday day = Weekday.SUN;</span><br><span class="line"><span class="keyword">if</span> (day == Weeekday.SAT || day == Weekday.SUN)&#123;</span><br><span class="line">    System.out.println(<span class="string">"Stay at home"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>enum常量获取</p>
+<ul>
+<li>返回常量名<code>Weekday.SUN.name();</code></li>
+<li>返回定义常量的顺序<code>Weekday.MON.ordinal();</code></li>
+</ul>
+</li>
+<li><p>人性化enum实现</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Weekday day = Weekday.SUN;</span><br><span class="line">		        <span class="keyword">if</span> (day.dayValue == <span class="number">6</span> || day.dayValue == <span class="number">0</span>) &#123;</span><br><span class="line">		            System.out.println(<span class="string">"Today is "</span> + day + <span class="string">". Work at home!"</span>);</span><br><span class="line">		        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		            System.out.println(<span class="string">"Today is "</span> + day + <span class="string">". Work at office!"</span>);</span><br><span class="line">		        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">enum</span> Weekday&#123;</span><br><span class="line">    MON(<span class="number">1</span>, <span class="string">"星期一"</span>)， TUE(<span class="number">2</span>, <span class="string">"星期二"</span>), WED(<span class="number">3</span>, <span class="string">"星期三"</span>), THU(<span class="number">4</span>, <span class="string">"星期四"</span>), FRI(<span class="number">5</span>, <span class="string">"星期五"</span>), SAT(<span class="number">6</span>, <span class="string">"星期六"</span>), SUN(<span class="number">0</span>, <span class="string">"星期日"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> dayValue;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String chinese;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Weekday</span><span class="params">(<span class="keyword">int</span> dayValue, String chinese)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.dayValue = dayValue;</span><br><span class="line">        <span class="keyword">this</span>.chinese = chinese;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@overrdie</span> <span class="comment">//覆写为了输出可读性好</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.chinese;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>##BigInteger、BigDecimal<br>###BigInteger</p>
+<ul>
+<li>BigInteger和Integer、Long一样继承自Number</li>
+<li><code>java.math.BigInteger</code>用来表示任意大小的整数，内部使用一个int[]数组来模拟一个非常大的整数</li>
+<li>做运算的时候，只能使用实例方法，比如加法<code>big1.add(big2);</code></li>
+<li>引用类型转为基本类型<code>intValueExact</code>,超出范围报错</li>
+<li><code>BigInteger</code>超过float最大范围，返回float为无穷大<code>Infinity</code></li>
+</ul>
+<p>###BigDecimal<br>和<code>BigInteger</code>一样，<code>BigDecimal</code>用来表示一个任意大小且精度完全准确的浮点数。</p>
+<ul>
+<li><p>小数位数<code>d1.scale()</code></p>
+</li>
+<li><p>去掉小数末尾多余的0<code>d2.stripTrailingZeros()</code></p>
+</li>
+<li><p>除法无法除尽时，需要指定精度截断并四舍五入<code>divde(d3, 10, RoundingMode.HALF_UP)</code></p>
+</li>
+<li><p>做除法且求余数<code>divideAndRemainder(m)</code></p>
+<ul>
+<li>返回来个数组，分别是商和余数</li>
+<li>用余数是否为0来判断是否整除</li>
+</ul>
+</li>
+<li><p>比较大小<code>d1.compareTo(d2);</code></p>
+<ul>
+<li>因为<code>equals</code>无法比较精度</li>
+</ul>
+</li>
+</ul>
+<p>###常用工具类</p>
+<ul>
+<li><p>数学上经常使用的Math有着大量的静态方法方便使用</p>
+</li>
+<li><p>Random  </p>
+<ul>
+<li>伪随机数，给定一个初始种子，生成随机数序列是一样的</li>
+<li>生成随机数可以使用<code>nextInt</code>、<code>nextLong</code>、<code>nextFloat</code>、<code>nextDouble</code></li>
+</ul>
+</li>
+<li><p>SecureRandom</p>
+<ul>
+<li>真的随机数只能通过量子力学原理来获取，SecureRandom用来创建一个不可预测的随机数</li>
+<li>它无法指定种子，它使用RNG算法，JDK有许多不同底层实现，有的安全随机种子加上伪随机数算法来产生随机数，有的使用真正随机数</li>
+<li>高强度安全随机数<code>SecureRandom.getInstanceStrong()</code></li>
+<li>普通安全随机数<code>SecureRandom()</code></li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/09/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="next" title="Java面向对象">
+                <i class="fa fa-chevron-left"></i> Java面向对象
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div onclick="showGitment()" id="gitment-display-button">显示 Gitment 评论</div>
+        <div id="gitment-container" style="display:none"></div>
+      
+    </div>
+
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">b1cat</p>
+              <p class="site-description motion-element" itemprop="description">b1cat</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7Carchive">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java核心类"><span class="nav-number">1.</span> <span class="nav-text">Java核心类</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">b1cat</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'b1cat',
+            repo: 'b1cat.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '04cc4c2c9cfe204ce32ce5bb5a1d47eee4fbedd2',
+            
+                client_id: '8ac3610483c88e4600a4'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      function showGitment(){
+        document.getElementById("gitment-display-button").style.display = "none";
+        document.getElementById("gitment-container").style.display = "block";
+        renderGitment();
+      }
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

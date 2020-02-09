@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="JAVA面向对象 在OOP中，class和instance是“模版”和“实例”的关系； 定义class就是定义了一种数据类型，对应的instance是这种数据类型的实例； class定义的field，在每个instance都会拥有各自的field，且互不干扰； 通过new操作符创建新的instance，然后用变量指向它，即可通过变量来引用这个instance； 访问实例字段的方法是变量名.字段名；">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java面向对象">
+<meta property="og:url" content="https:&#x2F;&#x2F;b1cat.github.io&#x2F;2020&#x2F;02&#x2F;09&#x2F;Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1&#x2F;index.html">
+<meta property="og:site_name" content="b1cat`s clog">
+<meta property="og:description" content="JAVA面向对象 在OOP中，class和instance是“模版”和“实例”的关系； 定义class就是定义了一种数据类型，对应的instance是这种数据类型的实例； class定义的field，在每个instance都会拥有各自的field，且互不干扰； 通过new操作符创建新的instance，然后用变量指向它，即可通过变量来引用这个instance； 访问实例字段的方法是变量名.字段名；">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https:&#x2F;&#x2F;b1cat.github.io&#x2F;2020&#x2F;02&#x2F;09&#x2F;images&#x2F;image-20200209221530319.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;b1cat.github.io&#x2F;2020&#x2F;02&#x2F;09&#x2F;images&#x2F;image-20200209221548900.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;b1cat.github.io&#x2F;2020&#x2F;02&#x2F;09&#x2F;images&#x2F;image-20200209221555014.png">
+<meta property="og:updated_time" content="2020-02-09T14:15:57.812Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;b1cat.github.io&#x2F;2020&#x2F;02&#x2F;09&#x2F;images&#x2F;image-20200209221530319.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://b1cat.github.io/2020/02/09/Java面向对象/"/>
+
+
+
+
+
+  <title>Java面向对象 | b1cat`s clog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">b1cat`s clog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">换了个可以下饭的主题</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://b1cat.github.io/2020/02/09/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="b1cat">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="b1cat`s clog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java面向对象</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-09T21:45:53+08:00">
+                2020-02-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" itemprop="url" rel="index">
+                    <span itemprop="name">代码审计</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/02/09/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2020/02/09/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="JAVA面向对象"><a href="#JAVA面向对象" class="headerlink" title="JAVA面向对象"></a>JAVA面向对象</h1><ul>
+<li>在OOP中，class和instance是“模版”和“实例”的关系；</li>
+<li>定义class就是定义了一种数据类型，对应的instance是这种数据类型的实例；</li>
+<li>class定义的field，在每个instance都会拥有各自的field，且互不干扰；</li>
+<li>通过new操作符创建新的instance，然后用变量指向它，即可通过变量来引用这个instance；</li>
+<li>访问实例字段的方法是变量名.字段名；</li>
+<li>指向instance的变量都是引用变量。</li>
+</ul>
+<p>##基础<br>###01 方法、构造方法、方法重载<br>####方法<br>为了更好的封装类，拒绝外部随意调用类内部字段导致混乱，可以用类内方法对字段进行操作修改。</p>
+<ul>
+<li>定义方法(修饰符有public方法，自然就有private方法。和private字段一样，private方法不允许外部调用)</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">修饰符 方法返回类型 方法名(方法参数列表) &#123;</span><br><span class="line">    若干方法语句;</span><br><span class="line">    <span class="keyword">return</span> 方法返回值;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>this变量（它始终指向当前实例，优先级低于局部变量）</li>
+<li>可变参数（相当于数组类型, <code>类型...</code>,<code>String...name</code>）<br>####构造方法</li>
+<li>默认构造方法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">()</span> </span>&#123; <span class="comment">//new时 默认构造方法</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>多构造方法(编译器通过构造方法的参数数量、位置和类型自动区分)</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String name, <span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = <span class="number">12</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>####方法重载<br>这种方法名相同，但各自的参数不同，称为方法重载（Overload），方法重载的返回值类型通常都是相同的。</p>
+<p>方法重载的目的是，功能类似的方法使用同一名字，更容易记住，因此，调用起来更简单。<br>###02 继承</p>
+<ul>
+<li>继承是面向对象编程中非常强大的一种机制，它首先可以复用代码。当我们让Student从Person继承时，Student就获得了Person的所有功能，我们只需要为Student编写新增的功能。</li>
+<li>在OOP的术语中，我们把Person称为超类（super class），父类（parent class），基类（base class），把Student称为子类（subclass），扩展类（extended class）。</li>
+<li>定义一个类时，若没有写extends，则默认继承自Java Object类</li>
+<li>继承有个特点，就是子类无法访问父类的private字段或者private方法，使用protected修饰符可以确保被子类访问</li>
+<li>super(super关键字表示父类（超类）)<ul>
+<li>任何class的构造方法，第一行语句必须是调用父类的构造方法，如果没有明确地调用父类的构造方法，编译器会帮我们自动加一句super();</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">extends</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">int</span> score;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(String name, <span class="keyword">int</span> age, <span class="keyword">int</span> score)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(name, age); <span class="comment">// 调用父类的构造方法Person(String, int)</span></span><br><span class="line">        <span class="keyword">this</span>.score = score;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>向上转型</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Person p1 = <span class="keyword">new</span> Student();</span><br></pre></td></tr></table></figure>
+<ul>
+<li>向下转型<ul>
+<li>可以强制向下转型，最好借助instanceof判断；</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Person p1 = <span class="keyword">new</span> Student(); <span class="comment">// upcasting, ok</span></span><br><span class="line">Person p2 = <span class="keyword">new</span> Person();</span><br><span class="line">Student s1 = (Student) p1; <span class="comment">// ok</span></span><br><span class="line">Student s2 = (Student) p2; <span class="comment">// runtime error! ClassCastException!</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>组合<ul>
+<li>具有has关系不应该使用继承，而是使用组合，即Student可以持有一个Book实例</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">extends</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> Book book;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">int</span> score;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>###03 多态</p>
+<ul>
+<li><p>在继承关系中，子类如果定义了一个与父类方法签名完全相同的方法，被称为覆写（Override）。</p>
+<ul>
+<li>Override和Overload不同的是，如果方法签名如果不同，就是Overload，Overload方法是一个新方法；如果方法签名相同，并且返回值也相同，就是Override。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Person.run"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">extends</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span> <span class="comment">//覆写run方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Student.run"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>多态（真正执行的方法取决于运行时的实际类型的方法）<br><img src="../images/image-20200209221530319.png" alt="image-20200209221530319"></p>
+</li>
+<li><p>之前一直没明白向上转型的应用场景在哪，在学习多态后才明白，是要先调用抽象的方法，再根据加载的不同子类执行不同的方法。</p>
+<ul>
+<li>实例：现在需要开发一个报税软件，满足不同人报税。可以先抽象出一个报税人，报税方法有着正常的报税比例，这个方法只传递报税人就行。报税人白领，正常工资报税；报税人科研人，享受国家津贴，报税较少。报税人作家，稿费报税。只需要覆写甲乙丙报税方法中的报税比例就可以了。流程中传递的报税人就是子类白领，科研人，作家向上转型的父类。报税执行的方法就是多态。</li>
+</ul>
+</li>
+<li><p>final 父类不允许子类对某个方法覆写，或不允许继承它这个类</p>
+<ul>
+<li>在大的项目中控制类的继承层次.   使子类数量不至于爆炸.在使用了多继承的类层次中这也是防止出现菱形继承层次结构的一个好办法.   要实现一个不能被继承的类有很多方法. </li>
+</ul>
+</li>
+</ul>
+<p>###04 抽象类、接口<br>####抽象类<br>因为多态特性里父类的方法只是为了子类对其进行覆写，同时方法内的执行无意义，可以将其直接声明一个抽象的方法，实现仅定义方法签名。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;            <span class="comment">//含有抽象的方法必须声明为抽象类</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>无法实例化一个抽象类。</li>
+<li>抽象类本身被设计只能用于被继承，抽象类可以强迫子类实现其定义的抽象方法，抽象方法相当于定义了“规范”。</li>
+<li>面向抽象编程<ul>
+<li>尽量引用高层类型，无需关注子类的覆写方法如何实现的方式</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Person s = <span class="keyword">new</span> Student();</span><br><span class="line">Person t = <span class="keyword">new</span> Teacher();</span><br></pre></td></tr></table></figure>
+<p>####接口<br>如果一个抽象类没有字段，所有方法全部都是抽象方法，就可以把抽象类改写成接口。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">String <span class="title">getName</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>interface是比抽象类更抽象的纯抽象接口，因为不能有字段。<ul>
+<li>接口定义的所有方法默认都是<code>public abstract</code></li>
+<li>当一个class需要实现接口时，需要使用<code>implements</code>关键字。</li>
+<li>可以实现多个接口</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">implements</span> <span class="title">Person</span>, <span class="title">Hello</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>接口继承(相当于拓展了接口的方法，使用<code>extends</code>)<ul>
+<li>实现接口需要覆写所有接口的抽象方法</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Person</span> <span class="keyword">extends</span> <span class="title">Hello</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>继承关系<ul>
+<li>合理设计interface和abstract class的继承关系，可以充分复用代码。一般来说，公共逻辑适合放在abstract class中，具体逻辑放到各个子类，而接口层次代表抽象程度。</li>
+</ul>
+</li>
+<li><strong>default方法</strong><ul>
+<li>如何接口需要新增一个方法，那么所有实现该接口的子类均需要更改，使用<code>default</code>关键字修饰新增的方法无需更改子类</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">default</span> String <span class="title">test</span><span class="params">()</span></span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>###05 静态字段、静态方法<br>####静态字段<br>在class定义的字段，我们称为实例字段，实例字段的特点是，由于每个实例都有自己的字段，各个实例修改同名字段互不影响。</p>
+<ul>
+<li>还有一种字段，使用<code>static</code>关键字修饰的，称为静态字段。<ul>
+<li>静态字段只有一个共享空间。</li>
+<li>无论哪个实例修改静态字段，所有市里的静态字段均被改了。</li>
+<li>推荐使用类.静态字段访问</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Person.number = <span class="number">99</span>;</span><br><span class="line">System.out.println(Person.number);</span><br></pre></td></tr></table></figure>
+<p>####静态方法</p>
+<ul>
+<li>被static修饰的方式就是静态方法<ul>
+<li>通过<code>class.staticMethod()</code>调用</li>
+<li>静态方法不属于实例，内部无法使用<code>this</code>变量，也无法访问实例字段</li>
+<li>接口默认为<code>public static final</code>类型<br>###06 包<br>为了区分调用不同实现的相同类名，引入包的概念</li>
+</ul>
+</li>
+<li>在Java虚拟机执行的时候，JVM只看完整类名，因此，只要包名不同，类就不同。</li>
+<li>包作用域（相同包下的类可以相互调用）</li>
+<li>使用import引入类 <code>import src.b1cat.test</code>， <code>import *</code>引入包内的所有类，不包括子包的类</li>
+<li>使用<code>import static xxx</code>可以导入一个类的静态字段和静态方法</li>
+<li>寻找类顺序：<code>package-&gt;import-&gt;java.lang</code></li>
+<li>编译器默认自动<code>import当前package的其他class</code>、<code>import java.lang.*</code><br>###07 作用域</li>
+<li>public、protected、private</li>
+<li>局部变量：在方法内部定义的变量<br>###08 classpath、jar<br>classpath用于寻找加载class的路径，默认当前路径最好</li>
+<li><code>java -classpath .:/usr/work/;/usr/share/class  abc.xyz.Hello</code><ul>
+<li>在当前路径/abc/xyz、/usr/work/abc/xyz、/usr/share/class/abc/xyz路径查找Hello类</li>
+</ul>
+</li>
+</ul>
+<p>jar可以将很多.class文件根据package层级关系打包成zip格式的压缩文件，方便管理</p>
+<ul>
+<li><code>java -cp ./Hello.jar abc.xyz.Hello</code></li>
+<li>如果存在<code>META-INF/MANIFEST.MF</code>文件指定<code>Main-Class</code>，JVM直接读取<code>MANIFEST.MF</code>文件。直接<code>java -jar hello.jar</code>  运行</li>
+<li>maven方便管理jar包<br>###09 模块<br>为解决打包成jar包过程中依赖遗漏的问题，Java9以后引入了模块。同时为了模块化从Java9开始原有标准库<code>rt.jar</code>拆分成了好几十个模块，这些模块以<code>.jmod</code>拓展名标识，可以在$JAVA_HOME/jmods目录下找到<br><img src="../images/image-20200209221548900.png" alt="image-20200209221548900"></li>
+</ul>
+<p>####编写模块<br><img src="../images/image-20200209221555014.png" alt="image-20200209221555014"></p>
+<ul>
+<li>bin目录存放编译后的class文件，src目录存放源码</li>
+<li>在src目录下新建一个module-info.java文件，用来描述模块依赖关系</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> hello.world &#123;</span><br><span class="line">	<span class="keyword">requires</span> java.base; <span class="comment">// 可不写，任何模块都会自动引入java.base</span></span><br><span class="line">	<span class="keyword">requires</span> java.xml;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>①编译src目录下所有java文件存放至bin目录<br><code>javac -d bin src/module-info.java src/b1cat/*.java</code></li>
+<li>②打包bin目录下所有的class文件为jar,指定Main-class参数，ja自己定位main所在类<br><code>jar -create --file hello.jar --mian-class com.b1cat.Main -C bin .</code></li>
+<li>③创建模块<br><code>jmod create --class-path hello.jar hello.jmod</code></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/09/Java%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" rel="next" title="Java快速入门">
+                <i class="fa fa-chevron-left"></i> Java快速入门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/09/Java%E6%A0%B8%E5%BF%83%E7%B1%BB/" rel="prev" title="Java核心类">
+                Java核心类 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div onclick="showGitment()" id="gitment-display-button">显示 Gitment 评论</div>
+        <div id="gitment-container" style="display:none"></div>
+      
+    </div>
+
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">b1cat</p>
+              <p class="site-description motion-element" itemprop="description">b1cat</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7Carchive">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JAVA面向对象"><span class="nav-number">1.</span> <span class="nav-text">JAVA面向对象</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">b1cat</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'b1cat',
+            repo: 'b1cat.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '04cc4c2c9cfe204ce32ce5bb5a1d47eee4fbedd2',
+            
+                client_id: '8ac3610483c88e4600a4'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      function showGitment(){
+        document.getElementById("gitment-display-button").style.display = "none";
+        document.getElementById("gitment-container").style.display = "block";
+        renderGitment();
+      }
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

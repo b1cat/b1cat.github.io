@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Java快速入门 ##Java程序基础 ###程序基本结构因为Java是面向对象的语言，一个程序的基本单位就是class，class是关键字 类名要求：类名习惯以大写字母开头，后接字母，数字和下划线的组合 Java入口程序规定的方法必须是静态方法，方法名必须为main，括号内的参数必须是String数组。方法名也有命名规则，命名和class一样，但是首字母小写 注释方式：&#x2F;&#x2F; &#x2F;* *&#x2F; &#x2F;**">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java快速入门">
+<meta property="og:url" content="https:&#x2F;&#x2F;b1cat.github.io&#x2F;2020&#x2F;02&#x2F;09&#x2F;Java%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8&#x2F;index.html">
+<meta property="og:site_name" content="b1cat`s clog">
+<meta property="og:description" content="Java快速入门 ##Java程序基础 ###程序基本结构因为Java是面向对象的语言，一个程序的基本单位就是class，class是关键字 类名要求：类名习惯以大写字母开头，后接字母，数字和下划线的组合 Java入口程序规定的方法必须是静态方法，方法名必须为main，括号内的参数必须是String数组。方法名也有命名规则，命名和class一样，但是首字母小写 注释方式：&#x2F;&#x2F; &#x2F;* *&#x2F; &#x2F;**">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https:&#x2F;&#x2F;b1cat.github.io&#x2F;2020&#x2F;02&#x2F;09&#x2F;images&#x2F;image-20200209214434001.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;b1cat.github.io&#x2F;2020&#x2F;02&#x2F;09&#x2F;images&#x2F;image-20200209221226955.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;b1cat.github.io&#x2F;2020&#x2F;02&#x2F;09&#x2F;images&#x2F;image-20200209221259295.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;b1cat.github.io&#x2F;2020&#x2F;02&#x2F;09&#x2F;images&#x2F;image-20200209221312005.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;b1cat.github.io&#x2F;2020&#x2F;02&#x2F;09&#x2F;images&#x2F;image-20200209221319196.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;b1cat.github.io&#x2F;2020&#x2F;02&#x2F;09&#x2F;images&#x2F;image-20200209221348567.png">
+<meta property="og:updated_time" content="2020-02-09T14:14:40.462Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;b1cat.github.io&#x2F;2020&#x2F;02&#x2F;09&#x2F;images&#x2F;image-20200209214434001.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://b1cat.github.io/2020/02/09/Java快速入门/"/>
+
+
+
+
+
+  <title>Java快速入门 | b1cat`s clog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">b1cat`s clog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">换了个可以下饭的主题</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://b1cat.github.io/2020/02/09/Java%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="b1cat">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="b1cat`s clog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java快速入门</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-09T21:04:51+08:00">
+                2020-02-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" itemprop="url" rel="index">
+                    <span itemprop="name">代码审计</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/02/09/Java%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2020/02/09/Java%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Java快速入门"><a href="#Java快速入门" class="headerlink" title="Java快速入门"></a>Java快速入门</h1><p><img src="../images/image-20200209214434001.png" alt="image-20200209214434001"></p>
+<p>##Java程序基础</p>
+<p>###程序基本结构<br>因为Java是面向对象的语言，一个程序的基本单位就是class，class是关键字</p>
+<p>类名要求：类名习惯以大写字母开头，后接字母，数字和下划线的组合</p>
+<p>Java入口程序规定的方法必须是静态方法，方法名必须为main，括号内的参数必须是String数组。方法名也有命名规则，命名和class一样，但是首字母小写</p>
+<p>注释方式：<br><code>//</code> <code>/* */</code> <code>/** */</code></p>
+<p>###变量和数据类型<br>变量定义需要指定变量类型 比如<code>int x = 100;</code><br>####基本数据类型：</p>
+<ul>
+<li><p>整数类型：bytes、short、int、long</p>
+</li>
+<li><p>浮点数类型：float、double</p>
+</li>
+<li><p>字符类型：char</p>
+</li>
+<li><p>布尔类型：boolean<br>Java定义的这些基本数据类型有什么区别呢？<br>  计算机中最小存储单位是字节（byte），一个字节8位（bit)。二进制范围00000000<del>11111111，10进制0</del>255，16进制范围00~ff<br><img src="../images/image-20200209221226955.png" alt="image-20200209221226955"></p>
+</li>
+<li><p>整数类型（最高位表示符号位，1为负，0为正）</p>
+<ul>
+<li>bytes：-128~127</li>
+<li>short：-32768 ~ 32767</li>
+<li>int: -2147483648 ~ 2147483647</li>
+<li>long: -9223372036854775808 ~ 9223372036854775807</li>
+</ul>
+</li>
+<li><p>浮点数类型（浮点类型的数就是小数，因为小数用科学计数法表示的时候，小数点是可以“浮动”的）</p>
+<ul>
+<li>float： <code>float f1 = 3.14f;</code>,需要加f后缀，最大可表示<code>3.14x10^38</code></li>
+<li>double: <code>double d = 1.79e308;</code>,最大表示<code>1.79x10^308</code></li>
+</ul>
+</li>
+<li><p>布尔类型（boolean：true, false）</p>
+</li>
+<li><p>字符类型（char 使用单引号包裹，双引号是字符串类型，<code>char s = &#39;中&#39;;</code>）</p>
+</li>
+<li><p>常量（定义常量需添加final，<code>final double PI = 3.14;</code>定义后不可再次修改）</p>
+</li>
+<li><p>var 关键字 （有些时候，类型名字太长可以用var代替，编译器会自动推断变量类型）</p>
+</li>
+</ul>
+<p>###整数运算</p>
+<ul>
+<li>Java整数运算遵循四则运算规则，超出运算结果类型范围会导致溢出</li>
+<li>自增自减（<code>++, --</code>）</li>
+<li>移位运算<ul>
+<li>向左移位（正数到最高位变为1后表示负数）  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int n = 7;       // 00000000 00000000 00000000 00000111 = 7</span><br><span class="line">int a = n &lt;&lt; 1;  // 00000000 00000000 00000000 00001110 = 14</span><br><span class="line">int d = n &lt;&lt; 29; // 11100000 00000000 00000000 00000000 = -536870912</span><br></pre></td></tr></table></figure></li>
+<li>向右移位（负数右移最高位不动,结果仍然是负数）</li>
+<li>不带符号右移运算（<code>&gt;&gt;&gt;</code>,符号位也会跟着动）</li>
+<li>byte和short移位，首先会转化为int再移位（左移不断<code>x2</code>，右移不断<code>/2</code>）</li>
+</ul>
+</li>
+<li>位运算（与或非、异或）</li>
+<li>运算优先级<br><img src="../images/image-20200209221259295.png" alt="image-20200209221259295"><br>注：在运算过程中，如果参与运算的两个数类型不一致，那么计算结果为较大类型的整型。例如，short和int计算，结果总是int，原因是short首先自动被转型为int，强制转化为小范围类型会出错。<br>###浮点数运算</li>
+<li>浮点数运算和整数运算相比，只能进行加减乘除这些数值计算，不能做位运算和移位运算。</li>
+<li>由于浮点数存在运算误差，所以比较两个浮点数是否相等常常会出现错误的结果。正确的比较方法是判断两个浮点数之差的绝对值是否小于一个很小的数。</li>
+<li>如果参与运算的两个数其中一个是整型，那么整型可以自动提升到浮点型。</li>
+<li>整数运算在除数为0时会报错，而浮点数运算在除数为0时，不会报错，但会返回几个特殊值。</li>
+<li>可以将浮点数强制转型为整数。在转型时，浮点数的小数部分会被丢掉。</li>
+</ul>
+<p>###布尔运算（关系运算）<br><img src="../images/image-20200209221312005.png" alt="image-20200209221312005"><br><img src="../images/image-20200209221319196.png" alt="image-20200209221319196"></p>
+<ul>
+<li>短路运算（如果一个布尔运算的表达式能提前确定结果，则后续的计算不再执行，直接返回结果）<ul>
+<li>如果没有短路运算，&amp;&amp;后面的表达式会由于除数为0而报错，但实际上该语句并未报错，原因在于与运算是短路运算符，提前计算出了结果false。</li>
+</ul>
+</li>
+<li>三元运算符（b?x:y）</li>
+</ul>
+<p>###字符和字符串<br>在Java中，字符和字符串是两个不同的类型。<br>####字符<br>字符类型char是基本数据类型，它是character的缩写。一个char保存一个Unicode字符。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">char c1 = &apos;A&apos;;</span><br><span class="line">char c2 = &apos;中&apos;;</span><br></pre></td></tr></table></figure>
+<p>因为Java在内存中总是使用unicode编码，所以一个英文和一个中文都占用两字字节。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int n1 = &apos;A&apos;; // 字母“A”的Unicodde编码是65</span><br><span class="line">int n2 = &apos;中&apos;; // 汉字“中”的Unicode编码是20013</span><br><span class="line"></span><br><span class="line">// 注意是十六进制:</span><br><span class="line">char c3 = &apos;\u0041&apos;; // &apos;A&apos;，因为十六进制0041 = 十进制65</span><br><span class="line">char c4 = &apos;\u4e2d&apos;; // &apos;中&apos;，因为十六进制4e2d = 十进制20013</span><br></pre></td></tr></table></figure>
+<p>####字符串<br>字符串用String引用类型， 双引号包裹<br>多行字符串用三引号表示，多行字符串前面共同的空格会被去掉，即总是以最短的行首空格为基准</p>
+<ul>
+<li>字符串不可变（变量的指向改变）<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String s = &quot;hello&quot;;</span><br><span class="line">System.out.println(s); // 显示 hello</span><br><span class="line">s = &quot;world&quot;;</span><br><span class="line">System.out.println(s); // 显示 world</span><br></pre></td></tr></table></figure></li>
+<li>null(变量指向null，表示不指向任何对象，不和空字符串相同)<br>####数组类型</li>
+<li>定义数组类型变量，使用<code>类型[]</code>。数组初始化使用<code>new int[5]</code></li>
+<li>Java数组所有元素初始化为默认值，整型都是0，浮点型是0.0，布尔型是false；数组一旦创建大小不可改变。</li>
+<li>也可以在定义数组时直接指定初始化的元素，这样就不必写出数组大小</li>
+<li>数组同字符串一样，都是引用类型，更改变量赋值都是改变指向<br>##流程控制<br>流程控制中，break会跳出当前循环，也就是整个循环都不会执行了。而continue则是提前结束本次循环，直接继续执行下次循环。<br>###01输入和输出<br>####输出<br><code>System.out.println()</code> 表示输出并换行<br><code>System.out.print()</code> 不换行<ul>
+<li>格式化输出<code>System.out.printf(&#39;%.2f\n&#39;, d); //显示两位小数</code></li>
+<li>详细的格式化参数请参考JDK文档java.util.Formatter<br><img src="../images/image-20200209221348567.png" alt="image-20200209221348567"></li>
+</ul>
+</li>
+</ul>
+<p>####输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Scanner s = new Scanner(System.in);</span><br><span class="line">String name = s.nextLine(); //读取一行 nextInt()读取整数</span><br></pre></td></tr></table></figure>
+<p>###02 if</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if &#123;&#125;</span><br><span class="line">else if &#123;&#125;</span><br><span class="line">else&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>==</code>表示引用相等，需要判断内容相等时用<code>equals()</code>注意避免NullPointerException</li>
+<li><code>s1.equals(s2)</code>,<code>&quot;hello.equals(s)&quot;</code><br>###03 switch<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">switch(options)&#123;  //可以匹配字符串</span><br><span class="line">    case 1: xxx; break;</span><br><span class="line">    case 2: xxx; break;</span><br><span class="line">    default: xxx; break;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>Java12起，使用switch表达式可用模式匹配的方法，保证有一种路径执行，不需要break</li>
+<li>可以接收返回值<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">String name = <span class="keyword">switch</span> (fruit)&#123;</span><br><span class="line"><span class="keyword">case</span> <span class="string">"apple"</span> -&gt; XXX;</span><br><span class="line"><span class="keyword">case</span> <span class="string">"pear"</span>  -&gt; XXX;</span><br><span class="line"><span class="keyword">case</span> <span class="string">"mango"</span> -&gt; &#123;</span><br><span class="line">    XX1;</span><br><span class="line">    xx2;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">default</span> -&gt;&#123;</span><br><span class="line"> XXX;</span><br><span class="line"> yield fruit;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>yield 指定switch返回值</li>
+<li>由于switch表达式是作为Java 13的预览特性（Preview Language Features）实现的，编译的时候，我们还需要给编译器加上参数：<br><code>javac --source 13 --enable-preview Main.java</code><br>###04 while和do while<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">while (条件表达式) &#123;</span><br><span class="line">    循环语句</span><br><span class="line">&#125;</span><br><span class="line">// 继续执行后续代码</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">do &#123;</span><br><span class="line">    执行循环语句</span><br><span class="line">&#125; while (条件表达式);</span><br></pre></td></tr></table></figure>
+<p>###05 for</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=<span class="number">100</span>; i++) &#123;</span><br><span class="line">            sum = sum + i;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(sum);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>for循环还可以缺少初始化语句、循环条件和每次循环更新语句</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 不设置结束条件:</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; ; i++) &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 不设置结束条件和更新语句:</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; ;) &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>foreach</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] ns = &#123; <span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">25</span> &#125;;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> n : ns) &#123;</span><br><span class="line">            System.out.println(n);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>##数组结构<br>###遍历数组<br>for、foreach不在叙述</p>
+<ul>
+<li>打印数组内容<br>直接打印数组变量，得到JVM引用地址<br>要得到值，使用foreach打印遍历元素</li>
+<li>快速打印数组内容<br><code>System.out.println(Arrays.toString(ns));</code></li>
+</ul>
+<p>###数组排序<br>排序算法：冒泡、快排、插入排序等<br>使用API，<code>Arrays.sort()</code></p>
+<ul>
+<li>对数组排序实际上修改了数组本身</li>
+</ul>
+<p>###多维数组</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[][][] ns = &#123;</span><br><span class="line">    &#123;</span><br><span class="line">        &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;,</span><br><span class="line">        &#123;<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>&#125;,</span><br><span class="line">        &#123;<span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>&#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        &#123;<span class="number">10</span>, <span class="number">11</span>&#125;,</span><br><span class="line">        &#123;<span class="number">12</span>, <span class="number">13</span>&#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        &#123;<span class="number">14</span>, <span class="number">15</span>, <span class="number">16</span>&#125;,</span><br><span class="line">        &#123;<span class="number">17</span>, <span class="number">18</span>&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>###命令行参数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (String arg : args) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="string">"-version"</span>.equals(arg)) &#123;</span><br><span class="line">                System.out.println(<span class="string">"v 1.0"</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/17/%E6%8D%A2%E4%BA%86%E4%B8%AA%E5%8F%AF%E4%BB%A5%E4%B8%8B%E9%A5%AD%E7%9A%84%E4%B8%BB%E9%A2%98/" rel="next" title="换了个可以下饭的主题">
+                <i class="fa fa-chevron-left"></i> 换了个可以下饭的主题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/09/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="prev" title="Java面向对象">
+                Java面向对象 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div onclick="showGitment()" id="gitment-display-button">显示 Gitment 评论</div>
+        <div id="gitment-container" style="display:none"></div>
+      
+    </div>
+
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">b1cat</p>
+              <p class="site-description motion-element" itemprop="description">b1cat</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7Carchive">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java快速入门"><span class="nav-number">1.</span> <span class="nav-text">Java快速入门</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">b1cat</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'b1cat',
+            repo: 'b1cat.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '04cc4c2c9cfe204ce32ce5bb5a1d47eee4fbedd2',
+            
+                client_id: '8ac3610483c88e4600a4'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      function showGitment(){
+        document.getElementById("gitment-display-button").style.display = "none";
+        document.getElementById("gitment-container").style.display = "block";
+        renderGitment();
+      }
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
