@@ -707,7 +707,9 @@ int endIndex)</code><ul>
 <li>访问实例字段的方法是变量名.字段名；</li>
 <li>指向instance的变量都是引用变量。</li>
 </ul>
-<p>##基础<br>###01 方法、构造方法、方法重载<br>####方法<br>为了更好的封装类，拒绝外部随意调用类内部字段导致混乱，可以用类内方法对字段进行操作修改。</p>
+<p>##基础</p>
+<p>###01 方法、构造方法、方法重载</p>
+<p>####方法<br>为了更好的封装类，拒绝外部随意调用类内部字段导致混乱，可以用类内方法对字段进行操作修改。</p>
 <ul>
 <li>定义方法(修饰符有public方法，自然就有private方法。和private字段一样，private方法不允许外部调用)</li>
 </ul>
@@ -760,7 +762,7 @@ int endIndex)</code><ul>
 <li>Override和Overload不同的是，如果方法签名如果不同，就是Overload，Overload方法是一个新方法；如果方法签名相同，并且返回值也相同，就是Override。</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Person.run"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">extends</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span> <span class="comment">//覆写run方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Student.run"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>多态（真正执行的方法取决于运行时的实际类型的方法）<br><img src="../images/image-20200209221530319.png" alt="image-20200209221530319"></p>
+<li><p>多态（真正执行的方法取决于运行时的实际类型的方法）<br><img src="../images/image-20200209214434001.png" alt="image-20200209214434001"></p>
 </li>
 <li><p>之前一直没明白向上转型的应用场景在哪，在学习多态后才明白，是要先调用抽象的方法，再根据加载的不同子类执行不同的方法。</p>
 <ul>
