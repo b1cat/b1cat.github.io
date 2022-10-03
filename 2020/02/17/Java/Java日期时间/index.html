@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="John Doe">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="John Doe">
+    
+        <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="Java日期时间Date和Calendar在计算机中，以整数存储的时间戳（从1970年1月1日零点到现在所经历的秒数）表示某一个时刻，它打印出的各种各样的时间表示，则是数据的展示。展示有多种形式，本质上就是一个转换方法。 1String toDisplay(int n)&amp;#123;...&amp;#125;  Epoch Time又称为时间戳，在不同的编程语言中，会有几种存储方式：  以秒为单位的整数：1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java日期时间">
+<meta property="og:url" content="http://example.com/2020/02/17/Java/Java%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Java日期时间Date和Calendar在计算机中，以整数存储的时间戳（从1970年1月1日零点到现在所经历的秒数）表示某一个时刻，它打印出的各种各样的时间表示，则是数据的展示。展示有多种形式，本质上就是一个转换方法。 1String toDisplay(int n)&amp;#123;...&amp;#125;  Epoch Time又称为时间戳，在不同的编程语言中，会有几种存储方式：  以秒为单位的整数：1">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/image-20200217001739288.png">
+<meta property="article:published_time" content="2020-02-16T16:19:08.000Z">
+<meta property="article:modified_time" content="2022-10-03T15:32:10.722Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/image-20200217001739288.png">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/assets/favicon.ico">
+    
+    <title>Java日期时间 · b1cat`s log</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20211217" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20211217" as="style">
+    <link rel="stylesheet" href="/css/dark.css">
+    <link rel="stylesheet" href="/css/mobile.css?v=20211217" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20211217" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20211217" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>b1cat`s</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">b1cat`s</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">Java日期时间</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:50vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                Java日期时间
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
+    
+</div>
+
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">1.9k</span>Reading time: <span class="post-count reading-time">8 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2020/02/17</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="Java日期时间"><a href="#Java日期时间" class="headerlink" title="Java日期时间"></a>Java日期时间</h1><h2 id="Date和Calendar"><a href="#Date和Calendar" class="headerlink" title="Date和Calendar"></a>Date和Calendar</h2><p>在计算机中，以整数存储的时间戳（从1970年1月1日零点到现在所经历的秒数）表示某一个时刻，它打印出的各种各样的时间表示，则是数据的展示。展示有多种形式，本质上就是一个转换方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String <span class="title function_">toDisplay</span><span class="params">(<span class="type">int</span> n)</span>&#123;...&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>Epoch Time</code>又称为时间戳，在不同的编程语言中，会有几种存储方式：</p>
+<ul>
+<li>以秒为单位的整数：1574208900，缺点是精度只能到秒；</li>
+<li>以毫秒为单位的整数：1574208900123，最后3位表示毫秒数；</li>
+<li>以秒为单位的浮点数：1574208900.123，小数点后面表示零点几秒</li>
+</ul>
+<span id="more"></span>
+
+<h3 id="Java标准库API"><a href="#Java标准库API" class="headerlink" title="Java标准库API"></a>Java标准库API</h3><p>提供了两套处理日期和时间的API：</p>
+<ul>
+<li><code>java.util</code>包，主要包括<code>Data</code>, <code>Calendar</code>, <code>TimeZone</code></li>
+<li>Java8新API定义在<code>java.time</code>包，主要包括<code>LocalDateTime</code>, <code>ZonedDateTime</code>, <code>ZoneId</code></li>
+</ul>
+<h4 id="Date"><a href="#Date" class="headerlink" title="Date"></a>Date</h4><p><code>java.util.Date</code>用于表示一个日期和时间的对象，实际上存储了一个long类型以毫秒表示的时间戳。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Date</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span>, Cloneable, Comparable&lt;Date&gt;&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">transient</span> <span class="type">long</span> fastTime;</span><br><span class="line">  ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>基本方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Date</span> <span class="variable">date</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line">date.getYear() + <span class="number">1900</span> ; <span class="comment">// 获取年份</span></span><br><span class="line">date.getMonth() + <span class="number">1</span> ; <span class="comment">//0-11</span></span><br><span class="line">date.getDate(); <span class="comment">//1-31</span></span><br><span class="line"></span><br><span class="line">date.toString(); <span class="comment">//转化为String</span></span><br><span class="line">date.toGMTString(); <span class="comment">//转化为GMT</span></span><br><span class="line">date.toLocaleString(); <span class="comment">//转化为本地时区</span></span><br></pre></td></tr></table></figure>
+
+<p>自定义格式输出</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Date</span> <span class="variable">date</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line"><span class="type">var</span> <span class="variable">sd</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleDateFormat</span>(<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>);</span><br><span class="line">sd.format(date);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>M</code>：输出<code>9</code></li>
+<li><code>MM</code>：输出<code>09</code></li>
+<li><code>MMM</code>：输出<code>Sep</code></li>
+<li><code>MMMM</code>：输出<code>September</code></li>
+</ul>
+<p>缺点：无法转化其他时区，很难对日期和时间进行计算</p>
+<h4 id="Calendar"><a href="#Calendar" class="headerlink" title="Calendar"></a>Calendar</h4><p>与Date比多了一个可以做简单的日期和时间计算的功能。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Calendar</span> <span class="variable">c</span> <span class="operator">=</span> Calendar.getInstance();</span><br><span class="line"><span class="type">int</span> <span class="variable">y</span> <span class="operator">=</span> c.get(Calendar.YEAR);</span><br><span class="line"><span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> <span class="number">1</span> + c.get(Calendar.MONTH); <span class="comment">//月份加1</span></span><br><span class="line"><span class="type">int</span> <span class="variable">d</span> <span class="operator">=</span> c.get(Calendar.DAY_OF_MOUTH); </span><br><span class="line"><span class="type">int</span> <span class="variable">w</span> <span class="operator">=</span> c.get(Calendar.DAY_OF_WEEK); <span class="comment">//1-7表示周日-周六</span></span><br><span class="line"><span class="type">int</span> <span class="variable">hh</span> <span class="operator">=</span> c.get(Calendar.HOUR_OF_DAY);</span><br><span class="line"><span class="type">int</span> <span class="variable">mm</span> <span class="operator">=</span> c.get(Calendar.MINUTE);</span><br><span class="line"><span class="type">int</span> <span class="variable">ss</span> <span class="operator">=</span> c.get(Calendar.SECOND);</span><br><span class="line"><span class="type">int</span> <span class="variable">ms</span> <span class="operator">=</span> c.get(Calendar.MILLISECOND); </span><br></pre></td></tr></table></figure>
+
+<p>利用<code>Calendar.getTime()</code>可以将一个<code>Calendar</code>对象转化为<code>Date</code>对象，然后用<code>SimpleDateFormat</code>进行格式化了。</p>
+<p>计算：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Calendar</span> <span class="variable">c</span> <span class="operator">=</span> Calendar.getInstance();</span><br><span class="line">c.clear();</span><br><span class="line">c.set(<span class="number">2019</span>, <span class="number">10</span>, <span class="number">20</span>, <span class="number">8</span>, <span class="number">15</span>, <span class="number">0</span>);</span><br><span class="line">c.add(Calendar.DAY_OF_MOUTH, <span class="number">5</span>);</span><br><span class="line">c.add(Calendar.HOUR_OF_DAY, -<span class="number">2</span>);</span><br><span class="line"><span class="type">var</span> <span class="variable">sdf</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleDateFormat</span>(<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>);</span><br><span class="line"><span class="type">Date</span> <span class="variable">d</span> <span class="operator">=</span> c.getTime();</span><br><span class="line">System.out.println(sdf.format(d)); <span class="comment">// 2019-10-25 6:15:00</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="TimeZone"><a href="#TimeZone" class="headerlink" title="TimeZone"></a>TimeZone</h4><p>与<code>Date</code>和<code>Calendar</code>相比，提供了时间转换的功能。时区用<code>TimeZone</code>对象表示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">TimeZone</span> <span class="variable">tzDefault</span> <span class="operator">=</span> TimeZone.getDefault(); <span class="comment">//当前时区</span></span><br><span class="line"><span class="type">TimeZone</span> <span class="variable">tzGMT9</span> <span class="operator">=</span> TimeZone.getTimeZone(<span class="string">&quot;GMT+09:00&quot;</span>); <span class="comment">//GMT+9时区</span></span><br><span class="line"><span class="type">TimeZone</span> <span class="variable">tzNy</span> <span class="operator">=</span> TimeZone.getTimeZone(<span class="string">&quot;America/New_York&quot;</span>); <span class="comment">// 纽约时区</span></span><br><span class="line"><span class="comment">//要列出系统支持的所有ID，请使用TimeZone.getAvailableIDs()</span></span><br></pre></td></tr></table></figure>
+
+<p>转化时区</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Calendar</span> <span class="variable">c</span> <span class="operator">=</span> Calendar.getInstance();</span><br><span class="line">c.clear(); <span class="comment">//清除所有字段</span></span><br><span class="line">c.setTimeZone(TimeZone.getTimeZone(<span class="string">&quot;Asia/Shanghai&quot;</span>));</span><br><span class="line">c.set(<span class="number">2019</span>, <span class="number">10</span>, <span class="number">20</span>, <span class="number">8</span>, <span class="number">15</span>, <span class="number">0</span>); <span class="comment">//设置年月日时分秒</span></span><br><span class="line"></span><br><span class="line"><span class="type">var</span> <span class="variable">sdf</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleDateFormat</span>(<span class="string">&quot;yyyy=MM-dd HH:mm:ss&quot;</span>); <span class="comment">//设置输出格式</span></span><br><span class="line">sdf.setTimeXone(TimeZone.getTimeZone(<span class="string">&quot;America/New_York&quot;</span>));</span><br><span class="line">System.out.println(sdf.format(c.getTime())); <span class="comment">//2019-11-19 19:15:00</span></span><br><span class="line"><span class="comment">//格式化获取的Date对象（注意Date对象无时区信息，时区信息存储在SimpleDateFormat中）</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="LocalDateTime"><a href="#LocalDateTime" class="headerlink" title="LocalDateTime"></a>LocalDateTime</h2><p>从java8开始，<code>java.time</code>提供了新的日期和时间API，主要涉及的类型有：</p>
+<ul>
+<li>本地日期和时间：<code>LocalDateTime</code>, <code>LocalDate</code>, <code>LocalTime</code></li>
+<li>带时区的日期和时间：<code>ZoneDateTime</code></li>
+<li>时刻：<code>Instant</code></li>
+<li>时区：<code>ZoneID</code>, <code>ZoneOffset</code></li>
+<li>时间间隔：<code>Duration</code></li>
+<li>格式类型：<code>DateTimeFormatter</code></li>
+</ul>
+<p>另外修正了：</p>
+<ul>
+<li>Month的范围有1-12表示</li>
+<li>Week范围从1-7表示</li>
+</ul>
+<h4 id="LocalDateTime-1"><a href="#LocalDateTime-1" class="headerlink" title="LocalDateTime"></a>LocalDateTime</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">LocalDate</span> <span class="variable">d</span> <span class="operator">=</span> LocalDate.now();</span><br><span class="line"><span class="type">LocalTime</span> <span class="variable">t</span> <span class="operator">=</span> LocalTime.now();</span><br><span class="line"><span class="type">LocalDateTime</span> <span class="variable">dt</span> <span class="operator">=</span> LocalDateTime.now();</span><br></pre></td></tr></table></figure>
+
+<p>创建日期：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">LocalDateTime</span> <span class="variable">dt</span> <span class="operator">=</span> LocalDateTime.of(<span class="number">2019</span>, <span class="number">11</span>, <span class="number">30</span>, <span class="number">15</span>, <span class="number">16</span>, <span class="number">17</span>);</span><br><span class="line"></span><br><span class="line"><span class="type">LocalDateTime</span> <span class="variable">dt2</span> <span class="operator">=</span> LocalDateTime.parse(<span class="string">&quot;2019-11-19T15:16:17&quot;</span>); <span class="comment">//字符串转为LocalDateTime</span></span><br></pre></td></tr></table></figure>
+
+<p>注意ISO 8601规定的日期和时间分隔符是<code>T</code>。标准格式如下：</p>
+<ul>
+<li>日期：yyyy-MM-dd</li>
+<li>时间：HH:mm:ss</li>
+<li>带毫秒的时间：HH:mm:ss.SSS</li>
+<li>日期和时间：yyyy-MM-dd’T’HH:mm:ss</li>
+<li>带毫秒的日期和时间：yyyy-MM-dd’T’HH:mm:ss.SS</li>
+</ul>
+<p>自定义输出的格式<code>DateTimeFormatter</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//自定义格式化</span></span><br><span class="line"><span class="type">DateTimeFormatter</span> <span class="variable">dtf</span> <span class="operator">=</span> DateTimeFormatter.ofPattern(<span class="string">&quot;yyyy/MM/dd HH:mm:ss&quot;</span>);</span><br><span class="line">System.out.println(dtf.format(LocalDateTime.now()));</span><br><span class="line"><span class="comment">//自定义格式解析</span></span><br><span class="line"><span class="type">LocalDateTime</span> <span class="variable">dt2</span> <span class="operator">=</span> LocalDateTime.parse(<span class="string">&quot;2019/11/30 15:16:17&quot;</span>);</span><br><span class="line">System.out.println(dt2);</span><br><span class="line"></span><br><span class="line"><span class="comment">//另一种创建DateTimeFormatter的方法传入字符串时指定Locale</span></span><br><span class="line"><span class="type">DateTimeFormatter</span> <span class="variable">formatter</span> <span class="operator">=</span> DateTimeFormatter.ofParttren(<span class="string">&quot;E, yyyy-MM-dd HH:mm&quot;</span>, Locale.US);</span><br></pre></td></tr></table></figure>
+
+<p>和<code>SimpleDateFormat</code>不同的是，<code>DateTimeFormatter</code>不但是不变对象，它还是线程安全的。因为<code>SimpleDateFormat</code>不是线程安全的，使用的时候，只能在方法内部创建新的局部变量。而<code>DateTimeFormatter</code>可以只创建一个实例，到处引用。</p>
+<h4 id="LocalDateTime加减"><a href="#LocalDateTime加减" class="headerlink" title="LocalDateTime加减"></a>LocalDateTime加减</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">LocalDataTime</span> <span class="variable">dt</span> <span class="operator">=</span> dt.plusDays(<span class="number">5</span>).minusHours(<span class="number">3</span>); <span class="comment">//加5天，减3小时</span></span><br></pre></td></tr></table></figure>
+
+<p>加减月份会自动调整</p>
+<p>对日期和时间调整则使用<code>withXXX()</code>方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//调整年：withYear()</span></span><br><span class="line"><span class="comment">//调整月：withMonth()</span></span><br><span class="line"><span class="comment">//调整日：withDayOfMonth()</span></span><br><span class="line"><span class="comment">//调整时：withHour()</span></span><br><span class="line"><span class="comment">//调整分：withMinute()</span></span><br><span class="line"><span class="comment">//调整秒：withSecond()</span></span><br></pre></td></tr></table></figure>
+
+<p>更复杂的运算：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">LocalDateTime</span> <span class="variable">fDay</span> <span class="operator">=</span> LocalDate.now().withDayOfMonth(<span class="number">1</span>).atStartOfDay(); <span class="comment">//从本月第一天00:00时刻</span></span><br><span class="line"></span><br><span class="line"><span class="type">LocalDate</span> <span class="variable">lDay</span> <span class="operator">=</span> LocalDate.now().with(TemporalAdjusters.lastDayOfMonth()); <span class="comment">//本月最后一天</span></span><br></pre></td></tr></table></figure>
+
+<p>要判断两个<code>LocalDateTime</code>先后，可以使用<code>isBefore()</code>, <code>isAfter()</code></p>
+<p><strong>注：</strong><code>LocalDateTime</code>无法与时间戳进行转换，因为<code>LocalDateTime</code>没有时区</p>
+<h4 id="Duration和Period"><a href="#Duration和Period" class="headerlink" title="Duration和Period"></a>Duration和Period</h4><p><code>Duration</code>表示两个时刻之前的时间间隔，<code>Period</code>表示两个日期之间的天数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">LocalDateTime</span> <span class="variable">start</span> <span class="operator">=</span> LocalDateTime.of(<span class="number">2019</span>, <span class="number">11</span>, <span class="number">11</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>);</span><br><span class="line"><span class="type">LocalDateTime</span> <span class="variable">end</span> <span class="operator">=</span> LocalDateTime.of(<span class="number">2020</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">0</span>);</span><br><span class="line"><span class="type">Duration</span> <span class="variable">d</span> <span class="operator">=</span> Duration.between(start, end); <span class="comment">//PT1225H</span></span><br><span class="line"></span><br><span class="line"><span class="type">Period</span> <span class="variable">p</span> <span class="operator">=</span> LocalDate.of(<span class="number">2019</span>, <span class="number">11</span>, <span class="number">11</span>).until(LocalDate.of(<span class="number">2020</span>, <span class="number">1</span>, <span class="number">1</span>)); <span class="comment">//P1M21D</span></span><br></pre></td></tr></table></figure>
+
+<p><code>Duration</code>和<code>Period</code>的表示方法也符合ISO 8601的格式，它以<code>P...T...</code>的形式表示，<code>P...T</code>之间表示日期间隔，<code>T</code>后面表示时间间隔。如果是<code>PT...</code>的格式表示仅有时间间隔。利用<code>ofXxx()</code>或者<code>parse()</code>方法也可以直接创建<code>Duration</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Duration</span> <span class="variable">d1</span> <span class="operator">=</span> Duration.ofHours(<span class="number">10</span>); <span class="comment">//10hours</span></span><br><span class="line"><span class="type">Duration</span> <span class="variable">d2</span> <span class="operator">=</span> Duration.parse(<span class="string">&quot;P1DT2H3M&quot;</span>); <span class="comment">// 1 day, 2 hours, 3 minutes</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="ZonedDateTime"><a href="#ZonedDateTime" class="headerlink" title="ZonedDateTime"></a>ZonedDateTime</h2><p>要表示一个带时区的日期和时间<code>ZonedDateTime</code> ,可以理解成<code>LocalDateTime</code>加<code>ZoneId</code>。</p>
+<p><code>ZoneId</code>是<code>java.time</code>引入新的时区类，创建<code>ZonedDateTime</code>对象：</p>
+<ul>
+<li><code>ZonedDateTime zbj = ZonedDateTime.now();</code> &#x2F;&#x2F;默认时区<ul>
+<li><code>ZonedDateTime zny = ZonedDateTime.now(ZoneId.of(&quot;America/New_York&quot;));</code></li>
+</ul>
+</li>
+<li>通过<code>LocalDateTime</code>附加一个<code>ZoneId</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">LocalDateTime</span> <span class="variable">ldt</span> <span class="operator">=</span> LocalDateTime.of(<span class="number">2020</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"><span class="type">ZonedDateTime</span> <span class="variable">zbj</span> <span class="operator">=</span> ldt.atZone(ZoneId.systemDefault());</span><br></pre></td></tr></table></figure>
+
+<h4 id="时区转换"><a href="#时区转换" class="headerlink" title="时区转换"></a>时区转换</h4><p>要转换时区，使用<code>ZonedDateTime</code>对象的<code>withZoneSameInstant()</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ZonedDataTime</span> <span class="variable">zbj</span> <span class="operator">=</span> ZonedDateTime.now(ZoneId.of(<span class="string">&quot;Asia/Shanghai&quot;</span>));</span><br><span class="line"><span class="type">ZonedDataTime</span> <span class="variable">zny</span> <span class="operator">=</span> zbj.withZoneSameInstant(ZoneId.of(<span class="string">&quot;America/New_York&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<p>转化为本地时间：</p>
+<p><code>LocalDateTime ldt = zdt.toLocalDateTime();</code> </p>
+<p>转化后丢失时区信息。</p>
+<h2 id="Instant"><a href="#Instant" class="headerlink" title="Instant"></a>Instant</h2><p>计算机存储的当前时间，本质上只是一个不断递增的整数。Java提供的<code>System.currentTimeMillis()</code>返回的就是以毫秒表示的当前时间戳。</p>
+<p>这个时间戳在<code>java.time</code>以Instant类型表示，和<code>Instant.now()</code>获取时间戳效果类似。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(Instant.now()); <span class="comment">//2020-02-16T15:59:28.433728Z</span></span><br><span class="line">System.out.println(Instant.now().getEpochSecond()); <span class="comment">//1581868861 long类型</span></span><br><span class="line"><span class="comment">//toEpochMilli() 返回毫秒</span></span><br></pre></td></tr></table></figure>
+
+<p>实际上，<code>Instant</code>内部只有两个核心字段：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">Instant</span> implemet ...&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">long</span> seconds;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> nanos; <span class="comment">//纳秒级别精度</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>既然<code>Instant</code>是时间戳，加上一个时区，就可以创建出<code>ZonedDateTime</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Instant</span> <span class="variable">ins</span> <span class="operator">=</span>Instant.ofEpochSecond(<span class="number">1581868861</span>);</span><br><span class="line"><span class="type">ZonedDateTime</span> <span class="variable">zdt</span> <span class="operator">=</span> ins.atZone(ZoneId.systemDefault()); </span><br></pre></td></tr></table></figure>
+
+<p>所以，<code>LocalDateTime</code>，<code>ZoneId</code>，<code>Instant</code>，<code>ZonedDateTime</code>和<code>long</code>都可以互相转换。</p>
+<p>需注意：<code>long</code>类型以毫秒还是秒为单位</p>
+<h2 id="版本日期转化"><a href="#版本日期转化" class="headerlink" title="版本日期转化"></a>版本日期转化</h2><h4 id="旧API转新API"><a href="#旧API转新API" class="headerlink" title="旧API转新API"></a>旧API转新API</h4><p><code>Date</code>或<code>Calendar</code>，通过<code>toInstant</code>转为<code>Instantd</code>对象，再继续转为<code>ZonedDateTime</code></p>
+<p>旧的<code>TimeZone</code>提供了一个<code>toZoneId()</code>，可以把自己变成新的<code>ZoneId</code>。</p>
+<h4 id="新API转为旧API"><a href="#新API转为旧API" class="headerlink" title="新API转为旧API"></a>新API转为旧API</h4><p>只能借助<code>long</code>转</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ZonedDateTime</span> <span class="variable">zdt</span> <span class="operator">=</span> ZonedDateTime.now();</span><br><span class="line"><span class="type">long</span> <span class="variable">ts</span> <span class="operator">=</span> zdt.toEpochSecond() * <span class="number">1000</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">Date</span> <span class="variable">date</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Date</span>(ts);</span><br></pre></td></tr></table></figure>
+
+<p>新的<code>ZoneId</code>转换为旧的<code>TimeZone</code>，需要借助<code>ZoneId.getId()</code>返回的<code>String</code>完成</p>
+<h4 id="数据库中存储日期和时间"><a href="#数据库中存储日期和时间" class="headerlink" title="数据库中存储日期和时间"></a>数据库中存储日期和时间</h4><p><code>java.sql.Date</code>，继承自<code>java.util.Date</code>,但会自动忽略所有时间相关信息（也就是不会有时区区分）</p>
+<p>在数据库，存在几种时间和日期类型：</p>
+<p><img src="/../../images/image-20200217001739288.png" alt="image-20200217001739288"></p>
+<p>实际上，在数据库中，我们需要存储的最常用的是时刻（<code>Instant</code>），因为有了时刻信息，就可以根据用户自己选择的时区，显示出正确的本地时间。</p>
+<p>因此在数据库中存储时间戳时，尽量使用<code>long</code>型时间戳，它具有省空间，效率高，不依赖数据库的优点。</p>
+
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>Author：<a href="http://example.com">John Doe</a>
+            <p>Link：<a href="http://example.com/2020/02/17/Java/Java%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4/">http://example.com/2020/02/17/Java/Java%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4/</a>
+            <p>Publish date：<a href="http://example.com/2020/02/17/Java/Java%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4/">February 17th 2020, 12:19:08 am</a>
+            <p>Update date：<a href="http://example.com/2020/02/17/Java/Java%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4/">October 3rd 2022, 11:32:10 pm</a>
+            <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2020/02/17/Java/Java%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" title="Java单元测试">
+                    <div class="nextTitle">Java单元测试</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2020/02/15/Java/Java%E9%9B%86%E5%90%88/" title="Java集合">
+                    <div class="prevTitle">Java集合</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:c1945@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/b1cat" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                    
+                    <img class="profile-qr" src="/assets/example_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Java%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4"><span class="toc-number">1.</span> <span class="toc-text">Java日期时间</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Date%E5%92%8CCalendar"><span class="toc-number">1.1.</span> <span class="toc-text">Date和Calendar</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java%E6%A0%87%E5%87%86%E5%BA%93API"><span class="toc-number">1.1.1.</span> <span class="toc-text">Java标准库API</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Date"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">Date</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Calendar"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">Calendar</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TimeZone"><span class="toc-number">1.1.1.3.</span> <span class="toc-text">TimeZone</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LocalDateTime"><span class="toc-number">1.2.</span> <span class="toc-text">LocalDateTime</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LocalDateTime-1"><span class="toc-number">1.2.0.1.</span> <span class="toc-text">LocalDateTime</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LocalDateTime%E5%8A%A0%E5%87%8F"><span class="toc-number">1.2.0.2.</span> <span class="toc-text">LocalDateTime加减</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Duration%E5%92%8CPeriod"><span class="toc-number">1.2.0.3.</span> <span class="toc-text">Duration和Period</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ZonedDateTime"><span class="toc-number">1.3.</span> <span class="toc-text">ZonedDateTime</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%B6%E5%8C%BA%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.3.0.1.</span> <span class="toc-text">时区转换</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Instant"><span class="toc-number">1.4.</span> <span class="toc-text">Instant</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%88%E6%9C%AC%E6%97%A5%E6%9C%9F%E8%BD%AC%E5%8C%96"><span class="toc-number">1.5.</span> <span class="toc-text">版本日期转化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A7API%E8%BD%AC%E6%96%B0API"><span class="toc-number">1.5.0.1.</span> <span class="toc-text">旧API转新API</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B0API%E8%BD%AC%E4%B8%BA%E6%97%A7API"><span class="toc-number">1.5.0.2.</span> <span class="toc-text">新API转为旧API</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E5%AD%98%E5%82%A8%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4"><span class="toc-number">1.5.0.3.</span> <span class="toc-text">数据库中存储日期和时间</span></a></li></ol></li></ol></li></ol></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 30
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2021 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/25</span>
+            <a class="archive-post-title" href="/2021/02/25/%E7%AC%94%E8%AE%B0/adb%E6%B8%85%E9%99%A4MuMu%E6%A8%A1%E6%8B%9F%E5%99%A8PIN%E7%A0%81/">adb清除MuMu模拟器PIN码</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/07</span>
+            <a class="archive-post-title" href="/2021/02/07/%E5%A4%8D%E7%9B%98%E6%80%BB%E7%BB%93/2020%E5%B9%B4%E5%A4%8D%E7%9B%98%E6%80%BB%E7%BB%93/">2020年复盘总结（迷糊的2020）</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2020 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/03</span>
+            <a class="archive-post-title" href="/2020/09/03/%E5%A4%8D%E7%9B%98%E6%80%BB%E7%BB%93/%E6%94%B6%E6%8B%BE%E8%87%AA%E5%B7%B1%EF%BC%8C%E9%87%8D%E6%96%B0%E5%87%BA%E5%8F%91%EF%BC%882020%E5%8D%8A%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93%EF%BC%89/">收拾自己，重新出发（2020半年度总结）</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/26</span>
+            <a class="archive-post-title" href="/2020/04/26/%E7%AC%94%E8%AE%B0/idea%E8%B0%83%E8%AF%95shiro/">idea调试shiro</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/24</span>
+            <a class="archive-post-title" href="/2020/04/24/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/shiro%E8%AE%B0%E4%BD%8F%E5%AF%86%E7%A0%81%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">shiro记住密码反序列化</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/16</span>
+            <a class="archive-post-title" href="/2020/04/16/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/%E5%85%B3%E4%BA%8Eshiro%E7%9A%84%E7%AE%80%E5%8D%95%E5%AD%A6%E4%B9%A0/">关于shiro的简单学习</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/26</span>
+            <a class="archive-post-title" href="/2020/02/26/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Ajp%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E5%92%8C%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E8%B0%83%E8%AF%95/">Ajp任意文件读取和包含漏洞调试</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/24</span>
+            <a class="archive-post-title" href="/2020/02/24/Java/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">函数式编程</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/23</span>
+            <a class="archive-post-title" href="/2020/02/23/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/">创建型模式</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/23</span>
+            <a class="archive-post-title" href="/2020/02/23/Java/Maven%E5%9F%BA%E7%A1%80/">Maven基础</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/22</span>
+            <a class="archive-post-title" href="/2020/02/22/Java/Java%20XML%E5%92%8CJSON/">Java XML和JSON</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/21</span>
+            <a class="archive-post-title" href="/2020/02/21/%E7%AC%94%E8%AE%B0/eclipse%E8%B0%83%E8%AF%95tomcat/">eclipse调试tomcat</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span>
+            <a class="archive-post-title" href="/2020/02/17/Java/Java%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">Java单元测试</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span>
+            <a class="archive-post-title" href="/2020/02/17/Java/Java%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4/">Java日期时间</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span>
+            <a class="archive-post-title" href="/2020/02/15/Java/Java%E9%9B%86%E5%90%88/">Java集合</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span>
+            <a class="archive-post-title" href="/2020/02/15/%E6%87%92%E4%BA%BA%E5%85%BB%E6%88%90/%E8%A7%A3%E5%86%B3gitee%E5%85%8D%E8%B4%B9%E7%A9%BA%E9%97%B4%E6%89%8B%E5%8A%A8%E6%9B%B4%E6%96%B0%E9%97%AE%E9%A2%98/">解决gitee免费空间手动更新问题</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/14</span>
+            <a class="archive-post-title" href="/2020/02/14/Java/Java%20IO/">Java IO</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/%E8%BD%AC%E8%A7%92%E9%81%87%E8%A7%81%E7%9A%84bug/%E4%BD%BF%E7%94%A8gitee%E6%90%AD%E5%BB%BAblog%E4%B8%A4%E4%B8%AA%E9%97%AE%E9%A2%98/">使用gitee搭建blog遇到的两个问题</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/Java/Java%E6%A0%B8%E5%BF%83%E7%B1%BB/">Java核心类</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/Java/Java%E5%8F%8D%E5%B0%84/">Java反射</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/Java/Java%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">Java异常处理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/Java/Java%E6%B3%A8%E8%A7%A3/">Java注解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/Java/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">Java面向对象</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/Java/Java%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">Java快速入门</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2018 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/17</span>
+            <a class="archive-post-title" href="/2018/09/17/PHP%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">PHP快速入门</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/02</span>
+            <a class="archive-post-title" href="/2018/05/02/ichunqiu%20%E4%B8%8Aweb%E9%A2%98writeup%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B03%EF%BC%89/">ichunqiu 上web题writeup（持续更新3）</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span>
+            <a class="archive-post-title" href="/2018/05/01/ichunqiu%20%E4%B8%8Aweb%E9%A2%98writeup%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B02%EF%BC%89/">ichunqiu 上web题writeup（持续更新2）</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span>
+            <a class="archive-post-title" href="/2018/04/20/%20ichunqiu%20%E4%B8%8Aweb%E9%A2%98writeup/">ichunqiu 上web题writeup（持续更新）</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span>
+            <a class="archive-post-title" href="/2018/02/15/%E5%B9%B4%E5%85%B3%E6%97%B6%E5%88%BB%E7%9A%84%E6%84%9F%E6%83%B3/">年关时刻的感想</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2017 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/03</span>
+            <a class="archive-post-title" href="/2017/12/03/VPS-Hexo/">VPS Hexo 搭建个人博客</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="ctf">
+                <span class="iconfont-archer">&#xe606;</span>
+                ctf
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="web">
+                <span class="iconfont-archer">&#xe606;</span>
+                web
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="php">
+                <span class="iconfont-archer">&#xe606;</span>
+                php
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="VPS & hexo">
+                <span class="iconfont-archer">&#xe606;</span>
+                VPS & hexo
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="瞎想">
+                <span class="iconfont-archer">&#xe606;</span>
+                瞎想
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Java">
+                <span class="iconfont-archer">&#xe606;</span>
+                Java
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="总结">
+                <span class="iconfont-archer">&#xe606;</span>
+                总结
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="2020">
+                <span class="iconfont-archer">&#xe606;</span>
+                2020
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="懒人养成">
+                <span class="iconfont-archer">&#xe606;</span>
+                懒人养成
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="漏洞复现">
+                <span class="iconfont-archer">&#xe606;</span>
+                漏洞复现
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Java tomcat">
+                <span class="iconfont-archer">&#xe606;</span>
+                Java tomcat
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="文件读取">
+                <span class="iconfont-archer">&#xe606;</span>
+                文件读取
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="文件包含">
+                <span class="iconfont-archer">&#xe606;</span>
+                文件包含
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="调试">
+                <span class="iconfont-archer">&#xe606;</span>
+                调试
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="shiro-core">
+                <span class="iconfont-archer">&#xe606;</span>
+                shiro-core
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="笔记">
+                <span class="iconfont-archer">&#xe606;</span>
+                笔记
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="设计模式">
+                <span class="iconfont-archer">&#xe606;</span>
+                设计模式
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="创建型模式">
+                <span class="iconfont-archer">&#xe606;</span>
+                创建型模式
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="bug">
+                <span class="iconfont-archer">&#xe606;</span>
+                bug
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="CTF">
+            <span class="iconfont-archer">&#xe60a;</span>
+            CTF
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="瞎想">
+            <span class="iconfont-archer">&#xe60a;</span>
+            瞎想
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="Java">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Java
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="复盘总结">
+            <span class="iconfont-archer">&#xe60a;</span>
+            复盘总结
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="懒人养成">
+            <span class="iconfont-archer">&#xe60a;</span>
+            懒人养成
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="漏洞复现">
+            <span class="iconfont-archer">&#xe60a;</span>
+            漏洞复现
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="笔记">
+            <span class="iconfont-archer">&#xe60a;</span>
+            笔记
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="设计模式">
+            <span class="iconfont-archer">&#xe60a;</span>
+            设计模式
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="转角遇见的bug">
+            <span class="iconfont-archer">&#xe60a;</span>
+            转角遇见的bug
+        </span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMetaRoot = "/"
+    if (siteMetaRoot === "undefined") {
+        siteMetaRoot = '/'
+    }
+    var siteMeta = {
+        url: "http://example.com",
+        root: siteMetaRoot,
+        author: "John Doe"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20211217"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20211217"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/scripts/share.js?v=20211217" async></script>
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>

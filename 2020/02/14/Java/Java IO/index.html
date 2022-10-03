@@ -1,0 +1,1658 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="John Doe">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="John Doe">
+    
+        <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="Java IO Input指从外部读入数据到内存，例如，把文件从磁盘读取到内存，从网络读取数据到内存等。 Output把数据从内存输出的外部。  IO流是以byte为最小单位，是一种顺序读写数据的模式，特点是单向流动，因此在Java中InputStream代表输入字节流，OutputStream代表输出字节流。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java IO">
+<meta property="og:url" content="http://example.com/2020/02/14/Java/Java%20IO/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Java IO Input指从外部读入数据到内存，例如，把文件从磁盘读取到内存，从网络读取数据到内存等。 Output把数据从内存输出的外部。  IO流是以byte为最小单位，是一种顺序读写数据的模式，特点是单向流动，因此在Java中InputStream代表输入字节流，OutputStream代表输出字节流。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/image-20200214141051823.png">
+<meta property="og:image" content="http://example.com/images/image-20200214200232544.png">
+<meta property="og:image" content="http://example.com/images/image-20200214200627053.png">
+<meta property="article:published_time" content="2020-02-14T05:18:17.000Z">
+<meta property="article:modified_time" content="2022-10-03T15:30:34.784Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/image-20200214141051823.png">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/assets/favicon.ico">
+    
+    <title>Java IO · b1cat`s log</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20211217" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20211217" as="style">
+    <link rel="stylesheet" href="/css/dark.css">
+    <link rel="stylesheet" href="/css/mobile.css?v=20211217" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20211217" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20211217" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>b1cat`s</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">b1cat`s</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">Java IO</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:50vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                Java IO
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
+    
+</div>
+
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">2.4k</span>Reading time: <span class="post-count reading-time">9 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2020/02/14</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="Java-IO"><a href="#Java-IO" class="headerlink" title="Java IO"></a>Java IO</h1><ul>
+<li>Input指从外部读入数据到内存，例如，把文件从磁盘读取到内存，从网络读取数据到内存等。</li>
+<li>Output把数据从内存输出的外部。</li>
+</ul>
+<p>IO流是以byte为最小单位，是一种顺序读写数据的模式，特点是单向流动，因此在Java中<code>InputStream</code>代表输入字节流，<code>OutputStream</code>代表输出字节流。</p>
+<span id="more"></span>
+
+<p>如果读写的是字符，字符不止有ASCII字符，此时按照<code>char</code>读写更方便，这种流称为字符流。</p>
+<p>Java提供了<code>Reader</code>和<code>Writer</code>表示字符流，传输的最新单位是<code>char</code>，本质上是一个自动编解码的<code>InputSteam</code>和<code>OutputStream</code>。</p>
+<p>Java标准库还提供了同步IO包<code>java.io</code>，异步IO包<code>java.nio</code>。</p>
+<h3 id="File对象"><a href="#File对象" class="headerlink" title="File对象"></a>File对象</h3><p><code>java.io.File</code>用来操作文件和目录。</p>
+<p><code>FIle f = new File(&quot;/etc/passwd&quot;);</code>  路径可以是相对路径也可以是绝对路径。</p>
+<p><code>getPath()</code>返回构造方法传入的路径，<code>getAbsolutePath()</code>返回绝对路径，<code>getCanonicalPath</code>与绝对路径相似返回规范路径(正常路径)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">File</span> <span class="variable">f</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;.&quot;</span>);</span><br><span class="line">System.out.println(f.getPath());</span><br><span class="line">System.out.println(f.getAbsolutePath());</span><br><span class="line">System.out.println(f.getCanonicalPath());</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../../images/image-20200214141051823.png" alt="image-20200214141051823"></p>
+<ul>
+<li>File对象既可以表示文件也可以表示目录<ul>
+<li>构造File对象并不进行磁盘操作，只有调用其某些方法时，才进行磁盘操作</li>
+<li><code>isDirectory()</code>是否是一个目录</li>
+<li><code>boolean canRead()</code>、<code>boolean canWirete()</code>、&#96;boolean canExecute()是否可读可写可执行</li>
+<li><code>long length()</code>文字字节大小</li>
+<li><code>list()``listFiles()</code>列出目录下的文字和子目录名</li>
+<li><code>boolean mkdir()</code>创建对象表示的目录 <code>boolean mkdirs</code> 可创建不存在的父目录的目录</li>
+<li><code>boolean delete()</code>删除当前对象表示的目录</li>
+</ul>
+</li>
+</ul>
+<p><code>java.nio.file</code>包还提供一个<code>Path</code>对象，该对象与File对象类似</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Path</span> <span class="variable">p1</span> <span class="operator">=</span> Paths.get(<span class="string">&quot;.&quot;</span>, <span class="string">&quot;project&quot;</span>, <span class="string">&quot;study&quot;</span>); <span class="comment">// 构造一个Path对象</span></span><br><span class="line"><span class="type">Path</span> <span class="variable">p2</span> <span class="operator">=</span> p1.toAbsolutePath(); <span class="comment">// 转换为绝对路径</span></span><br><span class="line"><span class="type">Path</span> <span class="variable">p3</span> <span class="operator">=</span> p2.normalize(); <span class="comment">// 转换为规范路径</span></span><br><span class="line"><span class="type">File</span> <span class="variable">f</span> <span class="operator">=</span> p3.toFile(); <span class="comment">// 转换为File对象</span></span><br><span class="line"><span class="keyword">for</span> (Path p : Paths.get(<span class="string">&quot;..&quot;</span>).toAbsolutePath()) &#123; <span class="comment">// 可以直接遍历Path</span></span><br><span class="line">		System.out.println(<span class="string">&quot;  &quot;</span> + p);&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="InputStream、OutputStream"><a href="#InputStream、OutputStream" class="headerlink" title="InputStream、OutputStream"></a>InputStream、OutputStream</h3><p>####InputSteam</p>
+<ul>
+<li><p>InputSteam(抽象类，并不是一个接口)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> absteact <span class="type">int</span> <span class="title function_">read</span><span class="params">()</span> <span class="keyword">throws</span> IOException;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>FileInputStream</code>继承自<code>InputStream</code></li>
+<li>read方法会读取输入流的下一个字节，并返回表示字节表示的int值，如果返回-1表示读到末尾。</li>
+<li><code>InputStream</code>和<code>OutputStream</code>都实现了<code>java.lang.AutoCloseable</code>接口会自动<code>finally</code>语句并调用<code>close()</code>方法。</li>
+</ul>
+</li>
+<li><p>使用缓冲高效读取字节流，<code>InputStream</code>提供两个重载方法支持读取</p>
+</li>
+<li><p><code>int read(bytep[] b)</code> 读取若干个字节并填充到数组，返回读取的字节数</p>
+</li>
+<li><p><code>int read(read[] b, int off. int len)</code>指定byte[]数组的偏移量和最大填充数</p>
+</li>
+</ul>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">readFile</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">  <span class="keyword">try</span>(<span class="type">InputSteam</span> <span class="variable">input</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&#x27;test/read.txt&#x27;</span>))&#123;</span><br><span class="line">     <span class="comment">//定义缓冲区</span></span><br><span class="line">    <span class="type">byte</span>[]  buffer = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">1000</span>];</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="keyword">while</span>((n = input.read(buffer))!=-<span class="number">1</span>)&#123; <span class="comment">//返回-1表示读完了么得读了</span></span><br><span class="line">      System.out.println(<span class="string">&quot;read bytes has &quot;</span> + n);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>阻塞（需要等待read读完才能执行下面的其他操作）</p>
+</li>
+<li><p>可以对InoutSteam抽象类实现任意类</p>
+<ul>
+<li><code>ByteArrayInputStream</code>实际上是把一个byte[]数组在缓冲区变成一个InputStream</li>
+<li>该类可以向上转型方便调用如模拟数据等</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">byte</span>[]  data = &#123;<span class="number">333</span>,<span class="number">44</span>,<span class="number">555</span>,<span class="number">66</span>,<span class="number">777</span>,<span class="number">89</span>,<span class="number">10</span>&#125;;</span><br><span class="line"><span class="type">InputSteam</span> <span class="variable">input</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ByteArrayInputStream</span>(data);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="OutputStream"><a href="#OutputStream" class="headerlink" title="OutputStream"></a>OutputStream</h4><p>同InputSteam一样，OutputStream也是一个抽象类，其中一个重要的方法是</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">write</span><span class="params">(<span class="type">int</span> b)</span> <span class="keyword">throws</span> IOException;</span><br></pre></td></tr></table></figure>
+
+<p>该方法会写入一个字节到输出流，传入的int最低表示字节的部分（相当于<code>b &amp; 0xff</code>）。</p>
+<p>同时OutputStream需要一个缓冲区（由数组组成），默认写满缓冲区后自动调用<code>flush()</code>输出缓冲区内容。但即时聊天需要每次输入一句话后，调用<code>flush()</code>手动刷新。</p>
+<ul>
+<li>同<code>InputSteam</code>编译器会自动写入finally并调用close()</li>
+<li>同<code>InputSteam</code> <code>write()</code>会阻塞</li>
+<li>同<code>InputSteam</code>  <code>ByteArrayOutputStream</code>可以在内存中模拟一个<code>OutputStream</code></li>
+</ul>
+<h3 id="装饰器模式-Decorator-x2F-Filter模式"><a href="#装饰器模式-Decorator-x2F-Filter模式" class="headerlink" title="装饰器模式(Decorator)&#x2F;Filter模式"></a>装饰器模式(Decorator)&#x2F;Filter模式</h3><p>为了解决依赖继承会导致子类数量失控的问题，JDK将<code>InputStream</code>分为两大类：</p>
+<ul>
+<li>直接提供数据的基础<ul>
+<li><code>FileInputStream</code>、<code>ByteArrayInputStream</code>、<code>ServletInputStream</code> …</li>
+</ul>
+</li>
+<li>提供额外附加功能的<ul>
+<li><code>BufferInputStream</code>、<code>DigestInputStream</code> …</li>
+</ul>
+</li>
+</ul>
+<p>当我们需要给一个基础<code>InputStream</code>附加各种功能时，我们先确定提供数据源的<code>InputStream</code>，比如<code>FileInputStream</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">InputStream</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&#x27;test.gz&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>紧接着，希望能通过缓冲区提供读取效率，使用<code>BufferInputStream</code>包装<code>InputStream</code>，得到的包装类型为<code>BufferInputStream</code>，但他仍旧是<code>InputStream</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">InputStream</span> <span class="variable">buffer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferInputServer</span>(file);</span><br></pre></td></tr></table></figure>
+
+<p>最终希望读取gzip压缩数据，再使用<code>GZIPInputStream</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">InputStream</span> <span class="variable">data</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GZIPInputStream</span>(buffer);</span><br></pre></td></tr></table></figure>
+
+<p>不论如何，得到的对象都是<code>InputStream</code>，然后就可以通过<code>InputStream</code>直接饮用使用。</p>
+<p><strong>上述这种通过一个“基础”组件再叠加各种“附加”功能组件的模式，称之为Filter模式（或者装饰器模式：Decorator）</strong></p>
+<p>目的是为了通过较少的类实现各种功能的组合。</p>
+<p><img src="/../../images/image-20200214200232544.png" alt="image-20200214200232544"></p>
+<ul>
+<li>注意到在叠加多个<code>FilterInputStream</code>，我们只需要持有最外层的<code>InputStream</code>，并且，当最外层的<code>InputStream</code>关闭时（在<code>try(resource)</code>块的结束处自动关闭），内层的<code>InputStream</code>的<code>close()</code>方法也会被自动调用，并最终调用到最核心的“基础”<code>InputStream</code>，因此不存在资源泄露。</li>
+</ul>
+<h4 id="操作Zip"><a href="#操作Zip" class="headerlink" title="操作Zip"></a>操作Zip</h4><p><code>ZipInputStream</code>就是一种装饰器，他可以直接读取zip包的内容。<code>JarInputStream</code>是派生自<code>ZipInputStream</code>,增加的是能直接读取jar文件里面的<code>MANIFEST.MF</code>文件。</p>
+<p><img src="/../../images/image-20200214200627053.png" alt="image-20200214200627053"></p>
+<h5 id="读取zip包"><a href="#读取zip包" class="headerlink" title="读取zip包"></a>读取zip包</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> (<span class="type">ZipInputStream</span> <span class="variable">zip</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ZipInputStream</span>(<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(...))) &#123;</span><br><span class="line">    <span class="type">ZipEntry</span> <span class="variable">entry</span> <span class="operator">=</span> <span class="literal">null</span>; <span class="comment">//一个ZipEntry表示一个压缩文件或目录</span></span><br><span class="line">    <span class="keyword">while</span> ((entry = zip.getNextEntry()) != <span class="literal">null</span>) &#123; <span class="comment">//返回null表示zip流结束</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> entry.getName(); </span><br><span class="line">        <span class="keyword">if</span> (!entry.isDirectory()) &#123;</span><br><span class="line">            <span class="type">int</span> n;</span><br><span class="line">            <span class="keyword">while</span> ((n = zip.read()) != -<span class="number">1</span>) &#123; <span class="comment">//压缩文件就用read()方法不断读取，直到返回-1</span></span><br><span class="line">                ...</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="写入压缩包"><a href="#写入压缩包" class="headerlink" title="写入压缩包"></a>写入压缩包</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> (<span class="type">ZipOutputStream</span> <span class="variable">zip</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ZipOutputStream</span>(<span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(...))) &#123;</span><br><span class="line">    File[] files = ...</span><br><span class="line">    <span class="keyword">for</span> (File file : files) &#123;</span><br><span class="line">        zip.putNextEntry(<span class="keyword">new</span> <span class="title class_">ZipEntry</span>(file.getName()));</span><br><span class="line">        zip.write(getFileDataAsBytes(file)); <span class="comment">//write()写入byte[]数据</span></span><br><span class="line">        zip.closeEntry(); <span class="comment">//closeEntry()结束这个文件的打包</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="读取classpath"><a href="#读取classpath" class="headerlink" title="读取classpath"></a>读取classpath</h3><ul>
+<li>把资源存储在classpath中可以避免文件路径依赖；</li>
+</ul>
+<p>在classpath中的资源文件，路径总是以<code>/</code>开始，先获取当前的<code>Class</code>对象，然后调用<code>getResourceAsStream()</code>就可以从classpath读取任意资源文件：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>(<span class="type">InputStream</span> <span class="variable">input</span> <span class="operator">=</span> getClass.getResourceAsStream(<span class="string">&#x27;/default.properties&#x27;</span>))&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>没有这个资源将返回null</p>
+<h3 id="序列化与反序列化"><a href="#序列化与反序列化" class="headerlink" title="序列化与反序列化"></a>序列化与反序列化</h3><p>序列化是指把一个Java对象变成二进制内容（byte[]数组），用以储存文件或者网络传输。反序列化正好相反。</p>
+<p>要序列化对象，需先实现<code>java.io.Serializable</code>接口:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Serilizable</span>&#123;&#125; <span class="comment">//没有方法的空接口，也称为标记接口，目的仅仅是标记</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="序列化："><a href="#序列化：" class="headerlink" title="序列化："></a>序列化：</h4><p>使用<code>ObjectOutputStream</code>把一个对象写入字节流</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ByteArrayOutputStream</span> <span class="variable">buffer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ByteArrayOutputStream</span>();</span><br><span class="line">        <span class="keyword">try</span> (<span class="type">ObjectOutputStream</span> <span class="variable">output</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectOutputStream</span>(buffer)) &#123;</span><br><span class="line">          output.wirteInt(<span class="number">124</span>); <span class="comment">//写入int</span></span><br><span class="line">          output.wirteUTF(<span class="string">&quot;UTF&quot;</span>); <span class="comment">//写入String</span></span><br><span class="line">          output.writeObject(Double.valueOf(<span class="number">12.34</span>));<span class="comment">// 写入对象,对象实现了Serializable                           </span></span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="反序列化："><a href="#反序列化：" class="headerlink" title="反序列化："></a>反序列化：</h4><p>使用<code>ObjectInputStream</code>从字节流读取对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> (<span class="type">ObjectInputStream</span> <span class="variable">input</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span>(...))&#123;</span><br><span class="line">  <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> input.readInt();</span><br><span class="line">  <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> input.readUTF();</span><br><span class="line">  <span class="type">Double</span> <span class="variable">d</span> <span class="operator">=</span> (Double) input.readObject(); <span class="comment">//readObject()恢复一个对象</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>反序列化时，由JVM直接构造出Java对象，不调用构造方法，构造方法内部的代码，在反序列化时根本不可能执行。</li>
+</ul>
+<h3 id="Reader、Writer"><a href="#Reader、Writer" class="headerlink" title="Reader、Writer"></a>Reader、Writer</h3><h4 id="Reader"><a href="#Reader" class="headerlink" title="Reader"></a>Reader</h4><p><code>Reader</code>是Java的IO库提供的另一个输入流接口。和<code>InputStream</code>的区别是，<code>InputStream</code>是一个字节流，即以<code>byte</code>为单位读取，而<code>Reader</code>是一个字符流，即以<code>char</code>为单位读取。</p>
+<p>读取方法和InputStream一样，读取方法<code>public int read() throws IOException;</code>读到末尾返回-1</p>
+<p>FileReader是Reader的子类，为了避免乱码情况，在创建时指定编码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Reader</span> <span class="variable">reader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileReader</span>(<span class="string">&quot;src/read.txt&quot;</span>, StandardCharsets.UTF_8);</span><br></pre></td></tr></table></figure>
+
+<p>一次性读取若干字符到char数组<code>int read(charp[] c)</code></p>
+<ul>
+<li><p><code>CharArrayReader</code>可以在内存中模拟一个<code>Reader</code>，它的作用实际上是把一个<code>char[]</code>数组变成一个<code>Reader</code>，这和<code>ByteArrayInputStream</code>非常类似</p>
+</li>
+<li><p>StringReader</p>
+<p><code>StringReader</code>可以直接把<code>String</code>作为数据源，它和<code>CharArrayReader</code>几乎一样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> (<span class="type">Reader</span> <span class="variable">reader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringReader</span>(<span class="string">&quot;Hello&quot;</span>)) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>InputStreamReader（用以由InputStream转换Reader用）</p>
+<ul>
+<li>Reader<code>是带编码转换器的</code>InputStream它把<code>byte</code>转换为<code>char</code></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> (<span class="type">Reader</span> <span class="variable">reader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">InputStreamReader</span>(<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;src/readme.txt&quot;</span>), <span class="string">&quot;UTF-8&quot;</span>)) &#123;</span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Write"><a href="#Write" class="headerlink" title="Write"></a>Write</h4><p>Write是带编码转换器的OutputStream，把char转换为byte输出。</p>
+<ul>
+<li><p><code>Writer</code>是所有字符输出流的超类，它提供的方法主要有：</p>
+<ul>
+<li>写入一个字符（0~65535）：<code>void write(int c)</code>；</li>
+<li>写入字符数组的所有字符：<code>void write(char[] c)</code>；</li>
+<li>写入String表示的所有字符：<code>void write(String s)</code>。</li>
+</ul>
+</li>
+<li><p>FileWrite和FileReader一样</p>
+</li>
+<li><p>CharArrayWriter和<code>ByteArrayOutputStream</code>非常类似，构造缓冲区写入char</p>
+</li>
+<li><p><code>StringWriter</code>也是一个基于内存的<code>Writer</code>，它和<code>CharArrayWriter</code>类似。实际上，<code>StringWriter</code>在内部维护了一个<code>StringBuffer</code>，并对外提供了<code>Writer</code>接口</p>
+</li>
+<li><p>除了<code>CharArrayWriter</code>和<code>StringWriter</code>外，普通的Writer实际上是基于<code>OutputStream</code>构造的，它接收<code>char</code>，然后在内部自动转换成一个或多个<code>byte</code>，并写入<code>OutputStream</code>。因此，<code>OutputStreamWriter</code>就是一个将任意的<code>OutputStream</code>转换为<code>Writer</code>的转换器。</p>
+</li>
+</ul>
+<h3 id="PrintStream和PrintWriter"><a href="#PrintStream和PrintWriter" class="headerlink" title="PrintStream和PrintWriter"></a>PrintStream和PrintWriter</h3><h4 id="PrintStream"><a href="#PrintStream" class="headerlink" title="PrintStream"></a>PrintStream</h4><p>PrintStream是一种FilterOutputStream，在OutputStream接口上，额外提供了一些写入各种数据的写法：</p>
+<ul>
+<li>写入int，print(int)； 写入boolean， print(boolean) …</li>
+<li>写入Object：print(Object)相当于print(object.toString())</li>
+<li>以及对应的println()会自动加上换行符</li>
+</ul>
+<p>经常使用的<code>System.out.println()</code>实际上就是使用PrintStream打印各种数据，System.out是默认提供的PrintStream，表示标准输出。</p>
+<p>PirntStream与OutputSteam相比不会抛出IOException。</p>
+<h4 id="PrintWriter"><a href="#PrintWriter" class="headerlink" title="PrintWriter"></a>PrintWriter</h4><p><code>PrintStream</code> 最终输出的总是byte数据，而<code>PrintWriter</code>则是拓然了Writer接口，它的<code>print</code>,<code>println</code>方法最终输出的是char数据，其他使用方法激活一模一样。</p>
+
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>Author：<a href="http://example.com">John Doe</a>
+            <p>Link：<a href="http://example.com/2020/02/14/Java/Java%20IO/">http://example.com/2020/02/14/Java/Java%20IO/</a>
+            <p>Publish date：<a href="http://example.com/2020/02/14/Java/Java%20IO/">February 14th 2020, 1:18:17 pm</a>
+            <p>Update date：<a href="http://example.com/2020/02/14/Java/Java%20IO/">October 3rd 2022, 11:30:34 pm</a>
+            <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2020/02/15/%E6%87%92%E4%BA%BA%E5%85%BB%E6%88%90/%E8%A7%A3%E5%86%B3gitee%E5%85%8D%E8%B4%B9%E7%A9%BA%E9%97%B4%E6%89%8B%E5%8A%A8%E6%9B%B4%E6%96%B0%E9%97%AE%E9%A2%98/" title="解决gitee免费空间手动更新问题">
+                    <div class="nextTitle">解决gitee免费空间手动更新问题</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2020/02/13/%E8%BD%AC%E8%A7%92%E9%81%87%E8%A7%81%E7%9A%84bug/%E4%BD%BF%E7%94%A8gitee%E6%90%AD%E5%BB%BAblog%E4%B8%A4%E4%B8%AA%E9%97%AE%E9%A2%98/" title="使用gitee搭建blog遇到的两个问题">
+                    <div class="prevTitle">使用gitee搭建blog遇到的两个问题</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:c1945@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/b1cat" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                    
+                    <img class="profile-qr" src="/assets/example_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Java-IO"><span class="toc-number">1.</span> <span class="toc-text">Java IO</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#File%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.0.1.</span> <span class="toc-text">File对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#InputStream%E3%80%81OutputStream"><span class="toc-number">1.0.2.</span> <span class="toc-text">InputStream、OutputStream</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#OutputStream"><span class="toc-number">1.0.2.1.</span> <span class="toc-text">OutputStream</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F-Decorator-x2F-Filter%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.0.3.</span> <span class="toc-text">装饰器模式(Decorator)&#x2F;Filter模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%93%8D%E4%BD%9CZip"><span class="toc-number">1.0.3.1.</span> <span class="toc-text">操作Zip</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96zip%E5%8C%85"><span class="toc-number">1.0.3.1.1.</span> <span class="toc-text">读取zip包</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%86%99%E5%85%A5%E5%8E%8B%E7%BC%A9%E5%8C%85"><span class="toc-number">1.0.3.1.2.</span> <span class="toc-text">写入压缩包</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96classpath"><span class="toc-number">1.0.4.</span> <span class="toc-text">读取classpath</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-number">1.0.5.</span> <span class="toc-text">序列化与反序列化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%EF%BC%9A"><span class="toc-number">1.0.5.1.</span> <span class="toc-text">序列化：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%EF%BC%9A"><span class="toc-number">1.0.5.2.</span> <span class="toc-text">反序列化：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reader%E3%80%81Writer"><span class="toc-number">1.0.6.</span> <span class="toc-text">Reader、Writer</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Reader"><span class="toc-number">1.0.6.1.</span> <span class="toc-text">Reader</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Write"><span class="toc-number">1.0.6.2.</span> <span class="toc-text">Write</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PrintStream%E5%92%8CPrintWriter"><span class="toc-number">1.0.7.</span> <span class="toc-text">PrintStream和PrintWriter</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#PrintStream"><span class="toc-number">1.0.7.1.</span> <span class="toc-text">PrintStream</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PrintWriter"><span class="toc-number">1.0.7.2.</span> <span class="toc-text">PrintWriter</span></a></li></ol></li></ol></li></ol></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 30
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2021 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/25</span>
+            <a class="archive-post-title" href="/2021/02/25/%E7%AC%94%E8%AE%B0/adb%E6%B8%85%E9%99%A4MuMu%E6%A8%A1%E6%8B%9F%E5%99%A8PIN%E7%A0%81/">adb清除MuMu模拟器PIN码</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/07</span>
+            <a class="archive-post-title" href="/2021/02/07/%E5%A4%8D%E7%9B%98%E6%80%BB%E7%BB%93/2020%E5%B9%B4%E5%A4%8D%E7%9B%98%E6%80%BB%E7%BB%93/">2020年复盘总结（迷糊的2020）</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2020 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/03</span>
+            <a class="archive-post-title" href="/2020/09/03/%E5%A4%8D%E7%9B%98%E6%80%BB%E7%BB%93/%E6%94%B6%E6%8B%BE%E8%87%AA%E5%B7%B1%EF%BC%8C%E9%87%8D%E6%96%B0%E5%87%BA%E5%8F%91%EF%BC%882020%E5%8D%8A%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93%EF%BC%89/">收拾自己，重新出发（2020半年度总结）</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/26</span>
+            <a class="archive-post-title" href="/2020/04/26/%E7%AC%94%E8%AE%B0/idea%E8%B0%83%E8%AF%95shiro/">idea调试shiro</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/24</span>
+            <a class="archive-post-title" href="/2020/04/24/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/shiro%E8%AE%B0%E4%BD%8F%E5%AF%86%E7%A0%81%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">shiro记住密码反序列化</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/16</span>
+            <a class="archive-post-title" href="/2020/04/16/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/%E5%85%B3%E4%BA%8Eshiro%E7%9A%84%E7%AE%80%E5%8D%95%E5%AD%A6%E4%B9%A0/">关于shiro的简单学习</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/26</span>
+            <a class="archive-post-title" href="/2020/02/26/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Ajp%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E5%92%8C%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E8%B0%83%E8%AF%95/">Ajp任意文件读取和包含漏洞调试</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/24</span>
+            <a class="archive-post-title" href="/2020/02/24/Java/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">函数式编程</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/23</span>
+            <a class="archive-post-title" href="/2020/02/23/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/">创建型模式</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/23</span>
+            <a class="archive-post-title" href="/2020/02/23/Java/Maven%E5%9F%BA%E7%A1%80/">Maven基础</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/22</span>
+            <a class="archive-post-title" href="/2020/02/22/Java/Java%20XML%E5%92%8CJSON/">Java XML和JSON</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/21</span>
+            <a class="archive-post-title" href="/2020/02/21/%E7%AC%94%E8%AE%B0/eclipse%E8%B0%83%E8%AF%95tomcat/">eclipse调试tomcat</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span>
+            <a class="archive-post-title" href="/2020/02/17/Java/Java%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">Java单元测试</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span>
+            <a class="archive-post-title" href="/2020/02/17/Java/Java%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4/">Java日期时间</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span>
+            <a class="archive-post-title" href="/2020/02/15/Java/Java%E9%9B%86%E5%90%88/">Java集合</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span>
+            <a class="archive-post-title" href="/2020/02/15/%E6%87%92%E4%BA%BA%E5%85%BB%E6%88%90/%E8%A7%A3%E5%86%B3gitee%E5%85%8D%E8%B4%B9%E7%A9%BA%E9%97%B4%E6%89%8B%E5%8A%A8%E6%9B%B4%E6%96%B0%E9%97%AE%E9%A2%98/">解决gitee免费空间手动更新问题</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/14</span>
+            <a class="archive-post-title" href="/2020/02/14/Java/Java%20IO/">Java IO</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/%E8%BD%AC%E8%A7%92%E9%81%87%E8%A7%81%E7%9A%84bug/%E4%BD%BF%E7%94%A8gitee%E6%90%AD%E5%BB%BAblog%E4%B8%A4%E4%B8%AA%E9%97%AE%E9%A2%98/">使用gitee搭建blog遇到的两个问题</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/Java/Java%E6%A0%B8%E5%BF%83%E7%B1%BB/">Java核心类</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/Java/Java%E5%8F%8D%E5%B0%84/">Java反射</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/Java/Java%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">Java异常处理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/Java/Java%E6%B3%A8%E8%A7%A3/">Java注解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/Java/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">Java面向对象</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/Java/Java%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">Java快速入门</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2018 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/17</span>
+            <a class="archive-post-title" href="/2018/09/17/PHP%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">PHP快速入门</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/02</span>
+            <a class="archive-post-title" href="/2018/05/02/ichunqiu%20%E4%B8%8Aweb%E9%A2%98writeup%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B03%EF%BC%89/">ichunqiu 上web题writeup（持续更新3）</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span>
+            <a class="archive-post-title" href="/2018/05/01/ichunqiu%20%E4%B8%8Aweb%E9%A2%98writeup%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B02%EF%BC%89/">ichunqiu 上web题writeup（持续更新2）</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span>
+            <a class="archive-post-title" href="/2018/04/20/%20ichunqiu%20%E4%B8%8Aweb%E9%A2%98writeup/">ichunqiu 上web题writeup（持续更新）</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span>
+            <a class="archive-post-title" href="/2018/02/15/%E5%B9%B4%E5%85%B3%E6%97%B6%E5%88%BB%E7%9A%84%E6%84%9F%E6%83%B3/">年关时刻的感想</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2017 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/03</span>
+            <a class="archive-post-title" href="/2017/12/03/VPS-Hexo/">VPS Hexo 搭建个人博客</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="ctf">
+                <span class="iconfont-archer">&#xe606;</span>
+                ctf
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="web">
+                <span class="iconfont-archer">&#xe606;</span>
+                web
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="php">
+                <span class="iconfont-archer">&#xe606;</span>
+                php
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="VPS & hexo">
+                <span class="iconfont-archer">&#xe606;</span>
+                VPS & hexo
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="瞎想">
+                <span class="iconfont-archer">&#xe606;</span>
+                瞎想
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Java">
+                <span class="iconfont-archer">&#xe606;</span>
+                Java
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="总结">
+                <span class="iconfont-archer">&#xe606;</span>
+                总结
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="2020">
+                <span class="iconfont-archer">&#xe606;</span>
+                2020
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="懒人养成">
+                <span class="iconfont-archer">&#xe606;</span>
+                懒人养成
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="漏洞复现">
+                <span class="iconfont-archer">&#xe606;</span>
+                漏洞复现
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Java tomcat">
+                <span class="iconfont-archer">&#xe606;</span>
+                Java tomcat
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="文件读取">
+                <span class="iconfont-archer">&#xe606;</span>
+                文件读取
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="文件包含">
+                <span class="iconfont-archer">&#xe606;</span>
+                文件包含
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="调试">
+                <span class="iconfont-archer">&#xe606;</span>
+                调试
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="shiro-core">
+                <span class="iconfont-archer">&#xe606;</span>
+                shiro-core
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="笔记">
+                <span class="iconfont-archer">&#xe606;</span>
+                笔记
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="设计模式">
+                <span class="iconfont-archer">&#xe606;</span>
+                设计模式
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="创建型模式">
+                <span class="iconfont-archer">&#xe606;</span>
+                创建型模式
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="bug">
+                <span class="iconfont-archer">&#xe606;</span>
+                bug
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="CTF">
+            <span class="iconfont-archer">&#xe60a;</span>
+            CTF
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="瞎想">
+            <span class="iconfont-archer">&#xe60a;</span>
+            瞎想
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="Java">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Java
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="复盘总结">
+            <span class="iconfont-archer">&#xe60a;</span>
+            复盘总结
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="懒人养成">
+            <span class="iconfont-archer">&#xe60a;</span>
+            懒人养成
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="漏洞复现">
+            <span class="iconfont-archer">&#xe60a;</span>
+            漏洞复现
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="笔记">
+            <span class="iconfont-archer">&#xe60a;</span>
+            笔记
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="设计模式">
+            <span class="iconfont-archer">&#xe60a;</span>
+            设计模式
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="转角遇见的bug">
+            <span class="iconfont-archer">&#xe60a;</span>
+            转角遇见的bug
+        </span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMetaRoot = "/"
+    if (siteMetaRoot === "undefined") {
+        siteMetaRoot = '/'
+    }
+    var siteMeta = {
+        url: "http://example.com",
+        root: siteMetaRoot,
+        author: "John Doe"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20211217"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20211217"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/scripts/share.js?v=20211217" async></script>
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>

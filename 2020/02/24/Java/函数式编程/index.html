@@ -1,0 +1,1647 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="John Doe">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="John Doe">
+    
+        <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="函数式编程函数是面向过程的程序设计的基本单元，而函数式编程（function Programming）其思想更接近数学计算。 而数学上的计算越抽象离计算机硬件越远，执行效率就低。 函数式编程就是一种抽象程度很高的编程范式，纯粹的函数式编程语言编写的函数没有变量。由于函数内部变量状态不确定，输入输出不确定，这种称为有副作用的。 函数式编程最早是数学家阿隆佐·邱奇研究的一套函数变换逻辑，又称为Lamb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="函数式编程">
+<meta property="og:url" content="http://example.com/2020/02/24/Java/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="函数式编程函数是面向过程的程序设计的基本单元，而函数式编程（function Programming）其思想更接近数学计算。 而数学上的计算越抽象离计算机硬件越远，执行效率就低。 函数式编程就是一种抽象程度很高的编程范式，纯粹的函数式编程语言编写的函数没有变量。由于函数内部变量状态不确定，输入输出不确定，这种称为有副作用的。 函数式编程最早是数学家阿隆佐·邱奇研究的一套函数变换逻辑，又称为Lamb">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-02-24T01:29:32.000Z">
+<meta property="article:modified_time" content="2022-10-03T15:22:02.562Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/assets/favicon.ico">
+    
+    <title>函数式编程 · b1cat`s log</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20211217" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20211217" as="style">
+    <link rel="stylesheet" href="/css/dark.css">
+    <link rel="stylesheet" href="/css/mobile.css?v=20211217" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20211217" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20211217" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>b1cat`s</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">b1cat`s</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">函数式编程</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:50vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                函数式编程
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
+    
+</div>
+
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">2.6k</span>Reading time: <span class="post-count reading-time">11 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2020/02/24</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="函数式编程"><a href="#函数式编程" class="headerlink" title="函数式编程"></a>函数式编程</h1><p>函数是面向过程的程序设计的基本单元，而函数式编程（function Programming）其思想更接近数学计算。</p>
+<p>而数学上的计算越抽象离计算机硬件越远，执行效率就低。</p>
+<p>函数式编程就是一种抽象程度很高的编程范式，纯粹的函数式编程语言编写的函数没有变量。由于函数内部变量状态不确定，输入输出不确定，这种称为有副作用的。</p>
+<p>函数式编程最早是数学家<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E9%98%BF%E9%9A%86%E4%BD%90%C2%B7%E9%82%B1%E5%A5%87">阿隆佐·邱奇</a>研究的一套函数变换逻辑，又称为Lambda Calculus。</p>
+<span id="more"></span>
+
+<h3 id="Lambda表达式"><a href="#Lambda表达式" class="headerlink" title="Lambda表达式"></a>Lambda表达式</h3><p>函数式编程（Functional Programming）是把函数作为基本运算单元，函数可以作为变量，可以接收函数，还可以返回函数。</p>
+<p>以<code>Comparator</code>为例，想要调用<code>Arrays.sort()</code>时，传入一个<code>Comparator</code>实例，以匿名类方式编写如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">String[] array = ...</span><br><span class="line">Arrays.sort(array, <span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;String&gt;()&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(String s1, String s2)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> s1.compareTo(s2);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>改用Lamabda表达式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String[] array = <span class="keyword">new</span> <span class="title class_">String</span>[] &#123;<span class="string">&quot;apple&quot;</span>, <span class="string">&quot;ipad&quot;</span>, <span class="string">&quot;mbp&quot;</span>&#125;;</span><br><span class="line">Arrays.sort(array, (s1, s2)-&gt;&#123;</span><br><span class="line">  <span class="keyword">return</span> s1.compareTo(s2);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Lamabda 表达式，只需要写出方法定义<code>(s1, s2)-&gt;&#123;return s1.compare(s2);&#125;</code></li>
+<li>参数类型可以省略，编译器会自动推断出String</li>
+<li><code>-&gt;&#123;...&#125;</code>表示方法体，如果只有一行<code>return xxx</code>，可进一步简化为<code>Arrays.sort(array, (s1, s2)-&gt; s1.compareTo(s2));</code></li>
+<li>返回值类型也由编译器自动推断</li>
+</ul>
+<p>FunctionalInterface</p>
+<p>把只定义单方法的接口称为<code>FuncationalInterface</code>，用注解<code>@FunctionalInterface</code>标记。例如<code>Callable</code>接口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Callable</span>&lt;v&gt; &#123;</span><br><span class="line">  v <span class="title function_">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="方法引用"><a href="#方法引用" class="headerlink" title="方法引用"></a>方法引用</h3><p>除了Lambda表达式，还可以传入方法引用。如</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">    String[] array = <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;<span class="string">&quot;apple&quot;</span>, <span class="string">&quot;ipad&quot;</span>, <span class="string">&quot;mbp&quot;</span>&#125;;</span><br><span class="line">    Arrays.sort(array, Main::cmp); <span class="comment">//用Main::cmp直接传入静态方法引用</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">cmp</span><span class="params">(String s1, String s2)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> s1.compareTo(s2);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>所谓方法引用就是，如果某个方法签名和接口恰好一直，就可以传入方法引用。</p>
+<p>因为<code>Comparator&lt;String&gt;</code>接口定义方法是<code>int compare(string, string)</code>除了和静态方法cmp方法名不同其他都一直，即签名一致。</p>
+<h4 id="构造方法引用"><a href="#构造方法引用" class="headerlink" title="构造方法引用"></a>构造方法引用</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        List&lt;String&gt; names = List.of(<span class="string">&quot;Bob&quot;</span>, <span class="string">&quot;Alice&quot;</span>, <span class="string">&quot;Tim&quot;</span>);</span><br><span class="line">        List&lt;Person&gt; persons = names.stream().map(Person::<span class="keyword">new</span>).collect(Collectors.toList());</span><br><span class="line">        System.out.println(persons);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    String name;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Person</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Person:&quot;</span> + <span class="built_in">this</span>.name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>后面我们会讲到<code>Stream</code>的<code>map()</code>方法。现在我们看到，这里的<code>map()</code>需要传入的FunctionalInterface的定义是：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Function</span>&lt;T, R&gt; &#123;</span><br><span class="line">    R <span class="title function_">apply</span><span class="params">(T t)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>把泛型对应上就是方法签名<code>Person apply(String)</code>，即传入参数<code>String</code>，返回类型<code>Person</code>。而<code>Person</code>类的构造方法恰好满足这个条件，因为构造方法的参数是<code>String</code>，而构造方法虽然没有<code>return</code>语句，但它会隐式地返回<code>this</code>实例，类型就是<code>Person</code>，因此，此处可以引用构造方法。构造方法的引用写法是<code>类名::new</code>，因此，此处传入<code>Person::new</code>。</p>
+<h3 id="使用Stream"><a href="#使用Stream" class="headerlink" title="使用Stream"></a>使用Stream</h3><p>Java 8开始不但引入Lambda表达式，还引入了全新的流式API，<code>Stream API</code> ，位于<code>java.util.stream</code>包中。不同于<code>InputStream</code>，它代表的是任意Java对象序列。</p>
+<p>java.util.stream </p>
+<ul>
+<li>存储，顺序输出的任意Java对象实例</li>
+<li>用途，内存计算&#x2F;业务逻辑</li>
+<li>元素，可能未分配、实时计算</li>
+<li>用途：惰性计算</li>
+</ul>
+<p>举个例子：</p>
+<p>比如要表示一个全体自然数的集合，因为自然数无限无法用List表示出来，但是<code>Stream</code>可以做到</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;BigInteger&gt; naturals = createNaturalStream(); </span><br></pre></td></tr></table></figure>
+
+<p>暂时不考虑<code>createNaturalStream()</code>是如何实现的，看看如何使用。</p>
+<p>先将这个Steam中每个自然数做个平方，得到另一个Steam。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;BigInteger&gt; streaNxN = naturals.map(n-&gt;n.multiply(n)); <span class="comment">//平方</span></span><br></pre></td></tr></table></figure>
+
+<p>因为这个有无穷的元素，要打印它需要变成有限个元素，可以用<code>limit()</code>方法截取，然后循环打印。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">naturals.map(n -&gt; n.multiply(n)) <span class="comment">// 不计算</span></span><br><span class="line">  .limit(<span class="number">100</span>) <span class="comment">// 不计算</span></span><br><span class="line">  .forEach(System.out::println) <span class="comment">// 计算</span></span><br></pre></td></tr></table></figure>
+
+<p>惰性计算的特点是：一个<code>Stream</code>转换为另一个<code>Stream</code>时，实际上只存储了转换规则，并没有任何计算发生。</p>
+<p>因此<code>Stream API</code>的基本用法是：创建一个<code>Stream</code>，然后做若干次转换，最后调用一个求值方法获取真正计算的结果。</p>
+<h4 id="创建Stream"><a href="#创建Stream" class="headerlink" title="创建Stream"></a>创建Stream</h4><ul>
+<li>使用<code>Stream.of()</code>静态方法，传入可变参数创建一个能输出确定元素的Stream。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;String&gt; stream = Stream.of(<span class="string">&quot;A&quot;</span>, <span class="string">&quot;B&quot;</span>, <span class="string">&quot;C&quot;</span>);</span><br><span class="line">stream.forEach(System.out::println); <span class="comment">//forEach相当于内部循环调用</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>虽然这种方式基本上没啥实质性用途，但测试的时候很方便。</p>
+</blockquote>
+<ul>
+<li>基于数组或Collection</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;String&gt; stream1 = Arrays.stream(<span class="keyword">new</span> <span class="title class_">Stringp</span>[]&#123;<span class="string">&quot;A&quot;</span>, <span class="string">&quot;B&quot;</span>, <span class="string">&quot;C&quot;</span>&#125;);</span><br><span class="line">Stream&lt;String&gt; stream1 = List.of(<span class="string">&quot;A&quot;</span>, <span class="string">&quot;B&quot;</span>, <span class="string">&quot;C&quot;</span>).stream();</span><br><span class="line">stream1.forEach(System.out::println);</span><br><span class="line">stream2.forEach(System.out::println);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>基于Supplier</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;Integer&gt; natual = Stream.generate(<span class="keyword">new</span> <span class="title class_">NatualSupplier</span>());</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>基于<code>Supplier</code>创建的<code>Stream</code>会不断调用<code>Supplier.get()</code>方法来不断产生下一个元素，这种<code>Stream</code>保存的不是元素，而是算法，它可以用来表示无限序列。</p>
+</blockquote>
+<ul>
+<li>其他方法</li>
+</ul>
+<p>因为Java的规范不支持基本类型，所以无法用<code>Stream&lt;int&gt;</code>， 为了保存<code>int</code>， 只能用<code>String&lt;Integer&gt;</code>但会产生频繁的装箱和拆箱。为了提高效率，Java标准库提供了<code>IntStream</code>，<code>LongStream</code>和<code>DoubleStream</code>这三种使用基本类型的<code>Stream</code>，使用方法和泛型<code>Stream</code>没有打的区别。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">IntStream</span> <span class="variable">is</span> <span class="operator">=</span> Arrays.Stream(<span class="keyword">new</span> <span class="title class_">int</span>[] &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用map"><a href="#使用map" class="headerlink" title="使用map"></a>使用map</h3><p><code>Strean.map()</code>是<code>Stream</code>常见的一个转换方法，它把一个Stream转化为另一个Stream。</p>
+<p>所谓map就是把一种操作运算，映射到一个序列的每一个元素上。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;Integer&gt; s = Stream.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>);</span><br><span class="line">Stream&lt;Integer&gt; s2 = s.map(n -&gt; n*n);</span><br></pre></td></tr></table></figure>
+
+<p>查看Stream的源码，会发现<code>map()</code>方法接受的对象是<code>Function</code>接口对象，它定义了一个<code>apply()</code>方法， 负责把一个<code>T</code>类型转换为<code>R</code>类型：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;R&gt; Stream&lt;R&gt; <span class="title function_">map</span><span class="params">(Function&lt;? <span class="built_in">super</span> T, ? extends R&gt; mapper)</span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FuncationalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Function</span>&lt;T, R&gt;&#123;</span><br><span class="line">  R <span class="title function_">apply</span><span class="params">(T t)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过若干步<code>map</code>转换，可以写出逻辑简单、清晰的代码。</p>
+<h3 id="使用filter"><a href="#使用filter" class="headerlink" title="使用filter"></a>使用filter</h3><p><code>Stream.filter()</code>是<code>Stream</code>的另一个常用转换方法。</p>
+<p>所谓<code>filter()</code>操作，就是对一个<code>Stream</code>的所有元素一一进行测试，不满足条件的就被”过滤”掉，身下的满足条件的元素就构成了一个新的<code>Stream</code>。</p>
+<p>比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">IntStream.of(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>)</span><br><span class="line">  .filter(n -&gt; n % <span class="number">2</span> != <span class="number">0</span>)</span><br><span class="line">  .forEach(System.out::println);</span><br></pre></td></tr></table></figure>
+
+<p><code>filter()</code>方法接收的对象是<code>Predicate</code>接口对象，它定义了一个<code>test()</code>方法，负责判断元素是否符合条件:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Predicate</span>&lt;T&gt; &#123;</span><br><span class="line">  <span class="type">boolean</span> <span class="title function_">test</span><span class="params">(T t)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="使用reduce"><a href="#使用reduce" class="headerlink" title="使用reduce"></a>使用reduce</h3><p>map()和filter()都是Stream的转换方法，而<code>Stream.reduce()</code>则是<code>Stream</code>的一个聚合方法，它可以把一个<code>Stream</code>的所有元素按照聚合函数聚合成一个结果。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> Stream.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>).reduce(<span class="number">0</span>, (acc, n)-&gt; acc + n);</span><br><span class="line"> System.out.println(sum); <span class="comment">// 45</span></span><br></pre></td></tr></table></figure>
+
+<p><code>reduce()</code>方法传入的对象是<code>BinaryOperator</code>接口，它定义了一个<code>apply()</code>方法。上面例子中负责把上次累加的结果和本次的元素相加，返回累加的结果。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">BinaryOperator</span>&lt;T&gt;&#123;</span><br><span class="line">  T <span class="title function_">apply</span><span class="params">(T t, T u)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>reduce()</code>是聚合方法，聚合方法会立刻对<code>Stream</code>进行计算。</p>
+<h3 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h3><p><code>Stream</code>可以输出为集合。</p>
+<h4 id="输出为List"><a href="#输出为List" class="headerlink" title="输出为List"></a>输出为List</h4><p>因为List的元素是确定的Java对象，因此，把<code>Stream</code>变为<code>List</code>不是一个转化操作，而是一个聚合操作，它会强制<code>Stream</code>输出每个元素。</p>
+<p>调用<code>collect(Collectors.toList())</code>把<code>Stream</code>的每个元素收集到<code>List</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;String&gt; stream = Stream.of(<span class="string">&quot;apple&quot;</span>, <span class="string">&quot;&quot;</span>, <span class="literal">null</span>, <span class="string">&quot;pear&quot;</span>);</span><br><span class="line">List&lt;String&gt; list = stream.filter(s -&gt; != <span class="literal">null</span> &amp;&amp; !s.isBlank()).collect(Collectors.toList());</span><br><span class="line">System.out.println(list);</span><br></pre></td></tr></table></figure>
+
+<h4 id="输出为数组"><a href="#输出为数组" class="headerlink" title="输出为数组"></a>输出为数组</h4><p>把Stream的元素输出为数组和输出为List类似，只需要调用<code>toArray()</code>方法，并传入数组的<code>构造方法</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = List.of(<span class="string">&quot;apple&quot;</span>, <span class="string">&quot;ipad&quot;</span>, <span class="string">&quot;iphone&quot;</span>);</span><br><span class="line">String[] array = list.stream().toArray(String[]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+
+<p>传入的构造方法<code>String[]::new</code>，签名实际上是<code>IntFunction&lt;String[]&gt;</code>定义的<code>String[] apply(int)</code>， 即传入int参数，获得<code>String[]</code>数组的返回值。</p>
+<h4 id="输出为Map"><a href="#输出为Map" class="headerlink" title="输出为Map"></a>输出为Map</h4><p>添加到Map时需要key和value，因此需要指定两个映射函数，分别把元素映射为key和value：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;String&gt; stream = Stream.of(<span class="string">&quot;A:Apple&quot;</span>, <span class="string">&quot;MS:Microsoft&quot;</span>);</span><br><span class="line">Map&lt;String, String&gt; map = stream</span><br><span class="line">  .collect(Collectors.toMap(</span><br><span class="line">    s-&gt;s.substring(<span class="number">0</span>, s.indexOf(<span class="string">&quot;:&quot;</span>)),</span><br><span class="line">    s0&gt;s.substring(s.indexOf(<span class="string">&quot;:&quot;</span>)+<span class="number">1</span>)</span><br><span class="line">  ));</span><br><span class="line">System.out.print(map);</span><br></pre></td></tr></table></figure>
+
+<h4 id="分组输出"><a href="#分组输出" class="headerlink" title="分组输出"></a>分组输出</h4><p>分组输出使用<code>Collectors.groupingBy()</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = List.of(<span class="string">&quot;Apple&quot;</span>, <span class="string">&quot;Banana&quot;</span>, <span class="string">&quot;Blackberry&quot;</span>, <span class="string">&quot;Coconut&quot;</span>, <span class="string">&quot;Avocado&quot;</span>, <span class="string">&quot;Cherry&quot;</span>, <span class="string">&quot;Apricots&quot;</span>);</span><br><span class="line"></span><br><span class="line">Map&lt;String, List&lt;String&gt;&gt; groups = list.stream()</span><br><span class="line">  .collect(Collectors.groupingBy(</span><br><span class="line">    s-&gt;s.substring(<span class="number">0</span>, <span class="number">1</span>), <span class="comment">//表示首字母相同的String分到一组</span></span><br><span class="line">    Collectors.toList() <span class="comment">//表示输出为List</span></span><br><span class="line">  ));</span><br><span class="line"></span><br><span class="line">System.out.println(groups);</span><br></pre></td></tr></table></figure>
+
+<h3 id="其他操作"><a href="#其他操作" class="headerlink" title="其他操作"></a>其他操作</h3><ul>
+<li>排序 <code>sorted() </code><ul>
+<li>要求<code>Stream</code>的每个元素必须实现<code>Comparable</code>接口</li>
+<li>自定义排序，需指定Comparator，如<code>sorted(String::compareToIgnoreCase)</code></li>
+<li>sorted()是转换操作，返回新的Stream</li>
+</ul>
+</li>
+<li>去重 <code>distinct()</code></li>
+<li>截取 用于将无限转化为有限的Stream<ul>
+<li><code>skip()</code>跳过当前<code>Stream</code>的前N个元素</li>
+<li><code>limit()</code>用于截取当前<code>Stream</code>最多前N个元素</li>
+</ul>
+</li>
+<li>合并 <code>concat()</code></li>
+<li><code>flatMap()</code> 把Stream的每个元素映射为<code>Stream</code>，然后合并成一个新的<code>Stream</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;List&lt;Integer&gt;&gt; s = Stream.of(</span><br><span class="line">        Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>),</span><br><span class="line">        Arrays.asList(<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>),</span><br><span class="line">        Arrays.asList(<span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">//将Stream转化为Stream&lt;Integer&gt;</span></span><br><span class="line">Stream&lt;Integer&gt; i = s.flatMap(list -&gt; list.stream());</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>并行处理 <code>parallel()</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;String&gt; s = ...</span><br><span class="line">String[] result = s.parallel() <span class="comment">// 变成一个可以并行处理的Stream</span></span><br><span class="line">                   .sorted() <span class="comment">// 可以进行并行排序</span></span><br><span class="line">                   .toArray(String[]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>其他聚合方法</p>
+<ul>
+<li><code>count() 返回元素个数</code>，<code>max(Compareator&lt;? super T&gt; cp)找出最大</code></li>
+<li>针对<code>IntStream</code>、<code>LongStream</code>和<code>DoubleStream</code>聚合方法<ul>
+<li>sum() 求和</li>
+<li>average() 求平均数</li>
+</ul>
+</li>
+<li>用来测试元素是否满足条件<ul>
+<li><code>boolean allmatch(Predicate&lt;? super T&gt;)</code>所有元素是否满足</li>
+<li><code>boolean anyMatch(Predicate&lt;? super T&gt;)</code>是否至少有一个满足</li>
+</ul>
+</li>
+<li>forEach()，循环打印</li>
+</ul>
+</li>
+</ul>
+
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>Author：<a href="http://example.com">John Doe</a>
+            <p>Link：<a href="http://example.com/2020/02/24/Java/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">http://example.com/2020/02/24/Java/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/</a>
+            <p>Publish date：<a href="http://example.com/2020/02/24/Java/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">February 24th 2020, 9:29:32 am</a>
+            <p>Update date：<a href="http://example.com/2020/02/24/Java/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">October 3rd 2022, 11:22:02 pm</a>
+            <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2020/02/26/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Ajp%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E5%92%8C%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E8%B0%83%E8%AF%95/" title="Ajp任意文件读取和包含漏洞调试">
+                    <div class="nextTitle">Ajp任意文件读取和包含漏洞调试</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2020/02/23/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/" title="创建型模式">
+                    <div class="prevTitle">创建型模式</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:c1945@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/b1cat" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                    
+                    <img class="profile-qr" src="/assets/example_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">函数式编程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-number">1.0.1.</span> <span class="toc-text">Lambda表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E5%BC%95%E7%94%A8"><span class="toc-number">1.0.2.</span> <span class="toc-text">方法引用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95%E5%BC%95%E7%94%A8"><span class="toc-number">1.0.2.1.</span> <span class="toc-text">构造方法引用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Stream"><span class="toc-number">1.0.3.</span> <span class="toc-text">使用Stream</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BAStream"><span class="toc-number">1.0.3.1.</span> <span class="toc-text">创建Stream</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8map"><span class="toc-number">1.0.4.</span> <span class="toc-text">使用map</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8filter"><span class="toc-number">1.0.5.</span> <span class="toc-text">使用filter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8reduce"><span class="toc-number">1.0.6.</span> <span class="toc-text">使用reduce</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%87%BA"><span class="toc-number">1.0.7.</span> <span class="toc-text">输出</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E4%B8%BAList"><span class="toc-number">1.0.7.1.</span> <span class="toc-text">输出为List</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E4%B8%BA%E6%95%B0%E7%BB%84"><span class="toc-number">1.0.7.2.</span> <span class="toc-text">输出为数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E4%B8%BAMap"><span class="toc-number">1.0.7.3.</span> <span class="toc-text">输出为Map</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E7%BB%84%E8%BE%93%E5%87%BA"><span class="toc-number">1.0.7.4.</span> <span class="toc-text">分组输出</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%93%8D%E4%BD%9C"><span class="toc-number">1.0.8.</span> <span class="toc-text">其他操作</span></a></li></ol></li></ol></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 30
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2021 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/25</span>
+            <a class="archive-post-title" href="/2021/02/25/%E7%AC%94%E8%AE%B0/adb%E6%B8%85%E9%99%A4MuMu%E6%A8%A1%E6%8B%9F%E5%99%A8PIN%E7%A0%81/">adb清除MuMu模拟器PIN码</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/07</span>
+            <a class="archive-post-title" href="/2021/02/07/%E5%A4%8D%E7%9B%98%E6%80%BB%E7%BB%93/2020%E5%B9%B4%E5%A4%8D%E7%9B%98%E6%80%BB%E7%BB%93/">2020年复盘总结（迷糊的2020）</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2020 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/03</span>
+            <a class="archive-post-title" href="/2020/09/03/%E5%A4%8D%E7%9B%98%E6%80%BB%E7%BB%93/%E6%94%B6%E6%8B%BE%E8%87%AA%E5%B7%B1%EF%BC%8C%E9%87%8D%E6%96%B0%E5%87%BA%E5%8F%91%EF%BC%882020%E5%8D%8A%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93%EF%BC%89/">收拾自己，重新出发（2020半年度总结）</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/26</span>
+            <a class="archive-post-title" href="/2020/04/26/%E7%AC%94%E8%AE%B0/idea%E8%B0%83%E8%AF%95shiro/">idea调试shiro</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/24</span>
+            <a class="archive-post-title" href="/2020/04/24/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/shiro%E8%AE%B0%E4%BD%8F%E5%AF%86%E7%A0%81%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">shiro记住密码反序列化</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/16</span>
+            <a class="archive-post-title" href="/2020/04/16/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/%E5%85%B3%E4%BA%8Eshiro%E7%9A%84%E7%AE%80%E5%8D%95%E5%AD%A6%E4%B9%A0/">关于shiro的简单学习</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/26</span>
+            <a class="archive-post-title" href="/2020/02/26/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Ajp%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E5%92%8C%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E8%B0%83%E8%AF%95/">Ajp任意文件读取和包含漏洞调试</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/24</span>
+            <a class="archive-post-title" href="/2020/02/24/Java/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">函数式编程</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/23</span>
+            <a class="archive-post-title" href="/2020/02/23/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/">创建型模式</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/23</span>
+            <a class="archive-post-title" href="/2020/02/23/Java/Maven%E5%9F%BA%E7%A1%80/">Maven基础</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/22</span>
+            <a class="archive-post-title" href="/2020/02/22/Java/Java%20XML%E5%92%8CJSON/">Java XML和JSON</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/21</span>
+            <a class="archive-post-title" href="/2020/02/21/%E7%AC%94%E8%AE%B0/eclipse%E8%B0%83%E8%AF%95tomcat/">eclipse调试tomcat</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span>
+            <a class="archive-post-title" href="/2020/02/17/Java/Java%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">Java单元测试</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span>
+            <a class="archive-post-title" href="/2020/02/17/Java/Java%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4/">Java日期时间</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span>
+            <a class="archive-post-title" href="/2020/02/15/Java/Java%E9%9B%86%E5%90%88/">Java集合</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span>
+            <a class="archive-post-title" href="/2020/02/15/%E6%87%92%E4%BA%BA%E5%85%BB%E6%88%90/%E8%A7%A3%E5%86%B3gitee%E5%85%8D%E8%B4%B9%E7%A9%BA%E9%97%B4%E6%89%8B%E5%8A%A8%E6%9B%B4%E6%96%B0%E9%97%AE%E9%A2%98/">解决gitee免费空间手动更新问题</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/14</span>
+            <a class="archive-post-title" href="/2020/02/14/Java/Java%20IO/">Java IO</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/%E8%BD%AC%E8%A7%92%E9%81%87%E8%A7%81%E7%9A%84bug/%E4%BD%BF%E7%94%A8gitee%E6%90%AD%E5%BB%BAblog%E4%B8%A4%E4%B8%AA%E9%97%AE%E9%A2%98/">使用gitee搭建blog遇到的两个问题</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/Java/Java%E6%A0%B8%E5%BF%83%E7%B1%BB/">Java核心类</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/Java/Java%E5%8F%8D%E5%B0%84/">Java反射</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/Java/Java%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">Java异常处理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/Java/Java%E6%B3%A8%E8%A7%A3/">Java注解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/Java/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">Java面向对象</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/Java/Java%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">Java快速入门</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2018 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/17</span>
+            <a class="archive-post-title" href="/2018/09/17/PHP%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">PHP快速入门</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/02</span>
+            <a class="archive-post-title" href="/2018/05/02/ichunqiu%20%E4%B8%8Aweb%E9%A2%98writeup%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B03%EF%BC%89/">ichunqiu 上web题writeup（持续更新3）</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span>
+            <a class="archive-post-title" href="/2018/05/01/ichunqiu%20%E4%B8%8Aweb%E9%A2%98writeup%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B02%EF%BC%89/">ichunqiu 上web题writeup（持续更新2）</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span>
+            <a class="archive-post-title" href="/2018/04/20/%20ichunqiu%20%E4%B8%8Aweb%E9%A2%98writeup/">ichunqiu 上web题writeup（持续更新）</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span>
+            <a class="archive-post-title" href="/2018/02/15/%E5%B9%B4%E5%85%B3%E6%97%B6%E5%88%BB%E7%9A%84%E6%84%9F%E6%83%B3/">年关时刻的感想</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2017 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/03</span>
+            <a class="archive-post-title" href="/2017/12/03/VPS-Hexo/">VPS Hexo 搭建个人博客</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="ctf">
+                <span class="iconfont-archer">&#xe606;</span>
+                ctf
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="web">
+                <span class="iconfont-archer">&#xe606;</span>
+                web
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="php">
+                <span class="iconfont-archer">&#xe606;</span>
+                php
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="VPS & hexo">
+                <span class="iconfont-archer">&#xe606;</span>
+                VPS & hexo
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="瞎想">
+                <span class="iconfont-archer">&#xe606;</span>
+                瞎想
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Java">
+                <span class="iconfont-archer">&#xe606;</span>
+                Java
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="总结">
+                <span class="iconfont-archer">&#xe606;</span>
+                总结
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="2020">
+                <span class="iconfont-archer">&#xe606;</span>
+                2020
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="懒人养成">
+                <span class="iconfont-archer">&#xe606;</span>
+                懒人养成
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="漏洞复现">
+                <span class="iconfont-archer">&#xe606;</span>
+                漏洞复现
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Java tomcat">
+                <span class="iconfont-archer">&#xe606;</span>
+                Java tomcat
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="文件读取">
+                <span class="iconfont-archer">&#xe606;</span>
+                文件读取
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="文件包含">
+                <span class="iconfont-archer">&#xe606;</span>
+                文件包含
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="调试">
+                <span class="iconfont-archer">&#xe606;</span>
+                调试
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="shiro-core">
+                <span class="iconfont-archer">&#xe606;</span>
+                shiro-core
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="笔记">
+                <span class="iconfont-archer">&#xe606;</span>
+                笔记
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="设计模式">
+                <span class="iconfont-archer">&#xe606;</span>
+                设计模式
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="创建型模式">
+                <span class="iconfont-archer">&#xe606;</span>
+                创建型模式
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="bug">
+                <span class="iconfont-archer">&#xe606;</span>
+                bug
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="CTF">
+            <span class="iconfont-archer">&#xe60a;</span>
+            CTF
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="瞎想">
+            <span class="iconfont-archer">&#xe60a;</span>
+            瞎想
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="Java">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Java
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="复盘总结">
+            <span class="iconfont-archer">&#xe60a;</span>
+            复盘总结
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="懒人养成">
+            <span class="iconfont-archer">&#xe60a;</span>
+            懒人养成
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="漏洞复现">
+            <span class="iconfont-archer">&#xe60a;</span>
+            漏洞复现
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="笔记">
+            <span class="iconfont-archer">&#xe60a;</span>
+            笔记
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="设计模式">
+            <span class="iconfont-archer">&#xe60a;</span>
+            设计模式
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="转角遇见的bug">
+            <span class="iconfont-archer">&#xe60a;</span>
+            转角遇见的bug
+        </span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMetaRoot = "/"
+    if (siteMetaRoot === "undefined") {
+        siteMetaRoot = '/'
+    }
+    var siteMeta = {
+        url: "http://example.com",
+        root: siteMetaRoot,
+        author: "John Doe"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20211217"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20211217"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/scripts/share.js?v=20211217" async></script>
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>

